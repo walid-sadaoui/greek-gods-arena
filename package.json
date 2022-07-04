@@ -1,0 +1,37 @@
+{
+  "name": "greek-gods-arena",
+  "version": "0.0.1",
+  "description": "Greek Gods Arena",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walid-sadaoui/greek-gods-arena.git"
+  },
+  "author": "Walid SADAOUI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walid-sadaoui/greek-gods-arena/issues"
+  },
+  "homepage": "https://github.com/walid-sadaoui/greek-gods-arena#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
