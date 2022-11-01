@@ -37,6 +37,7 @@ const AppRoutes: FunctionComponent = () => {
         <Lobby />
       </Route>
       <Route exact={true} path='/room'>
+        <AuthenticatedHeader />
         <Room />
       </Route>
       <Route path='/arena/:id'>

@@ -45,6 +45,7 @@ router.get(
       const { id, characterName } = req.params;
 
       const character = await getCharacter(id, characterName);
+
       return res.status(200).json({
         data: {
           code: 200,
@@ -68,6 +69,7 @@ router.post(
       const { characterName } = req.body;
 
       const character = await createCharacter(characterName, id);
+
       return res.status(200).json({
         data: {
           code: 200,

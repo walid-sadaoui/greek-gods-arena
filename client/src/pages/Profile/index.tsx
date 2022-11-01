@@ -67,7 +67,6 @@ const HireGod: React.FC = () => {
       greekGodSelected
     );
     if (error) {
-      console.log('Create Error : ', error);
       setCreateCharacterErrorMessage(error.message);
     }
     if (data) {

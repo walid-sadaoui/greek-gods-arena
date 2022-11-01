@@ -3,22 +3,12 @@ import React from 'react';
 interface ContainerProps {
   title?: string;
   subtitle?: string;
-  fixedHeight?: boolean;
-  fixedWidth?: boolean;
 }
 
-const Container: React.FC<ContainerProps> = ({
-  children,
-  title,
-  subtitle,
-  fixedHeight = true,
-  fixedWidth = true,
-}) => {
+const Container: React.FC<ContainerProps> = ({ children, title, subtitle }) => {
   return (
     <main
-      className={`flex flex-col max-w-5xl py-4 m-auto bg-white bg-cover border rounded-container shadow-lg  ${
-        fixedHeight && 'h-3/4'
-      } ${fixedWidth && 'w-full'}`}
+      className={`flex flex-col items-center justify-center bg-white bg-opacity-80 h-full w-full p-4`}
     >
       {title && (
         <h2 className='px-4 py-2 text-2xl text-center font-greek'>{title}</h2>

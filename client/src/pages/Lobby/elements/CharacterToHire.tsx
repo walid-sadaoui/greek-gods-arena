@@ -11,10 +11,7 @@ export const CharacterToHire: React.FC<{
   const { getUser, updateUserState } = useAuth();
 
   const hireGod = async (): Promise<void> => {
-    const { data, error } = await createCharacter(getUser()._id, greekGodName);
-    if (error) {
-      console.log('Create Error : ', error);
-    }
+    const { data } = await createCharacter(getUser()._id, greekGodName);
     if (data) {
       await updateUserState();
       onHire(data.character);

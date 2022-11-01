@@ -10,7 +10,7 @@ const AuthenticatedHeader: React.FC = () => {
     <Header>
       <Link
         to='/'
-        className='px-4 py-2 mr-2 rounded font-greek hover:bg-white hover:text-black'
+        className='px-4 py-2 rounded font-greek hover:bg-white hover:text-black'
       >
         Home
       </Link>
@@ -18,7 +18,7 @@ const AuthenticatedHeader: React.FC = () => {
         value='Logout'
         onClick={logout}
         variant={Variants.BASE}
-        className='mr-2 rounded hover:bg-white hover:text-black font-greek'
+        className='ml-auto rounded hover:bg-white hover:text-black font-greek'
       />
     </Header>
   );

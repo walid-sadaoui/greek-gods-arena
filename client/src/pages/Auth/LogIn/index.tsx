@@ -86,7 +86,7 @@ const LogInForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex flex-col px-4 mt-auto'
+      className='flex flex-col w-full max-w-xl px-4 my-auto'
     >
       {LogInSuccess && <Redirect to='/' />}
       <LabelInput
@@ -115,7 +115,7 @@ const LogInForm: React.FC = () => {
         type='submit'
         value='Log In'
         disabled={submitDisabled}
-        className='mx-auto mt-4 border rounded'
+        className='mx-auto my-4 rounded-container'
       />
       <FormErrorMessage errorMessage={serverErrorMessage} />
     </form>
@@ -124,12 +124,7 @@ const LogInForm: React.FC = () => {
 
 const LogIn: React.FC = () => {
   return (
-    <Container
-      title='Log In'
-      subtitle={SUBTITLE}
-      fixedHeight={false}
-      fixedWidth={false}
-    >
+    <Container title='Log In' subtitle={SUBTITLE}>
       <LogInForm />
       <SignUpLink />
     </Container>

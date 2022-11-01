@@ -5,8 +5,8 @@ import {
   Redirect,
   Route,
 } from 'react-router-dom';
-import SignUp from 'pages/SignUp';
-import LogIn from 'pages/LogIn';
+import SignUp from 'pages/Auth/SignUp';
+import LogIn from 'pages/Auth/LogIn';
 import UnauthenticatedHeader from './Header/UnauthenticatedHeader';
 
 const UnauthenticatedApp: FunctionComponent = () => {

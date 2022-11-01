@@ -15,7 +15,6 @@ const Arena: React.FC = () => {
     async function prepareFight(): Promise<void> {
       const { data } = await getFight(id);
       if (data) {
-        console.log('Fight : ', data);
         setFight(data.fight);
       }
     }

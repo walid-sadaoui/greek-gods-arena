@@ -7,12 +7,13 @@ import { HowToPlay, Menu } from './elements';
 
 const Home: React.FC = () => {
   return (
-    <Container title='Home'>
-      <ContainerRow>
+    <Container>
+      {/* <ContainerRow>
         <HowToPlay />
         <Separator />
         <Menu />
-      </ContainerRow>
+      </ContainerRow> */}
+      <Menu />
     </Container>
   );
 };

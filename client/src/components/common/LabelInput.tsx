@@ -30,7 +30,7 @@ const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
           name={name}
           ref={ref}
           maxLength={maxLength}
-          className='w-full p-2 border rounded'
+          className='w-full p-2 border-2 border-black rounded'
           {...otherProps}
         />
       </React.Fragment>

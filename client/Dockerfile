@@ -1,0 +1,17 @@
+FROM node:16.18.0
+
+LABEL version="0.0.1"
+LABEL description="Greek Gods Arena Frontend"
+LABEL maintainer = ["sadaouiwalid@gmail.com"]
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json", "./"]
+
+RUN npm install --production
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

@@ -33,10 +33,14 @@ const Button: FunctionComponent<ButtonProps> = ({
   return (
     <button
       className={classNames(
-        'px-4 py-2 text-base disabled:text-gray-500 disabled:cursor-not-allowed uppercase',
+        'px-4 py-2 text-base disabled:text-gray-500 disabled:cursor-not-allowed uppercase border-2 border-transparent',
         {
-          'rounded-container bg-yellow-100 hover:bg-yellow-200 disabled:bg-gray-100':
+          'rounded-container bg-yellow-100 hover:bg-yellow-200 hover:border-black disabled:bg-gray-100':
             variant === Variants.NEUTRAL,
+        },
+        {
+          'hover:rounded-container hover:bg-yellow-100 hover:border-black disabled:bg-gray-100':
+            variant === Variants.BASE,
         },
         className
       )}

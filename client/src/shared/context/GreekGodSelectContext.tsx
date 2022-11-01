@@ -26,14 +26,6 @@ const GreekGodSelectProvider: React.FC = ({ children }) => {
     Character | undefined
   >(undefined);
 
-  //   React.useEffect(() => {
-  //     setGreekGodSelected(undefined);
-  //   }, []);
-
-  React.useEffect(() => {
-    console.log('GGSelect : ', greekGodSelected);
-  }, [greekGodSelected]);
-
   return (
     <GreekGodSelectContext.Provider
       value={{ greekGodSelected, setGreekGodSelected }}

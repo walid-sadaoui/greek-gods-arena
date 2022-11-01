@@ -41,8 +41,7 @@ export const newFight = async (
 
     const secondOpponent: ICharacter = await FightUtils.findOpponent(
       currentUser._id,
-      firstOpponent._id,
-      firstOpponent.level
+      firstOpponent
     );
     const fight = await FightUtils.launchFight(firstOpponent, secondOpponent);
 

@@ -28,7 +28,6 @@ export enum GreekGods {
   HEPHAESTUS = 'HEPHAESTUS',
   HERA = 'HERA',
   HERMES = 'HERMES',
-  // HESTIA = 'HESTIA',
   POSEIDON = 'POSEIDON',
   ZEUS = 'ZEUS',
 }

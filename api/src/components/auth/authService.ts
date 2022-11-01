@@ -7,6 +7,12 @@ import HttpError from '../../common/error/httpError';
 import User from '../users/userSchema';
 import { UserData } from '../users/userModel';
 import { generateJwt } from '../../common/utils/jwt';
+import {
+  GreekGods,
+  GreekGodsArray,
+  ICharacter,
+} from '../users/characters/characterModel';
+import Character from '../users/characters/characterSchema';
 
 const debug = Debug('my-memo-api:auth-service');
 
@@ -111,10 +117,17 @@ const signUp = async (
     }
 
     const hashedPassword: string = await hashPassword(password);
+
+    const characters: ICharacter[] = GreekGodsArray.map(
+      (greekGod: GreekGods) => {
+        return new Character({ name: greekGod });
+      }
+    );
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
+      characters,
     });
     const userSignedUp = await newUser.save();
     const { password: userPassword, __v, ...rest } = userSignedUp.toObject();

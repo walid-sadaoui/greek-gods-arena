@@ -99,7 +99,7 @@ const SignUpForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex flex-col px-4 mt-auto'
+      className='flex flex-col w-full max-w-xl px-4 my-auto'
     >
       {signUpSuccess ? <Redirect to='/login' /> : null}
       <LabelInput
@@ -150,7 +150,7 @@ const SignUpForm: React.FC = () => {
         type='submit'
         value='Sign Up'
         disabled={submitDisabled}
-        className='mx-auto mt-4 border rounded'
+        className='mx-auto my-4 rounded-container'
       />
       <FormErrorMessage errorMessage={serverErrorMessage} />
     </form>
@@ -159,12 +159,7 @@ const SignUpForm: React.FC = () => {
 
 const SignUp: React.FC = () => {
   return (
-    <Container
-      title='Sign Up'
-      subtitle={SUBTITLE}
-      fixedHeight={false}
-      fixedWidth={false}
-    >
+    <Container title='Sign Up' subtitle={SUBTITLE}>
       <SignUpForm />
       <LogInLink />
     </Container>

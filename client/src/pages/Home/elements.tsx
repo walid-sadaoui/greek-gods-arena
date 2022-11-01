@@ -29,7 +29,6 @@ export const HowToPlay: React.FC = () => {
 export const Menu: React.FC = () => {
   return (
     <article className='flex flex-col items-center w-full h-full p-4'>
-      <h3 className='pb-4 text-xl font-greek'>Menu</h3>
       <Link className='mx-auto mt-auto mb-4' to='/lobby'>
         <Button type='button'>Play</Button>
       </Link>

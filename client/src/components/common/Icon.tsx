@@ -5,6 +5,9 @@ import { ReactComponent as Shield } from 'assets/img/icons/shield-f.svg';
 import { ReactComponent as Sword } from 'assets/img/icons/sword-f.svg';
 import { ReactComponent as Magic } from 'assets/img/icons/magic-f.svg';
 import { ReactComponent as ChevronRight } from 'assets/img/icons/chevron-right.svg';
+import { ReactComponent as Pencil } from 'assets/img/icons/pen-f.svg';
+import { ReactComponent as Check } from 'assets/img/icons/check.svg';
+import { ReactComponent as Close } from 'assets/img/icons/close.svg';
 
 export enum IconName {
   HEART = 'heart',
@@ -12,6 +15,9 @@ export enum IconName {
   SWORD = 'sword',
   MAGIC = 'magic',
   CHEVRON_RIGHT = 'chevron-right',
+  PENCIL = 'pencil',
+  CHECK = 'check',
+  CLOSE = 'close',
 }
 
 enum IconSize {
@@ -29,6 +35,9 @@ const IconComponent: Record<
   [IconName.SWORD]: Sword,
   [IconName.MAGIC]: Magic,
   [IconName.CHEVRON_RIGHT]: ChevronRight,
+  [IconName.PENCIL]: Pencil,
+  [IconName.CHECK]: Check,
+  [IconName.CLOSE]: Close,
 };
 
 interface IconProps {

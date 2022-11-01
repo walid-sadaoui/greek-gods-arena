@@ -42,8 +42,8 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
   return (
     <div className='flex flex-col justify-center pb-2'>
       <label htmlFor={label.toLowerCase()} className='mr-2 font-sans'>
-        <span className='uppercase'>{label}</span> (cost :{' '}
-        {getSkillPointsNeeded(skillValue, label)} SkillPoint
+        <span className='uppercase text-sm'>{label}</span> (cost :{' '}
+        {getSkillPointsNeeded(skillValue, label)} SP
         {getSkillPointsNeeded(skillValue, label) > 1 && 's'})
       </label>
       <div className='flex items-center'>
@@ -80,7 +80,6 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
         >
           {'>'}
         </Button>
-        {/* <progress value={skillValue} max={maxPropertyValue}></progress> */}
       </div>
     </div>
   );

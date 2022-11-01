@@ -41,6 +41,11 @@ const fetcher = async <DataResponseType>(
     body: body,
   });
   const responseData: APIResponse<DataResponseType> = await response.json();
+  if (responseData.error?.message === 'jwt expired') {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    window.location.replace('/login');
+  }
   return responseData;
 };
 

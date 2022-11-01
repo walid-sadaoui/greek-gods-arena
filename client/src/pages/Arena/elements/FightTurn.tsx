@@ -38,35 +38,22 @@ const FightTurn: React.FC<FightTurnProps> = ({ fight, turnCount }) => {
     }
   };
 
-  const magikUsed = (): boolean => {
-    if (
-      fight.turns[turnCount].damages ===
-        fight.turns[turnCount].attacker.attackValue -
-          fight.turns[turnCount].defender.defenseSkillPoints ||
-      fight.turns[turnCount].damages === 0
-    )
-      return false;
-    return true;
-  };
-
   const getTurnDescription = (): string => {
     if (turnCount === -1)
       return `Click on Next Turn to process the fight ! Your God ${fight.firstOpponent.name} goes first !`;
 
     const ATTACKER = `${getAttacker()} attacks !`;
-    const ATTACK_VALUE = `${
+    const ATTACK_RESULT = `${
       fight.turns[turnCount].attackSuccess
         ? `Attack landed !`
         : `Attack failed !`
     }`;
-    const MAGIK = `${magikUsed() ? `${getAttacker()} uses Magik !` : ''}`;
     const FIGHT_END = `The fight is over, ${getLoser()} is dead !`;
     const FIGHT_RESULT = `The winner is ${getWinner()} !`;
 
-    return `${ATTACKER} ${ATTACK_VALUE} ${MAGIK} ${
-      fight.turns[turnCount].defender.remainingHealth === 0
-        ? `${FIGHT_END} ${FIGHT_RESULT}`
-        : ``
+    return `${ATTACKER} ${ATTACK_RESULT} ${
+      fight.turns[turnCount].defender.remainingHealth === 0 &&
+      `${FIGHT_END} ${FIGHT_RESULT}`
     }`;
   };
 

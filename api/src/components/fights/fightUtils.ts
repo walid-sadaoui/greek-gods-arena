@@ -9,16 +9,14 @@ import User from '../users/userSchema';
 
 export const findOpponent = async (
   currentUserId: string,
-  firstOpponentId: string,
-  firstOpponentLevel: number
+  firstOpponent: ICharacter
 ): Promise<ICharacter> => {
-  // TODO CharacterDM functions
-  // TODO Find opponent not blocked for 1 hour
   let secondOpponent;
+
   let availableCharacters = await User.aggregate([
     {
       $match: {
-        'characters.level': firstOpponentLevel,
+        'characters.level': firstOpponent.level,
         _id: { $ne: currentUserId },
       },
     },
@@ -27,8 +25,9 @@ export const findOpponent = async (
     },
     {
       $match: {
-        'characters.level': firstOpponentLevel,
-        'characters._id': { $ne: firstOpponentId },
+        'characters.level': firstOpponent.level,
+        'characters.defense': { $lt: firstOpponent.attack },
+        'characters._id': { $ne: firstOpponent._id },
       },
     },
     {
@@ -45,7 +44,7 @@ export const findOpponent = async (
     availableCharacters = await User.aggregate([
       {
         $match: {
-          'characters.level': firstOpponentLevel,
+          'characters.level': firstOpponent.level,
           _id: { $ne: currentUserId },
         },
       },
@@ -55,10 +54,11 @@ export const findOpponent = async (
       {
         $match: {
           'characters.level': {
-            $gt: firstOpponentLevel - 5,
-            $lt: firstOpponentLevel + 5,
+            $gt: firstOpponent.level - 5,
+            $lt: firstOpponent.level + 5,
           },
-          'characters._id': { $ne: firstOpponentId },
+          'characters.defense': { $lt: firstOpponent.attack },
+          'characters._id': { $ne: firstOpponent._id },
         },
       },
       {
@@ -83,7 +83,8 @@ export const findOpponent = async (
         },
         {
           $match: {
-            'characters._id': { $ne: firstOpponentId },
+            'characters._id': { $ne: firstOpponent._id },
+            'characters.defense': { $lt: firstOpponent.attack },
           },
         },
         {
@@ -106,8 +107,8 @@ export const findOpponent = async (
     }
     availableCharacters.sort(
       (aggregate1, aggregate2) =>
-        Math.abs(aggregate1.character.level - firstOpponentLevel) -
-        Math.abs(aggregate2.character.level - firstOpponentLevel)
+        Math.abs(aggregate1.character.level - firstOpponent.level) -
+        Math.abs(aggregate2.character.level - firstOpponent.level)
     );
     secondOpponent = availableCharacters[0].character;
   } else {
@@ -139,6 +140,7 @@ export const launchFight = async (
     }
     fight = turnResult.updatedFight;
   }
+
   fight.finished = true;
   fight.winner = attacker._id;
   fight.loser = defender._id;

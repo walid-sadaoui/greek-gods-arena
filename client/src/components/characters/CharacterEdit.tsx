@@ -3,12 +3,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateCharacter } from 'api/users';
 import { Character } from 'models/Character';
 import { useAuth } from 'shared/context/AuthContext';
-import Button from 'components/common/Button';
+import Button, { Variants } from 'components/common/Button';
 import SkillUpdater from './SkillUpdater';
+import { IconName } from 'components/common/Icon';
 
 interface CharacterEditProps {
   character: Character;
   onUpdate: (character: Character) => void;
+  onCancel: () => void;
 }
 
 interface EditCharacterInput {
@@ -23,13 +25,14 @@ const SERVER_ERROR = 'Server Error, please try again later';
 const CharacterEdit: React.FC<CharacterEditProps> = ({
   character,
   onUpdate,
+  onCancel,
 }) => {
   const [serverErrorMessage, setServerErrorMessage] = useState<string>('');
   const [characterToEdit, setCharacterToEdit] = useState<Character>(character);
   const { handleSubmit, register, setValue } = useForm<EditCharacterInput>({
     mode: 'all',
   });
-  const { getUser, updateUserState } = useAuth();
+  const { getUser, setUser } = useAuth();
 
   const getMaxPropertyValue = (propertyValue: number): number => {
     let remainingSkillPoints = characterToEdit.skillPoints;
@@ -189,8 +192,15 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
         character.name,
         characterSkills
       );
+
       if (data) {
-        await updateUserState();
+        const updatedCharacterIndex = getUser().characters.findIndex(
+          (character: Character) => {
+            return character.name === data.character.name;
+          }
+        );
+        getUser().characters[updatedCharacterIndex] = data.character;
+        setUser(getUser());
         setCharacterToEdit(data.character);
         onUpdate(data.character);
       }
@@ -221,66 +231,69 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   }, []);
 
   return (
-    <div className='flex p-4'>
-      <div className='flex flex-col items-center flex-1 p-4'>
-        <span className='font-sans uppercase'>Available SkillPoints</span>
-        <span className='pb-4 font-mono text-3xl'>
-          {characterToEdit.skillPoints}
-        </span>
-      </div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col p-4 mx-auto'
-      >
-        <SkillUpdater
-          onChange={(skillValue) =>
-            updateSkill(skillValue, 'health', characterToEdit.health)
-          }
-          label='Health'
-          maxPropertyValue={getMaxHealthValue()}
-          minPropertyValue={character.health}
-          value={characterToEdit.health}
-        />
-        <SkillUpdater
-          onChange={(skillValue) => {
-            updateSkill(skillValue, 'attack', characterToEdit.attack);
-          }}
-          label='Attack'
-          maxPropertyValue={getMaxPropertyValue(characterToEdit.attack)}
-          minPropertyValue={character.attack}
-          value={characterToEdit.attack}
-        />
-        <SkillUpdater
-          onChange={(skillValue) =>
-            updateSkill(skillValue, 'defense', characterToEdit.defense)
-          }
-          label='Defense'
-          maxPropertyValue={getMaxPropertyValue(characterToEdit.defense)}
-          minPropertyValue={character.defense}
-          value={characterToEdit.defense}
-        />
-        <SkillUpdater
-          onChange={(skillValue) =>
-            updateSkill(skillValue, 'magik', characterToEdit.magik)
-          }
-          label='Magik'
-          maxPropertyValue={getMaxPropertyValue(characterToEdit.magik)}
-          minPropertyValue={character.magik}
-          value={characterToEdit.magik}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex flex-col items-center p-4'
+    >
+      <span className='font-sans uppercase'>
+        SkillPoints : {characterToEdit.skillPoints}
+      </span>
+      <SkillUpdater
+        onChange={(skillValue) =>
+          updateSkill(skillValue, 'health', characterToEdit.health)
+        }
+        label='Health'
+        maxPropertyValue={getMaxHealthValue()}
+        minPropertyValue={character.health}
+        value={characterToEdit.health}
+      />
+      <SkillUpdater
+        onChange={(skillValue) => {
+          updateSkill(skillValue, 'attack', characterToEdit.attack);
+        }}
+        label='Attack'
+        maxPropertyValue={getMaxPropertyValue(characterToEdit.attack)}
+        minPropertyValue={character.attack}
+        value={characterToEdit.attack}
+      />
+      <SkillUpdater
+        onChange={(skillValue) =>
+          updateSkill(skillValue, 'defense', characterToEdit.defense)
+        }
+        label='Defense'
+        maxPropertyValue={getMaxPropertyValue(characterToEdit.defense)}
+        minPropertyValue={character.defense}
+        value={characterToEdit.defense}
+      />
+      <SkillUpdater
+        onChange={(skillValue) =>
+          updateSkill(skillValue, 'magik', characterToEdit.magik)
+        }
+        label='Magik'
+        maxPropertyValue={getMaxPropertyValue(characterToEdit.magik)}
+        minPropertyValue={character.magik}
+        value={characterToEdit.magik}
+      />
+      <div className='flex items-center'>
+        <Button
+          icon={IconName.CLOSE}
+          onClick={onCancel}
+          className='text-red-500'
+          variant={Variants.BASE}
         />
         <Button
           type='submit'
-          value='Update'
-          className='self-start'
+          className='text-green-500'
+          icon={IconName.CHECK}
           disabled={
             character.name !== characterToEdit.name ||
             (character.name === characterToEdit.name &&
               character.skillPoints === characterToEdit.skillPoints)
           }
         />
-        <p>{serverErrorMessage}</p>
-      </form>
-    </div>
+      </div>
+      <span className='text-red-500'>{serverErrorMessage}</span>
+    </form>
   );
 };
 

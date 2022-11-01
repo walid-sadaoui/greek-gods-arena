@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import { APIResponse, postRequest, ResponseData } from 'api';
 import { getCurrentUser } from 'api/users';
 import Loading from 'components/common/Loading';
@@ -32,6 +32,7 @@ type AuthContextProps = {
   login: (newUser: LoginFormValues) => Promise<string | undefined>;
   signup: (newUser: SignupFormValues) => Promise<string | undefined>;
   updateUserState: () => Promise<void>;
+  setUser: React.Dispatch<SetStateAction<User | undefined>>;
 };
 
 const AuthContext = React.createContext<AuthContextProps | undefined>(
@@ -55,10 +56,7 @@ const AuthProvider: React.FC = ({ children }) => {
       if (data) {
         setUser(data.user);
       }
-      if (error) {
-        console.log('/me : ', error);
-        if (error.message === 'jwt expired') setUser(undefined);
-      }
+      if (error && error.message === 'jwt expired') setUser(undefined);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -103,11 +101,15 @@ const AuthProvider: React.FC = ({ children }) => {
     updateUserState();
   }, []);
 
+  React.useEffect(() => {
+    console.log('userchanged : ', user?.characters);
+  }, [user]);
+
   if (isLoading) return <Loading />;
 
   return (
     <AuthContext.Provider
-      value={{ user, getUser, signup, login, logout, updateUserState }}
+      value={{ user, getUser, signup, login, logout, updateUserState, setUser }}
     >
       {children}
     </AuthContext.Provider>

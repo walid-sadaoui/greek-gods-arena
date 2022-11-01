@@ -2,13 +2,16 @@ import { hashPassword } from '../../components/auth/authService';
 import User from '../../components/users/userSchema';
 import * as faker from 'faker';
 import { IUser } from '../../components/users/userModel';
-import { GreekGods } from '../../components/users/characters/characterModel';
-import { ICharacter } from '../../components/users/characters/characterModel';
-import Character from '../../components/users/characters/characterSchema';
+import {
+  GreekGods,
+  GreekGodsArray,
+  ICharacter,
+} from '../../components/users/characters/characterModel';
 import * as UserDM from '../../components/users/userDataManager';
 import * as CharacterDM from '../../components/users/characters/characterDataManager';
 import * as FightUtils from '../../components/fights/fightUtils';
-import { IFight } from 'components/fights/fightModel';
+import { IFight } from '../../components/fights/fightModel';
+import Character from '../../components/users/characters/characterSchema';
 
 export enum FakePassword {
   GOOD = 'abcABC123456!',
@@ -20,52 +23,29 @@ export enum FakePassword {
   // MORE_THAN_26_CHAR = 'abcABC123456!abcABC123456!',
 }
 
+// creer un user
+
 export const createUser = async (): Promise<IUser> => {
   try {
     const username = faker.internet.userName();
     const email = faker.internet.email();
     const password = FakePassword.GOOD;
     const hashedPassword: string = await hashPassword(password);
+    const characters: ICharacter[] = GreekGodsArray.map(
+      (greekGod: GreekGods) => {
+        return new Character({ name: greekGod });
+      }
+    );
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
+      characters,
     });
     const userSignedUp = await newUser.save();
     const { password: userPassword, __v, ...rest } = userSignedUp.toObject();
     const userInfo: IUser = { ...rest, password };
     return userInfo;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-export const createCharacter = async (userId: string): Promise<ICharacter> => {
-  try {
-    const currentUser = await UserDM.getUser(userId);
-    const newCharacter = new Character({ name: GreekGods.ZEUS });
-    currentUser.characters.push(newCharacter);
-    await currentUser.save();
-    return newCharacter;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-export const createCharacters = async (
-  userId: string,
-  number: number
-): Promise<ICharacter[]> => {
-  try {
-    const currentUser = await UserDM.getUser(userId);
-    const greekGods = Object.values(GreekGods);
-    for (let index = 0; index < (number > 10 ? 10 : number); index++) {
-      const greekGod = greekGods[index];
-      const newCharacter = new Character({ name: greekGod });
-      currentUser.characters.push(newCharacter);
-    }
-    await currentUser.save();
-    return currentUser.characters;
   } catch (error) {
     throw new Error(error);
   }
@@ -81,8 +61,8 @@ export const updateCharacter = async (
     const updatedCharacterProperties = {
       skillPoints: 42,
       health: 20,
-      attack: 12,
-      defense: 14,
+      attack: 14,
+      defense: 12,
       magik: 2,
       level: 1,
     };

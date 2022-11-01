@@ -49,12 +49,13 @@ const HealthBar: React.FC<{ max: number; skillValue: number }> = ({
   );
 };
 
-const SkillIconValue: React.FC<{ iconName: IconName; skillValue: number }> = ({
-  iconName,
-  skillValue,
-}) => {
+export const SkillIconValue: React.FC<{
+  iconName: IconName;
+  skillValue: number;
+  color?: string;
+}> = ({ iconName, skillValue, color }) => {
   return (
-    <div className='flex mr-2'>
+    <div className={`flex mr-2 ${color && `text-${color}`}`}>
       <Icon icon={iconName} />
       <span>{skillValue}</span>
     </div>
