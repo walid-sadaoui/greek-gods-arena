@@ -124,7 +124,7 @@ const FightOpponent: React.FC<FightOpponentProps> = ({
             remainingHealth === 0 && 'transform filter grayscale'
           }`}
           style={{
-            backgroundImage: `url(${`/src/assets/img/greek-gods/${opponent.name}.svg`})`,
+            backgroundImage: `url(${`/greek-gods/${opponent.name}.svg`})`,
           }}
         ></motion.div>
       </div>

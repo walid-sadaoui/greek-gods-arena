@@ -27,7 +27,7 @@ const CharacterIcon: React.FC<CharacterIconProps> = ({
       role={role}
     >
       <img
-        src={`/src/assets/img/greek-gods/${greekGod}.svg`}
+        src={`/greek-gods/${greekGod}.svg`}
         alt={`${greekGod}`}
         className='w-10 h-10 mx-4'
       />

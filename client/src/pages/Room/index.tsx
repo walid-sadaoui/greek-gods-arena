@@ -9,7 +9,7 @@ const Opponent: React.FC<{ oppponent: Character }> = ({ oppponent }) => {
   return (
     <div className='flex flex-col items-center w-full h-full p-4'>
       <img
-        src={`/src/assets/img/greek-gods/${oppponent.name}.svg`}
+        src={`/greek-gods/${oppponent.name}.svg`}
         alt={`${oppponent.name}`}
         className='m-4 h-36'
       />

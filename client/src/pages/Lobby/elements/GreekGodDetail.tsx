@@ -45,7 +45,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
             onClick={() => setIsEditing(true)}
           />
           <img
-            src={`/src/assets/img/greek-gods/${character.name}.svg`}
+            src={`/greek-gods/${character.name}.svg`}
             alt={`${character.name}`}
             className='m-4 h-36'
           />

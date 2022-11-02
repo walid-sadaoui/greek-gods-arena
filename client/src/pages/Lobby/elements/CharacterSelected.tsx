@@ -6,7 +6,7 @@ export const CharacterSelected: React.FC<{
   return (
     <div className='flex flex-col items-center p-4 border-2 border-black rounded-container'>
       <img
-        src={`/src/assets/img/greek-gods/${greekGodSelected.name}.svg`}
+        src={`/greek-gods/${greekGodSelected.name}.svg`}
         alt={`${greekGodSelected.name}`}
         className='m-4 h-36'
       />

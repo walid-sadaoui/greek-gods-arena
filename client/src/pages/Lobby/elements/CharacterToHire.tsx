@@ -21,7 +21,7 @@ export const CharacterToHire: React.FC<{
   return (
     <div className='flex flex-col items-center justify-center w-full h-full p-4'>
       <img
-        src={`/src/assets/img/greek-gods/${greekGodName}.svg`}
+        src={`/greek-gods/${greekGodName}.svg`}
         alt={`${greekGodName}`}
         className='m-4 h-36'
       />
