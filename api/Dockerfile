@@ -1,4 +1,4 @@
-FROM node:16.18.0
+FROM node:16.18.0 as build
 
 LABEL version="0.0.1"
 LABEL description="Greek Gods Arena API"
@@ -6,11 +6,26 @@ LABEL maintainer = ["sadaouiwalid@gmail.com"]
 
 WORKDIR /app
 
+COPY ./api .
+RUN ls -l
+RUN npm ci
+RUN npm run build
+
+FROM node:16.18.0
+
+LABEL version="0.0.1"
+LABEL description="Greek Gods Arena API"
+LABEL maintainer = ["sadaouiwalid@gmail.com"]
+
+ENV NODE_ENV=production
+
+WORKDIR /app
+
 COPY ["package.json", "package-lock.json", "./"]
-RUN ls
-RUN npm install --production
-COPY . .
+RUN npm ci --omit=dev
+COPY --from=build /app/dist .
+RUN ls -l
 
-EXPOSE 5000
+EXPOSE 3000
 
-CMD ["node", "backend.js"]
+CMD ["node", "dist/server.js"]

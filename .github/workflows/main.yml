@@ -21,7 +21,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ../../api
-          file: ./Dockerfile
+          context: .
+          file: ./api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/greek-gods-arena-api:latest
