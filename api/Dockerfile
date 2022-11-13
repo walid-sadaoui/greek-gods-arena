@@ -21,9 +21,10 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY ["package.json", "package-lock.json", "./"]
+COPY ./api/package.json package.json
+COPY ./api/package-lock.json package-lock.json
 RUN npm ci --omit=dev
-COPY --from=build /app/dist .
+COPY --from=build /app/dist ./dist
 RUN ls -l
 
 EXPOSE 3000

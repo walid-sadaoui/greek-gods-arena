@@ -21,6 +21,7 @@ export interface ResponseData {
 }
 
 const API_URL = import.meta.env.VITE_API_URL;
+console.log('API_URL : ', API_URL);
 
 const fetcher = async <DataResponseType>(
   route: string,

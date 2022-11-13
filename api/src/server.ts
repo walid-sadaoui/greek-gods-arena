@@ -20,9 +20,11 @@ if (config.databaseUrl) {
     debug('Connected to MongoDb');
   });
 } else {
+  console.log(`Mongoose : Database url not specified`);
   debug(`Mongoose : Database url not specified`);
 }
 const server = http.createServer(app);
 server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
   debug(`Listening on port ${PORT}`);
 });

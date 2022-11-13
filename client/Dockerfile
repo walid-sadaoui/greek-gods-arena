@@ -11,7 +11,7 @@ RUN ls -l
 RUN npm ci
 RUN npm run build
 
-FROM node:16.18.0
+FROM nginx:1.23.2 as run
 
 LABEL version="0.0.1"
 LABEL description="Greek Gods Arena Frontend"
@@ -22,10 +22,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 COPY ["package.json", "package-lock.json", "./"]
-RUN npm ci --omit=dev
-COPY --from=build /app/dist .
+COPY --from=build /app/dist /usr/share/nginx/html
 RUN ls -l
 
-EXPOSE 3000
-
-CMD ["npm", "run", "vite"]
+EXPOSE 80
