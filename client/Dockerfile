@@ -18,6 +18,7 @@ LABEL description="Greek Gods Arena Frontend"
 LABEL maintainer = ["sadaouiwalid@gmail.com"]
 
 ENV NODE_ENV=production
+ENV VITE_API_URL=https://gga-api.walidsadaoui.com
 
 WORKDIR /app
 
