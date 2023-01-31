@@ -79,9 +79,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
       case 'attack':
         const remainingAttack =
           characterToEdit.skillPoints -
-          (characterToEdit.attack === 0
-            ? 1
-            : Math.ceil(characterToEdit.attack / 5));
+          Math.ceil((characterToEdit.attack + 1) / 5);
         setCharacterToEdit({
           ...characterToEdit,
           ...{
@@ -93,9 +91,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
       case 'defense':
         const remainingDefense =
           characterToEdit.skillPoints -
-          (characterToEdit.defense === 0
-            ? 1
-            : Math.ceil(characterToEdit.defense / 5));
+          Math.ceil((characterToEdit.defense + 1) / 5);
         setCharacterToEdit({
           ...characterToEdit,
           ...{
@@ -107,9 +103,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
       case 'magik':
         const remainingMagik =
           characterToEdit.skillPoints -
-          (characterToEdit.magik === 0
-            ? 1
-            : Math.ceil(characterToEdit.magik / 5));
+          Math.ceil((characterToEdit.magik + 1) / 5);
         setCharacterToEdit({
           ...characterToEdit,
           ...{
