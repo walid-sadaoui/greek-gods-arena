@@ -8,7 +8,9 @@ WORKDIR /app
 
 COPY ./client .
 RUN ls -l
+ENV NODE_ENV=production
 RUN npm ci
+RUN echo VITE_API_URL=https://gga-api.walidsadaoui.com >> .env
 RUN npm run build
 
 FROM nginx:1.23.2 as run
@@ -18,7 +20,6 @@ LABEL description="Greek Gods Arena Frontend"
 LABEL maintainer = ["sadaouiwalid@gmail.com"]
 
 ENV NODE_ENV=production
-RUN echo VITE_API_URL=https://gga-api.walidsadaoui.com >> /app/.env
 
 WORKDIR /app
 
