@@ -8,7 +8,6 @@ WORKDIR /app
 
 COPY ./client .
 RUN ls -l
-ENV NODE_ENV=production
 RUN npm ci
 RUN echo VITE_API_URL=https://gga-api.walidsadaoui.com >> .env
 RUN npm run build
