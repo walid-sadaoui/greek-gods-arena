@@ -1,7 +1,7 @@
 FROM node:16.18.0 as build
 
 ARG VITE_API_URL
-RUN echo "API_URL var : ${VITE_API_URL}"
+
 LABEL version="0.0.1"
 LABEL description="Greek Gods Arena Frontend"
 LABEL maintainer = ["sadaouiwalid@gmail.com"]
@@ -11,7 +11,6 @@ WORKDIR /app
 COPY ./client .
 RUN ls -l
 RUN npm ci
-# RUN echo VITE_API_URL=https://gga-api.walidsadaoui.com >> .env
 ENV VITE_API_URL=${VITE_API_URL}
 RUN npm run build
 
