@@ -33,7 +33,6 @@ jobs:
         with:
           context: .
           file: ./client/Dockerfile
-          build-args:
-            - VITE_API_URL: $VITE_API_URL
+          build-args: VITE_API_URL=$VITE_API_URL
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/greek-gods-arena-client:latest
