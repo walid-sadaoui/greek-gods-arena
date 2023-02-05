@@ -10,6 +10,7 @@ COPY ./client .
 RUN ls -l
 RUN npm ci
 # RUN echo VITE_API_URL=https://gga-api.walidsadaoui.com >> .env
+ENV VITE_API_URL=https://gga-api.walidsadaoui.com
 RUN npm run build
 
 FROM nginx:1.23.2 as run
