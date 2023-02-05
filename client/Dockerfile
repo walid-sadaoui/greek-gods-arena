@@ -1,7 +1,7 @@
 FROM node:16.18.0 as build
 
 ARG VITE_API_URL
-
+RUN echo "API_URL var : ${VITE_API_URL}"
 LABEL version="0.0.1"
 LABEL description="Greek Gods Arena Frontend"
 LABEL maintainer = ["sadaouiwalid@gmail.com"]
