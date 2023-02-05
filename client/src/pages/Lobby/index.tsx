@@ -24,7 +24,6 @@ const Lobby: React.FC = () => {
   };
 
   const selectGod = (characterIndex: number): void => {
-    console.log('selectGod after : ', getUser().characters[characterIndex]);
     setCharacterSelected(getUser().characters[characterIndex]);
   };
 

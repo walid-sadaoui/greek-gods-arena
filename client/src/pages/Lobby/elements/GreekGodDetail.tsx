@@ -19,8 +19,6 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
 
   const onUpdateGod = (updatedCharacter: Character) => {
     setIsEditing(false);
-    console.log('updatedCharacter : ', updatedCharacter);
-
     onUpdate(updatedCharacter);
   };
 

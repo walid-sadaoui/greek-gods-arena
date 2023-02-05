@@ -101,10 +101,6 @@ const AuthProvider: React.FC = ({ children }) => {
     updateUserState();
   }, []);
 
-  React.useEffect(() => {
-    console.log('userchanged : ', user?.characters);
-  }, [user]);
-
   if (isLoading) return <Loading />;
 
   return (

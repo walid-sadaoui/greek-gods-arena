@@ -46,12 +46,9 @@ export const calculateSkillPointsUsed = (
     );
   if (newValue === previousValue) return 0;
 
-  // attack 0 --> 7; index de 0 à 6; 0 +
   let skillPointsUsed = 0;
   for (let index = previousValue + 1; index <= newValue; index++) {
-    console.log('index : ', index);
     skillPointsUsed = skillPointsUsed + Math.ceil(index / 5);
-    console.log('skillused : ', skillPointsUsed);
   }
   return skillPointsUsed;
 };
@@ -77,39 +74,27 @@ export const validateSkillPoints = (
   character: ICharacter,
   updatedCharacterValues: CharacterProperties
 ): number => {
-  console.log('Beginning SP : ', character.skillPoints);
-
   const healthkSkillPoints = calculateHealthSkillPointsUsed(
     character.health,
     updatedCharacterValues.health
   );
-  console.log('healthkSkillPoints SP : ', healthkSkillPoints);
   const attackSkillPoints = calculateSkillPointsUsed(
     character.attack,
     updatedCharacterValues.attack
-  );
-  console.log('attackSkillPoints SP : ', attackSkillPoints);
-  console.log('character.defense SP : ', character.defense);
-  console.log(
-    'updatedCharacterValues.defense SP : ',
-    updatedCharacterValues.defense
   );
   const defenseSkillPoints = calculateSkillPointsUsed(
     character.defense,
     updatedCharacterValues.defense
   );
-  console.log('defenseSkillPoints SP : ', defenseSkillPoints);
   const magikSkillPoints = calculateSkillPointsUsed(
     character.magik,
     updatedCharacterValues.magik
   );
-  console.log('magikSkillPoints : ', magikSkillPoints);
   const skillPointsUsed =
     healthkSkillPoints +
     attackSkillPoints +
     defenseSkillPoints +
     magikSkillPoints;
-  console.log('skillPointsUsed : ', skillPointsUsed);
   if (skillPointsUsed > character.skillPoints) {
     throw new HttpError(
       400,
