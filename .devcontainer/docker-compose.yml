@@ -1,0 +1,50 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gga-app
+    ports:
+      - "3000:3000"
+      - "5001:5001"
+    networks:
+      - web
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+  mongo:
+    image: mongo:7.0.9
+    restart: always
+    networks:
+      - web
+    volumes:
+      - mongo-data:/data
+    ports:
+      - 27017:27017
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    networks:
+      - web
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017/gga-db
+      - ME_CONFIG_BASICAUTH_USERNAME=mexpress
+      - ME_CONFIG_BASICAUTH_PASSWORD=mexpress
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=root
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=password
+
+volumes:
+  mongo-data:
+
+networks:
+  web:

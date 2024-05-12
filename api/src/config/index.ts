@@ -8,5 +8,4 @@ export default {
   clientUrl: process.env.CLIENT_URL,
   jwtSecret: process.env.JWT_SECRET,
   databaseUrl: process.env.DATABASE_URL,
-  nodePath: process.env.NODE_PATH || './src',
 };

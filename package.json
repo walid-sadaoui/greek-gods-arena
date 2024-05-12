@@ -4,7 +4,9 @@
   "description": "Greek Gods Arena",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:client": "cd client && npm i",
+    "install:api": "cd api && npm i"
   },
   "repository": {
     "type": "git",
