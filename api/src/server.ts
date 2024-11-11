@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import config from './config';
 import Debug from 'debug';
 import app from './index';
+import { seedData } from './seed';
 
 const debug = Debug('greek-gods-arena-api:server');
 const PORT: number = parseInt(config.port);
@@ -18,6 +19,7 @@ if (config.databaseUrl) {
   db.on('error', console.error.bind(console, 'Connection Error'));
   db.once('open', () => {
     debug('Connected to MongoDb');
+    seedData();
   });
 } else {
   console.log(`Mongoose : Database url not specified`);

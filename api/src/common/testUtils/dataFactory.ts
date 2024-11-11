@@ -12,6 +12,8 @@ import * as CharacterDM from '../../components/users/characters/characterDataMan
 import * as FightUtils from '../../components/fights/fightUtils';
 import { IFight } from '../../components/fights/fightModel';
 import Character from '../../components/users/characters/characterSchema';
+import Universe from '../../components/universe/universeSchema';
+import { IUniverse } from '../../components/universe/universeModel';
 
 export enum FakePassword {
   GOOD = 'abcABC123456!',
@@ -23,8 +25,7 @@ export enum FakePassword {
   // MORE_THAN_26_CHAR = 'abcABC123456!abcABC123456!',
 }
 
-// creer un user
-
+// créer un user
 export const createUser = async (): Promise<IUser> => {
   try {
     const username = faker.internet.userName();
@@ -46,6 +47,27 @@ export const createUser = async (): Promise<IUser> => {
     const { password: userPassword, __v, ...rest } = userSignedUp.toObject();
     const userInfo: IUser = { ...rest, password };
     return userInfo;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// create universe
+export const createUniverse = async (
+  universeName: string
+): Promise<IUniverse> => {
+  try {
+    const characters: ICharacter[] = GreekGodsArray.map(
+      (greekGod: GreekGods) => {
+        return new Character({ name: greekGod });
+      }
+    );
+    let newUniverse = new Universe({
+      universeName,
+      characters,
+    });
+    newUniverse = await newUniverse.save();
+    return newUniverse;
   } catch (error) {
     throw new Error(error);
   }
