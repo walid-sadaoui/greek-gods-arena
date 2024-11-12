@@ -4,9 +4,9 @@ import Button from 'components/common/Button';
 
 export const HowToPlay: React.FC = () => {
   return (
-    <article className='flex flex-col items-center h-full'>
+    <article className='flex flex-col items-center justify-center h-full'>
       <h3 className='pb-4 text-xl font-greek'>How To Play</h3>
-      <div className='w-full p-4 mb-8 overflow-y-auto text-justify h-3/4'>
+      <div className='w-full p-4 overflow-y-auto text-justify'>
         <p className='pb-4'>
           You can add Greek Gods to your characters list or improve the Greek
           Gods you already own by clicking on "Manage your Greek Gods". You
@@ -29,11 +29,8 @@ export const HowToPlay: React.FC = () => {
 export const Menu: React.FC = () => {
   return (
     <article className='flex flex-col items-center w-full h-full p-4'>
-      <Link className='mx-auto mt-auto mb-4' to='/lobby'>
+      <Link className='mx-auto my-auto' to='/lobby'>
         <Button type='button'>Play</Button>
-      </Link>
-      <Link className='mx-auto mb-auto' to='/profile'>
-        <Button>Manage your Greek Gods</Button>
       </Link>
     </article>
   );

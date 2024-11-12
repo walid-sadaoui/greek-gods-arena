@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { updateCharacter } from 'api/users';
 import { Character } from 'models/Character';
-import { useAuth } from 'shared/context/AuthContext';
 import Button, { Variants } from 'components/common/Button';
 import SkillUpdater from './SkillUpdater';
 import { IconName } from 'components/common/Icon';
+import { useUniverse } from 'shared/context/UniverseContext';
 
 interface CharacterEditProps {
   character: Character;
@@ -32,7 +32,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   const { handleSubmit, register, setValue } = useForm<EditCharacterInput>({
     mode: 'all',
   });
-  const { getUser, setUser } = useAuth();
+  const { universeSelected } = useUniverse();
 
   const getMaxPropertyValue = (propertyValue: number): number => {
     let remainingSkillPoints = characterToEdit.skillPoints;
@@ -182,19 +182,19 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   ) => {
     try {
       const { data, error } = await updateCharacter(
-        getUser()._id,
+        universeSelected!._id,
         character.name,
         characterSkills
       );
 
       if (data) {
-        const updatedCharacterIndex = getUser().characters.findIndex(
+        const updatedCharacterIndex = universeSelected!.characters.findIndex(
           (character: Character) => {
             return character.name === data.character.name;
           }
         );
-        getUser().characters[updatedCharacterIndex] = data.character;
-        setUser(getUser());
+        universeSelected!.characters[updatedCharacterIndex] = data.character;
+        // setUser(getUser());
         setCharacterToEdit(data.character);
         onUpdate(data.character);
       }

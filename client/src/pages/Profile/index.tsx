@@ -89,7 +89,7 @@ const HireGod: React.FC = () => {
             <li key={greekGod}>
               <CharacterIcon
                 greekGod={greekGod}
-                className={`border rouned hover:bg-yellow-100 ${
+                className={`border rounded hover:bg-yellow-100 ${
                   disabled && 'filter grayscale'
                 } ${greekGodSelected === greekGod && 'bg-yellow-100'}`}
                 onSelect={() => onSelectGod(greekGod)}

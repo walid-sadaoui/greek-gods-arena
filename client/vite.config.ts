@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: parseInt(env.VITE_PORT ?? 5001),
+      watch: {
+        usePolling: true,
+      },
     },
     plugins: [reactRefresh(), svgrPlugin(), tsconfigPaths()],
   };

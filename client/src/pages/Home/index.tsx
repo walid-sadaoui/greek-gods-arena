@@ -8,12 +8,12 @@ import { HowToPlay, Menu } from './elements';
 const Home: React.FC = () => {
   return (
     <Container>
-      {/* <ContainerRow>
+      <ContainerRow>
         <HowToPlay />
         <Separator />
         <Menu />
-      </ContainerRow> */}
-      <Menu />
+      </ContainerRow>
+      {/* <Menu /> */}
     </Container>
   );
 };

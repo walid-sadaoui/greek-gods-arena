@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { AuthProvider } from './shared/context/AuthContext';
 import App from './App';
+import { UniverseProvider } from 'shared/context/UniverseContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
+    <UniverseProvider>
       <App />
-    </AuthProvider>
+    </UniverseProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

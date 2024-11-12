@@ -7,13 +7,13 @@ import {
   GreekGodsArray,
   ICharacter,
 } from '../../components/users/characters/characterModel';
-import * as UserDM from '../../components/users/userDataManager';
+import * as UniverseDM from '../../components/universes/universesDataManager';
 import * as CharacterDM from '../../components/users/characters/characterDataManager';
 import * as FightUtils from '../../components/fights/fightUtils';
 import { IFight } from '../../components/fights/fightModel';
 import Character from '../../components/users/characters/characterSchema';
-import Universe from '../../components/universe/universeSchema';
-import { IUniverse } from '../../components/universe/universeModel';
+import Universe from '../../components/universes/universesSchema';
+import { IUniverse } from '../../components/universes/universesModel';
 
 export enum FakePassword {
   GOOD = 'abcABC123456!',
@@ -74,11 +74,11 @@ export const createUniverse = async (
 };
 
 export const updateCharacter = async (
-  userId: string,
+  universeId: string,
   characterName: string
 ): Promise<ICharacter> => {
   try {
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
 
     const updatedCharacterProperties = {
       skillPoints: 42,
@@ -89,7 +89,7 @@ export const updateCharacter = async (
       level: 1,
     };
     const updatedCharacter = await CharacterDM.updateCharacter(
-      currentUser,
+      currentUniverse,
       characterName,
       updatedCharacterProperties
     );
@@ -100,14 +100,14 @@ export const updateCharacter = async (
 };
 
 export const updateCharacterProperties = async (
-  userId: string,
+  universeId: string,
   characterName: string,
   newCharacterProperties: Partial<ICharacter>
 ): Promise<ICharacter> => {
   try {
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
     const updatedCharacter = await CharacterDM.updateCharacter(
-      currentUser,
+      currentUniverse,
       characterName,
       newCharacterProperties
     );
@@ -118,16 +118,16 @@ export const updateCharacterProperties = async (
 };
 
 export const newFight = async (
-  firstUserId: string,
-  secondUserId: string
+  firstUniverseId: string,
+  secondUniverseId: string
 ): Promise<IFight> => {
   try {
-    const firstUser = await UserDM.getUser(firstUserId);
-    const secondUser = await UserDM.getUser(secondUserId);
+    const firstUniverse = await UniverseDM.getUniverse(firstUniverseId);
+    const secondUniverse = await UniverseDM.getUniverse(secondUniverseId);
 
     const fight = await FightUtils.launchFight(
-      firstUser.characters[0],
-      secondUser.characters[1]
+      firstUniverse.characters[0],
+      secondUniverse.characters[1]
     );
     return fight;
   } catch (error) {

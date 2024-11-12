@@ -1,10 +1,11 @@
+import { getUniverses } from './components/universes/universesDataManager';
 import { createUniverse } from './common/testUtils/dataFactory';
-import mongoose from 'mongoose';
 
 export const seedData = async (): Promise<void> => {
   try {
     // Check if the database already has data
-    const universeCount = 0;
+    const universes = await getUniverses();
+    const universeCount = universes.length;
     if (universeCount === 0) {
       console.log('Seeding example users...');
       await createUniverse('Universe-1');
@@ -15,7 +16,5 @@ export const seedData = async (): Promise<void> => {
     }
   } catch (error) {
     console.error('Error seeding data:', error);
-  } finally {
-    mongoose.connection.close();
   }
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Icon, { IconName } from 'components/common/Icon';
 import { Character } from 'models/Character';
@@ -18,6 +18,7 @@ const HealthBar: React.FC<{ max: number; skillValue: number }> = ({
     HealthStatusColors.GOOD
   );
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleProgressColor = () => {
     if (skillValue / max > 0.5) {
       setProgressColor(HealthStatusColors.GOOD);
@@ -68,6 +69,43 @@ interface FightOpponentProps {
   opponentTurn: boolean;
 }
 
+// const ArrowAnimation = ({ remainingHealth }) => {
+//   // Starting position for the throwing animation
+//   const startX = 0; // Start position (left)
+//   const startY = 0; // Start position (top)
+
+//   // Target position for the throwing animation (right side of the screen)
+//   const endX = 500; // Target position (right)
+//   const endY = -100; // Target position (vertical offset, arc effect)
+
+//   return (
+//     <motion.div
+//       initial={{
+//         x: startX,
+//         y: startY,
+//         rotate: 0,
+//         opacity: 1,
+//       }}
+//       animate={{
+//         x: remainingHealth === 0 ? endX : startX, // Only animate when health is 0
+//         y: remainingHealth === 0 ? endY : startY,
+//         rotate: remainingHealth === 0 ? 360 : 0, // Full rotation as if the arrow is spinning
+//         opacity: remainingHealth === 0 ? 1 : 0, // Arrow is visible when thrown
+//         transition: {
+//           duration: 1.5, // Duration of the throw
+//           ease: 'easeOut', // Easing for the motion
+//         },
+//       }}
+//       className={`w-full h-full bg-center bg-no-repeat bg-contain ${
+//         remainingHealth === 0 ? 'transform filter grayscale' : ''
+//       }`}
+//       style={{
+//         backgroundImage: `url(${`/greek-gods/ARTEMIS.svg`})`,
+//       }}
+//     />
+//   );
+// };
+
 const FightOpponent: React.FC<FightOpponentProps> = ({
   opponent,
   remainingHealth,
@@ -80,6 +118,7 @@ const FightOpponent: React.FC<FightOpponentProps> = ({
       transition: { duration: 1, yoyo: Infinity },
     },
   };
+
   return (
     <>
       <div className='flex flex-col items-center justify-end w-full h-2/3'>
@@ -118,13 +157,20 @@ const FightOpponent: React.FC<FightOpponentProps> = ({
         <motion.div
           animate={{
             rotate: remainingHealth === 0 ? -90 : 0,
-            transition: { duration: 1 },
+            x: opponentTurn ? 80 : 0, // Move the element 100px to the right during opponent's turn
+            transition: {
+              duration: opponentTurn ? 2 : 1, // 2 seconds if it's opponent's turn, otherwise 1 second
+              repeat: opponentTurn ? 1 : 0, // If it's opponent's turn, rotate once and return
+              repeatType: opponentTurn ? 'mirror' : undefined, // Ensure it goes back to 0 rotation
+              ease: opponentTurn ? 'easeInOut' : 'linear', // Smooth transition for opponent turn
+            },
           }}
           className={`w-full h-full bg-center bg-no-repeat bg-contain ${
             remainingHealth === 0 && 'transform filter grayscale'
           }`}
           style={{
             backgroundImage: `url(${`/greek-gods/${opponent.name}.svg`})`,
+            transformOrigin: 'center',
           }}
         ></motion.div>
       </div>
@@ -138,6 +184,17 @@ interface FightRingProps {
 }
 
 const FightRing: React.FC<FightRingProps> = ({ fight, turnCount }) => {
+  const secondOpponentRef = useRef<HTMLDivElement | null>(null); // Use HTMLDivElement for div element
+  const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
+
+  // Calculate target's position when the component mounts
+  useEffect(() => {
+    if (secondOpponentRef.current) {
+      const rect = secondOpponentRef.current.getBoundingClientRect();
+      setTargetPosition({ x: rect.left, y: rect.top });
+    }
+  }, []);
+
   const getRemainingHealth = (
     currentFight: Fight,
     opponent: Character

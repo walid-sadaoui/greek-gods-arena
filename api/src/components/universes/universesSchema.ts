@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { IUniverse } from './universeModel';
-import { characterSchema } from '../../components/users/characters/characterSchema';
+import { IUniverse } from './universesModel';
+import { characterSchema } from '../users/characters/characterSchema';
 
 const { Schema } = mongoose;
 
