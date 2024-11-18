@@ -8,7 +8,8 @@
   "postCreateCommand": "npm ci && npm run install:api && npm run install:client",
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   "shutdownAction": "stopCompose",
-  
+  "remoteUser": "node",
+
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },

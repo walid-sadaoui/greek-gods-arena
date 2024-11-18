@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import Icon, { IconName } from 'components/common/Icon';
 import { Character } from 'models/Character';
@@ -67,6 +67,7 @@ interface FightOpponentProps {
   opponent: Character;
   remainingHealth: number;
   opponentTurn: boolean;
+  opponentPosition: { x: number; y: number };
 }
 
 // const ArrowAnimation = ({ remainingHealth }) => {
@@ -106,77 +107,88 @@ interface FightOpponentProps {
 //   );
 // };
 
-const FightOpponent: React.FC<FightOpponentProps> = ({
-  opponent,
-  remainingHealth,
-  opponentTurn,
-}) => {
-  const variants = {
-    hidden: { scale: 1 },
-    visible: {
-      scale: 1.2,
-      transition: { duration: 1, yoyo: Infinity },
-    },
-  };
+const FightOpponent = forwardRef<HTMLDivElement, FightOpponentProps>(
+  (
+    { opponent, remainingHealth, opponentTurn, opponentPosition },
+    opponentRef
+  ) => {
+    const variants = {
+      hidden: { scale: 1 },
+      visible: {
+        scale: 1.2,
+        transition: { duration: 1, yoyo: Infinity },
+      },
+    };
 
-  return (
-    <>
-      <div className='flex flex-col items-center justify-end w-full h-2/3'>
-        <div
-          className={`flex flex-col p-4 mb-4 text-white bg-black bg-opacity-75 rounded-container ${
-            opponentTurn && 'ring-4 ring-yellow-200'
-          }`}
-        >
-          <div className='flex pb-2 font-greek'>
-            {opponentTurn && (
-              <Icon icon='chevron-right' className='text-yellow-200' />
-            )}
-            <p>{opponent.name}</p>
+    useEffect(() => {
+      console.error({ opponent: opponent.name });
+      console.error({ opponentPosition });
+    }, [opponentPosition]);
+
+    return (
+      <>
+        <div className='flex flex-col items-center justify-end w-full h-2/3'>
+          <div
+            className={`flex flex-col p-4 mb-4 text-white bg-black bg-opacity-75 rounded-container ${
+              opponentTurn && 'ring-4 ring-yellow-200'
+            }`}
+          >
+            <div className='flex pb-2 font-greek'>
+              {opponentTurn && (
+                <Icon icon='chevron-right' className='text-yellow-200' />
+              )}
+              <p>{opponent.name}</p>
+            </div>
+            <div className='flex pb-2'>
+              <motion.div
+                initial='hidden'
+                animate='visible'
+                variants={variants}
+              >
+                <Icon icon='heart' className='mr-2 text-red-500' />
+              </motion.div>
+              <HealthBar max={opponent.health} skillValue={remainingHealth} />
+            </div>
+            <div className='flex'>
+              <SkillIconValue
+                iconName={IconName.SWORD}
+                skillValue={opponent.attack}
+              />
+              <SkillIconValue
+                iconName={IconName.SHIELD}
+                skillValue={opponent.defense}
+              />
+              <SkillIconValue
+                iconName={IconName.MAGIC}
+                skillValue={opponent.magik}
+              />
+            </div>
           </div>
-          <div className='flex pb-2'>
-            <motion.div initial='hidden' animate='visible' variants={variants}>
-              <Icon icon='heart' className='mr-2 text-red-500' />
-            </motion.div>
-            <HealthBar max={opponent.health} skillValue={remainingHealth} />
-          </div>
-          <div className='flex'>
-            <SkillIconValue
-              iconName={IconName.SWORD}
-              skillValue={opponent.attack}
-            />
-            <SkillIconValue
-              iconName={IconName.SHIELD}
-              skillValue={opponent.defense}
-            />
-            <SkillIconValue
-              iconName={IconName.MAGIC}
-              skillValue={opponent.magik}
-            />
-          </div>
+          <motion.div
+            animate={{
+              rotate: remainingHealth === 0 ? -90 : 0,
+              x: opponentTurn ? opponentPosition.x : 0, // Move the element 100px to the right during opponent's turn
+              transition: {
+                duration: opponentTurn ? 2 : 1, // 2 seconds if it's opponent's turn, otherwise 1 second
+                repeat: opponentTurn ? 1 : 0, // If it's opponent's turn, rotate once and return
+                repeatType: opponentTurn ? 'mirror' : undefined, // Ensure it goes back to 0 rotation
+                ease: opponentTurn ? 'easeInOut' : 'linear', // Smooth transition for opponent turn
+              },
+            }}
+            className={`w-full h-full bg-center bg-no-repeat bg-contain ${
+              remainingHealth === 0 && 'transform filter grayscale'
+            }`}
+            style={{
+              backgroundImage: `url(${`/greek-gods/${opponent.name}.svg`})`,
+              transformOrigin: 'center',
+            }}
+            ref={opponentRef}
+          ></motion.div>
         </div>
-        <motion.div
-          animate={{
-            rotate: remainingHealth === 0 ? -90 : 0,
-            x: opponentTurn ? 80 : 0, // Move the element 100px to the right during opponent's turn
-            transition: {
-              duration: opponentTurn ? 2 : 1, // 2 seconds if it's opponent's turn, otherwise 1 second
-              repeat: opponentTurn ? 1 : 0, // If it's opponent's turn, rotate once and return
-              repeatType: opponentTurn ? 'mirror' : undefined, // Ensure it goes back to 0 rotation
-              ease: opponentTurn ? 'easeInOut' : 'linear', // Smooth transition for opponent turn
-            },
-          }}
-          className={`w-full h-full bg-center bg-no-repeat bg-contain ${
-            remainingHealth === 0 && 'transform filter grayscale'
-          }`}
-          style={{
-            backgroundImage: `url(${`/greek-gods/${opponent.name}.svg`})`,
-            transformOrigin: 'center',
-          }}
-        ></motion.div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+);
 
 interface FightRingProps {
   fight: Fight;
@@ -184,16 +196,33 @@ interface FightRingProps {
 }
 
 const FightRing: React.FC<FightRingProps> = ({ fight, turnCount }) => {
+  const firstOpponentRef = useRef<HTMLDivElement | null>(null); // Use HTMLDivElement for div element
+  const [firstOppTargetPosition, setFirstOppTargetPosition] = useState({
+    x: 0,
+    y: 0,
+  });
   const secondOpponentRef = useRef<HTMLDivElement | null>(null); // Use HTMLDivElement for div element
-  const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
+  const [secondOppTargetPosition, setSecondOppTargetPosition] = useState({
+    x: 0,
+    y: 0,
+  });
 
   // Calculate target's position when the component mounts
   useEffect(() => {
     if (secondOpponentRef.current) {
       const rect = secondOpponentRef.current.getBoundingClientRect();
-      setTargetPosition({ x: rect.left, y: rect.top });
+      setFirstOppTargetPosition({ x: rect.left, y: rect.top });
+    }
+    if (firstOpponentRef.current) {
+      const rect = firstOpponentRef.current.getBoundingClientRect();
+      setSecondOppTargetPosition({ x: rect.left, y: rect.top });
     }
   }, []);
+
+  useEffect(() => {
+    console.log({ firstOppTargetPosition });
+    console.log({ secondOppTargetPosition });
+  }, [firstOppTargetPosition, secondOppTargetPosition]);
 
   const getRemainingHealth = (
     currentFight: Fight,
@@ -215,14 +244,18 @@ const FightRing: React.FC<FightRingProps> = ({ fight, turnCount }) => {
           turnCount !== fight.turns.length - 1 &&
           fight.firstOpponent._id === fight.turns[turnCount + 1].attacker.id
         }
+        opponentPosition={secondOppTargetPosition}
+        ref={secondOpponentRef}
       />
       <FightOpponent
         opponent={fight.secondOpponent}
+        opponentPosition={firstOppTargetPosition}
         remainingHealth={getRemainingHealth(fight, fight.secondOpponent)}
         opponentTurn={
           turnCount !== fight.turns.length - 1 &&
           fight.secondOpponent._id === fight.turns[turnCount + 1].attacker.id
         }
+        ref={firstOpponentRef}
       />
     </div>
   );
