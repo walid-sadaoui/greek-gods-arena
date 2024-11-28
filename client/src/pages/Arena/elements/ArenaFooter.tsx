@@ -1,4 +1,5 @@
-import Button from 'components/common/Button';
+import Button, { ButtonSize, Variants } from 'components/common/Button';
+import { IconName } from 'components/common/Icon';
 import { Fight } from 'models/Fight';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -17,7 +18,7 @@ const ArenaFooter: React.FC<ArenaFooterProps> = ({
   onNextTurn,
 }) => {
   return (
-    <>
+    <div className='flex flex-col'>
       <progress
         max={fight.turns.length}
         value={turnCount + 1}
@@ -27,12 +28,12 @@ const ArenaFooter: React.FC<ArenaFooterProps> = ({
         <div className='flex-1'>
           <Link
             to='/'
-            className='px-4 py-2 text-white rounded font-greek hover:bg-white hover:text-black'
+            className='p-4 text-white rounded-container font-greek hover:bg-white hover:text-black'
           >
             Home
           </Link>
         </div>
-        <div className='flex justify-center'>
+        <div className='flex justify-between'>
           <Button
             disabled={turnCount === -1}
             onClick={onPreviousTurn}
@@ -48,10 +49,15 @@ const ArenaFooter: React.FC<ArenaFooterProps> = ({
           </Button>
         </div>
         <div className='flex-1 text-right'>
-          {/* {fightFinished && <Button>{'End Fight >>'}</Button>} */}
+          <Button
+            onClick={onPreviousTurn}
+            className='mr-4'
+            variant={Variants.DEFAULT}
+            icon={IconName.VOLUME_MUTE}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

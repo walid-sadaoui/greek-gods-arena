@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { FunctionComponent, SVGProps } from 'react';
 import { ReactComponent as Heart } from 'assets/img/icons/heart-f.svg';
 import { ReactComponent as Shield } from 'assets/img/icons/shield-f.svg';
@@ -8,6 +7,9 @@ import { ReactComponent as ChevronRight } from 'assets/img/icons/chevron-right.s
 import { ReactComponent as Pencil } from 'assets/img/icons/pen-f.svg';
 import { ReactComponent as Check } from 'assets/img/icons/check.svg';
 import { ReactComponent as Close } from 'assets/img/icons/close.svg';
+import { ReactComponent as VolumeMute } from 'assets/img/icons/volume-mute.svg';
+import { ReactComponent as VolumeUp } from 'assets/img/icons/volume-up.svg';
+import { ReactComponent as Crown } from 'assets/img/icons/crown-f.svg';
 
 export enum IconName {
   HEART = 'heart',
@@ -18,12 +20,16 @@ export enum IconName {
   PENCIL = 'pencil',
   CHECK = 'check',
   CLOSE = 'close',
+  VOLUME_MUTE = 'volume-mute',
+  VOLUME_UP = 'volume-up',
+  CROWN = 'crown',
 }
 
-enum IconSize {
+export enum IconSize {
   SMALL = 'small',
   MEDIUM = 'medium',
   LARGE = 'large',
+  X_LARGE = 'x-large',
 }
 
 const IconComponent: Record<
@@ -38,27 +44,20 @@ const IconComponent: Record<
   [IconName.PENCIL]: Pencil,
   [IconName.CHECK]: Check,
   [IconName.CLOSE]: Close,
+  [IconName.VOLUME_MUTE]: VolumeMute,
+  [IconName.VOLUME_UP]: VolumeUp,
+  [IconName.CROWN]: Crown,
 };
 
 interface IconProps {
   icon: string;
   className?: string;
-  size?: string;
 }
 
-const Icon: FunctionComponent<IconProps> = ({ icon, size, className }) => {
+const Icon: FunctionComponent<IconProps> = ({ icon, className }) => {
   const Svg = IconComponent[icon];
 
-  return Svg ? (
-    <Svg
-      className={classNames(
-        className,
-        size === IconSize.SMALL && 'w-4 h-4',
-        size === IconSize.MEDIUM && 'w-6 h-6',
-        size === IconSize.LARGE && 'w-8 h-8'
-      )}
-    />
-  ) : null;
+  return Svg ? <Svg className={className} /> : null;
 };
 
 export default Icon;

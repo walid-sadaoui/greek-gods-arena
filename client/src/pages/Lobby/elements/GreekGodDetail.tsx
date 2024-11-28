@@ -1,10 +1,10 @@
 import CharacterEdit from 'components/characters/CharacterEdit';
-import Button, { ButtonSize } from 'components/common/Button';
+import Button from 'components/common/Button';
 import { Character } from 'models/Character';
 import React from 'react';
 import { IconName } from 'components/common/Icon';
-import { SkillIconValue } from 'pages/Arena/elements/FightRing';
 import classNames from 'classnames';
+import { SkillIconValue } from 'pages/Arena/elements/FightRing/SkillIconValue';
 
 interface GreekGodDetailProps {
   character: Character;
@@ -38,7 +38,6 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
         <>
           <Button
             icon={IconName.PENCIL}
-            size={ButtonSize.MEDIUM}
             className='self-end'
             onClick={() => setIsEditing(true)}
           />
@@ -53,7 +52,6 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
             <SkillIconValue
               iconName={IconName.HEART}
               skillValue={character.health}
-              color='red-500'
             />
             <SkillIconValue
               iconName={IconName.SWORD}

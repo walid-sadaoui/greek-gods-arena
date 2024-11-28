@@ -1,12 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  purge: {
-    // paths to all of the template files in the project
-    content: ['./src/**/*.html', './src/**/*.tsx', './**/*.html'],
-
-    // default extractor including tailwind's special characters
-    defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-  },
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
@@ -29,15 +22,21 @@ module.exports = {
       },
       boxShadow: {
         play: '0 10px #31ccff',
+        'text-outline': '0 0 2px 2px rgba(0, 0, 0, 0.7)',
       },
     },
   },
-  variants: {
-    extend: {
-      backgroundColor: ['disabled'],
-      textColor: ['disabled'],
-      cursor: ['disabled'],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.text-outline': {
+            '-webkit-text-stroke': '1px black', // Black stroke with 1px thickness
+            color: 'white', // Text color
+          },
+        },
+        ['responsive', 'hover']
+      );
     },
-  },
-  plugins: [],
+  ],
 };
