@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon, { IconName } from 'components/common/Icon';
+import useScreenSize from 'shared/hooks/useScreenSize';
 
 enum HealthStatusColors {
   GOOD = 'bg-green-700',
@@ -16,6 +17,7 @@ export const HealthBar: React.FC<{
   const [progressColor, setProgressColor] = React.useState(
     HealthStatusColors.GOOD
   );
+  const { isLargeScreen } = useScreenSize();
 
   const handleProgressColor = (): void => {
     if (skillValue / max > 0.5) {
@@ -34,9 +36,9 @@ export const HealthBar: React.FC<{
   return (
     <div className={`flex flex-col justify-center w-72`}>
       <span
-        className={`${
-          isEnemy ? 'self-end mr-16' : 'self-start ml-16'
-        } rounded-container text-4xl text-white  text-outline font-greek -mb-6`}
+        className={`${isEnemy ? 'self-end mr-16' : 'self-start ml-16'}
+        ${isLargeScreen ? 'text-4xl' : 'text-3xl'}
+        rounded-container text-white  text-outline font-greek -mb-6`}
       >
         {name}
       </span>

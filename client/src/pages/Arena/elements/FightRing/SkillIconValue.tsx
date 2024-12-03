@@ -1,11 +1,14 @@
 import React from 'react';
 import Icon, { IconName } from 'components/common/Icon';
+import useScreenSize from 'shared/hooks/useScreenSize';
 
 export const SkillIconValue: React.FC<{
   iconName: IconName;
   skillValue: number;
   isEnemy: boolean;
 }> = ({ iconName, skillValue, isEnemy }) => {
+  const { isLargeScreen } = useScreenSize();
+
   const getSkillColor = (): string => {
     switch (iconName) {
       case IconName.MAGIC:
@@ -24,7 +27,10 @@ export const SkillIconValue: React.FC<{
       <div
         className={`flex rounded-full z-10 p-2 border-2 border-black ${getSkillColor()}`}
       >
-        <Icon icon={iconName} className='text-4xl' />
+        <Icon
+          icon={iconName}
+          className={`${isLargeScreen ? 'text-4xl' : 'text-3xl'}`}
+        />
       </div>
       <span
         className={`z-0 px-8 py-2 ${

@@ -5,6 +5,7 @@ import { Turn } from 'models/Turn';
 import { HealthBar } from './HealthBar';
 import { SkillIconValue } from './SkillIconValue';
 import { IconName } from 'components/common/Icon';
+import useScreenSize from 'shared/hooks/useScreenSize';
 
 interface FightOpponentProps {
   opponent: Character;
@@ -21,6 +22,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
   isEnemy,
   turn,
 }) => {
+  const { isLargeScreen } = useScreenSize();
   const opponentVariants: Variants = {
     initial: {
       scale: 1,
@@ -63,7 +65,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
     },
     death: {
       opacity: remainingHealth === 0 ? 0 : 1, // Fade out
-      y: remainingHealth === 0 ? 320 : 0, // Move downward by 200px (adjust as needed)
+      y: remainingHealth === 0 ? (isLargeScreen ? 480 : 320) : 0, // Move downward by 200px (adjust as needed)
       filter: remainingHealth === 0 ? 'grayscale(100%)' : 'grayscale(0%)',
       clipPath:
         remainingHealth === 0 ? 'inset(0% 0% 100% 0%)' : 'inset(0% 0% 0% 0%)',
@@ -106,7 +108,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
           initial={'initial'}
           animate={['start', 'attack', 'death', 'damage']}
           src={`/greek-gods/${opponent.name}.svg`}
-          className={'h-80'}
+          className={isLargeScreen ? 'h-[30rem]' : 'h-[20rem]'}
           alt='God'
         ></motion.img>
       </div>
