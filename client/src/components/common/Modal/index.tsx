@@ -8,12 +8,12 @@ export const ModalHeader: React.FC<{ onClose: () => void; title: string }> = ({
   title,
 }) => {
   return (
-    <div className='flex items-center w-full'>
+    <div className='flex items-center w-full px-8 text-3xl'>
       <div className='flex-1'></div>
-      <div className='text-lg'>{title}</div>
-      <div className='flex justify-end flex-1'>
+      <div>{title}</div>
+      <div className='absolute top-0 transform -translate-x-1/2 -translate-y-1/2 left-full outline outline-2 outline-black'>
         <Button data-dismiss='modal' aria-label='Close' onClick={onClose}>
-          <span aria-hidden='true'>&times;</span>
+          <span aria-hidden='true'>X</span>
         </Button>
       </div>
     </div>
@@ -56,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({ isShowing, hide, children, title }) => {
               role='dialog'
               tabIndex={-1}
             >
-              <div className='flex flex-col items-center justify-between p-4 bg-white border-4 border-black rounded-container'>
+              <div className='relative flex flex-col items-center justify-between p-4 bg-white border-4 border-black rounded-container'>
                 <ModalHeader title={title} onClose={hide} />
                 {children}
               </div>

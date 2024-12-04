@@ -25,7 +25,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   return (
     <article
       className={classNames(
-        'relative hover:z-20 flex flex-col items-center p-4 bg-white border-2 border-black w-48 rounded-container'
+        'relative hover:z-20 flex flex-col items-center p-4 bg-white border-2 border-black w-96 rounded-container'
       )}
     >
       {isEditing ? (
@@ -44,23 +44,31 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
           <img
             src={`/greek-gods/${character.name}.svg`}
             alt={`${character.name}`}
-            className='m-4 h-36'
+            className='h-56 m-4'
           />
           <span className='text-xl font-greek'>{character.name}</span>
           <span className='pb-4 font-greek'>Lvl. {character.level}</span>
-          <div className='flex flex-wrap'>
-            <SkillIconValue
-              iconName={IconName.HEART}
-              skillValue={character.health}
-            />
-            <SkillIconValue
-              iconName={IconName.SWORD}
-              skillValue={character.attack}
-            />
-            <SkillIconValue
-              iconName={IconName.SHIELD}
-              skillValue={character.defense}
-            />
+          <div className='flex gap-4 p-4'>
+            <div className='flex flex-col gap-4'>
+              <SkillIconValue
+                iconName={IconName.HEART}
+                skillValue={character.health}
+              />
+              <SkillIconValue
+                iconName={IconName.SWORD}
+                skillValue={character.attack}
+              />
+            </div>
+            <div className='flex flex-col gap-4'>
+              <SkillIconValue
+                iconName={IconName.SHIELD}
+                skillValue={character.defense}
+              />
+              <SkillIconValue
+                iconName={IconName.MAGIC}
+                skillValue={character.magik}
+              />
+            </div>
           </div>
         </>
       )}

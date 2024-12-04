@@ -38,7 +38,7 @@ export const HealthBar: React.FC<{
       <span
         className={`${isEnemy ? 'self-end mr-16' : 'self-start ml-16'}
         ${isLargeScreen ? 'text-4xl' : 'text-3xl'}
-        rounded-container text-white  text-outline font-greek -mb-6`}
+        rounded-container text-white text-outline font-black -mb-6`}
       >
         {name}
       </span>

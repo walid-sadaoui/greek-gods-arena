@@ -4,22 +4,23 @@ import Modal from 'components/common/Modal';
 import Input from 'components/common/Input';
 
 const CreateUniverseModal: React.FC<{
-  onYes: () => void;
+  onValidate: () => void;
   hide: () => void;
   isShowing: boolean;
-}> = ({ onYes, isShowing, hide }) => {
+}> = ({ onValidate, isShowing, hide }) => {
   return (
     <Modal
       isShowing={isShowing}
       hide={hide}
       title={`Enter your Universe Name !`}
     >
-      <p className='pb-4 font-sans'>
-        You can re-hire your God later, but all the SkillPoints earned will be
-        lost !
-      </p>
-      <Input />
-      <Button value='Yes' onClick={onYes} />
+      <Input
+        id='create-universe-name'
+        type='text'
+        placeholder='Universe Name'
+        name='create-universe-input'
+      />
+      <Button value='Create' onClick={onValidate} />
     </Modal>
   );
 };

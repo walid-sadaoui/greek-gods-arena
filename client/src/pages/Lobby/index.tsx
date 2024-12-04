@@ -8,6 +8,7 @@ import { Character, GreekGods } from 'models/Character';
 import { GreekGodSelectList } from './elements/GreekGodSelectList';
 import { useUniverse } from 'shared/context/UniverseContext';
 import Card from 'components/common/Card';
+import CreateUniverseModal from './elements/CreateUniverseModal';
 
 const Lobby: React.FC = () => {
   const { universes, universeSelected } = useUniverse();
@@ -16,6 +17,8 @@ const Lobby: React.FC = () => {
   >(undefined);
   const [fight, setFight] = React.useState<Fight | undefined>(undefined);
   const [fightError, setFightError] = React.useState<string>('');
+  const [showCreateUniverseModal, setShowCreateUniverseModal] =
+    React.useState<boolean>(false);
 
   const runFight = async (
     universeId: string,
@@ -35,7 +38,7 @@ const Lobby: React.FC = () => {
     <Container title='Select a God to play'>
       <ContainerRow>
         {universes.length > 0 && (
-          <div className='flex flex-col'>
+          <div className='flex flex-col gap-4'>
             {universes.map((universe) => {
               return (
                 <Card>
@@ -44,20 +47,21 @@ const Lobby: React.FC = () => {
               );
             })}
             <Button
-              onClick={() =>
-                runFight(
-                  universeSelected!._id,
-                  characterSelected?.name ?? GreekGods.ZEUS
-                )
-              }
+              onClick={() => setShowCreateUniverseModal(true)}
+              className='self-end'
             >
               Create Universe
             </Button>
+            <CreateUniverseModal
+              isShowing={showCreateUniverseModal}
+              onValidate={() => setShowCreateUniverseModal(false)}
+              hide={() => setShowCreateUniverseModal(false)}
+            />
           </div>
         )}
         {/* <Separator /> */}
         {universeSelected ? (
-          <div className='flex flex-col items-center justify-around h-full'>
+          <div className='flex flex-col items-center justify-around flex-1 h-full'>
             <GreekGodSelectList onSelectGod={selectGod} />
             <div className='flex flex-col items-center w-full'>
               <Button

@@ -22,7 +22,7 @@ module.exports = {
       },
       boxShadow: {
         play: '0 10px #31ccff',
-        'text-outline': '0 0 2px 2px rgba(0, 0, 0, 0.7)',
+        'text-outline': '0 0 2px 2px rgba(0, 0, 0, 1)',
       },
     },
   },

@@ -13,7 +13,7 @@ const useScreenSize = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-      setIsLargeScreen(window.innerWidth > 1024 && window.innerHeight > 1080);
+      setIsLargeScreen(window.innerWidth > 1024 && window.innerHeight > 968);
     };
 
     // Add event listener for window resize

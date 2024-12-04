@@ -5,7 +5,7 @@ import useScreenSize from 'shared/hooks/useScreenSize';
 export const SkillIconValue: React.FC<{
   iconName: IconName;
   skillValue: number;
-  isEnemy: boolean;
+  isEnemy?: boolean;
 }> = ({ iconName, skillValue, isEnemy }) => {
   const { isLargeScreen } = useScreenSize();
 
@@ -16,6 +16,7 @@ export const SkillIconValue: React.FC<{
       case IconName.SHIELD:
         return 'bg-gradient-to-br from-cyan-500 to-blue-500';
       case IconName.SWORD:
+      case IconName.HEART:
         return 'bg-gradient-to-br from-red-300 to-red-500';
 
       default:

@@ -78,7 +78,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
   };
 
   return (
-    <div className={`flex flex-col w-full p-4 ${isEnemy ? 'items-end' : ''}`}>
+    <div className={`flex flex-col p-4 ${isEnemy ? 'items-end' : ''}`}>
       <HealthBar
         max={opponent.health}
         skillValue={remainingHealth}
