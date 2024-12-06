@@ -4,7 +4,7 @@ import useScreenSize from 'shared/hooks/useScreenSize';
 
 enum HealthStatusColors {
   GOOD = 'bg-green-700',
-  MEDIUM = 'bg-yellow-600',
+  MEDIUM = 'bg-orange-500',
   BAD = 'bg-red-700',
 }
 
@@ -54,14 +54,12 @@ export const HealthBar: React.FC<{
           } text-red-500 stroke-1 text-8xl stroke-black`}
         />
         <div
-          className={`flex w-full bg-gray-600 border-4 border-black ${
+          className={`flex w-full backdrop-blur-md backdrop-brightness-105 border-4 border-black ${
             isEnemy ? 'justify-end' : ''
           }`}
         >
           <div
-            className={`${
-              skillValue !== 0 ? 'opacity-1' : 'opacity-0'
-            } text-xs leading-none text-center text-white ${progressColor} transition-all delay-1000 duration-300 ease-in-out py-4`}
+            className={`text-xs leading-none text-center text-white ${progressColor} transition-all delay-1000 duration-300 ease-in-out py-4`}
             style={{
               width: `${(skillValue * 100) / max}%`,
             }}

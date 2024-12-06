@@ -11,6 +11,18 @@
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: 'Caesar Dressing';
+    src: url('/fonts/CaesarDressing.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Freckle Face';
+    src: url('/fonts/FreckleFace-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 }
 
 @layer utilities {

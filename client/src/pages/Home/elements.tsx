@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'components/common/Button';
+// import Button from 'components/common/Button';
 
 export const HowToPlay: React.FC = () => {
   return (
@@ -28,9 +28,23 @@ export const HowToPlay: React.FC = () => {
 
 export const Menu: React.FC = () => {
   return (
-    <article className='flex flex-col items-center w-full h-full p-4'>
+    <article className='flex flex-col items-center justify-center flex-1 w-full h-full gap-10 p-4'>
+      <h1 className='text-white text-8xl font-greek text-outline'>
+        Greek Gods Arena
+      </h1>
       <Link className='mx-auto my-auto' to='/lobby'>
-        <Button type='button'>Play</Button>
+        {/* <Button type='button' className='py-2 text-6xl'>
+          Play
+        </Button> */}
+        <button className='relative px-10 py-5 text-3xl font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg hover:bg-yellow-500 hover:translate-y-1'>
+          <span className='absolute text-6xl text-black transform -translate-x-1/2 -top-2 left-1/2'>
+            ⚡
+          </span>
+          Play
+          <span className='absolute text-5xl text-black transform -bottom-4 -right-6 rotate-12'>
+            🌩️
+          </span>
+        </button>
       </Link>
     </article>
   );

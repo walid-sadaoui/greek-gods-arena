@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        greek: '"Dalek Pinpoint"',
+        greek: '"Freckle Face"',
         mono: '"Share Tech Mono"',
         sans: 'Acme',
       },

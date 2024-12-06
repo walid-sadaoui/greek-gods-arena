@@ -25,7 +25,6 @@ const AppRoutes: FunctionComponent = () => {
   return (
     <Switch>
       <Route exact={true} path='/'>
-        <Header />
         <Home />
       </Route>
       <Route exact={true} path='/main'>
