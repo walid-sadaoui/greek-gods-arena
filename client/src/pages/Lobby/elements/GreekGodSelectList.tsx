@@ -3,9 +3,10 @@ import { Character } from 'models/Character';
 import React from 'react';
 import { GreekGodDetail } from './GreekGodDetail';
 import { useUniverse } from 'shared/context/UniverseContext';
+import { Universe } from 'models/Universe';
 
 interface CharactersListProps {
-  onSelectGod: (index: number) => void;
+  onSelectGod: (universe: Universe, index: number) => void;
 }
 
 export const GreekGodSelectList: React.FC<CharactersListProps> = ({
@@ -31,7 +32,7 @@ export const GreekGodSelectList: React.FC<CharactersListProps> = ({
   };
 
   React.useEffect(() => {
-    onSelectGod(currentIndex);
+    onSelectGod(universeSelected!, currentIndex);
   }, [currentIndex]);
 
   const renderGreekGodSelect = (character: Character, index: number) => {
@@ -39,7 +40,7 @@ export const GreekGodSelectList: React.FC<CharactersListProps> = ({
       index === currentIndex && (
         <li key={character.name}>
           <GreekGodDetail
-            onUpdate={() => onSelectGod(currentIndex)}
+            onUpdate={() => onSelectGod(universeSelected!, currentIndex)}
             character={character}
           />
         </li>

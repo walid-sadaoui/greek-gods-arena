@@ -109,7 +109,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
           animate={['start', 'attack', 'death', 'damage']}
           src={`/greek-gods/${opponent.name}.svg`}
           className={isLargeScreen ? 'h-[30rem]' : 'h-[20rem]'}
-          alt='God'
+          alt={opponent.name}
         ></motion.img>
       </div>
     </div>

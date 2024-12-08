@@ -1,3 +1,5 @@
+import Icon, { IconName } from 'components/common/Icon';
+import { GreekGodsArray } from 'models/Character';
 import React from 'react';
 import { Link } from 'react-router-dom';
 // import Button from 'components/common/Button';
@@ -32,18 +34,25 @@ export const Menu: React.FC = () => {
       <h1 className='text-white text-8xl font-greek text-outline'>
         Greek Gods Arena
       </h1>
-      <Link className='mx-auto my-auto' to='/lobby'>
+      <div className='flex items-center'>
+        {GreekGodsArray.map((god) => {
+          return (
+            <img
+              src={`/greek-gods/${god}.svg`}
+              alt={`${god}`}
+              className='h-20'
+            />
+          );
+        })}
+      </div>
+      <Link className='mx-auto' to='/lobby'>
         {/* <Button type='button' className='py-2 text-6xl'>
           Play
         </Button> */}
-        <button className='relative px-10 py-5 text-3xl font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg hover:bg-yellow-500 hover:translate-y-1'>
-          <span className='absolute text-6xl text-black transform -translate-x-1/2 -top-2 left-1/2'>
-            ⚡
-          </span>
+        <button className='flex items-center px-5 py-5 text-3xl font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg hover:bg-yellow-500 hover:translate-y-1'>
+          {/* <span className='text-6xl text-black'>⚡</span> */}
           Play
-          <span className='absolute text-5xl text-black transform -bottom-4 -right-6 rotate-12'>
-            🌩️
-          </span>
+          {/* <span className='text-6xl text-black'>🌩️</span> */}
         </button>
       </Link>
     </article>
