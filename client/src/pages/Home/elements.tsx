@@ -1,8 +1,5 @@
-import Icon, { IconName } from 'components/common/Icon';
-import { GreekGodsArray } from 'models/Character';
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import Button from 'components/common/Button';
 
 export const HowToPlay: React.FC = () => {
   return (
@@ -31,29 +28,16 @@ export const HowToPlay: React.FC = () => {
 export const Menu: React.FC = () => {
   return (
     <article className='flex flex-col items-center justify-center flex-1 w-full h-full gap-10 p-4'>
-      <h1 className='text-white text-8xl font-greek text-outline'>
-        Greek Gods Arena
-      </h1>
-      <div className='flex items-center'>
-        {GreekGodsArray.map((god) => {
-          return (
-            <img
-              src={`/greek-gods/${god}.svg`}
-              alt={`${god}`}
-              className='h-20'
-            />
-          );
-        })}
-      </div>
-      <Link className='mx-auto' to='/lobby'>
-        {/* <Button type='button' className='py-2 text-6xl'>
-          Play
-        </Button> */}
-        <button className='flex items-center px-5 py-5 text-3xl font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg hover:bg-yellow-500 hover:translate-y-1'>
-          {/* <span className='text-6xl text-black'>⚡</span> */}
-          Play
-          {/* <span className='text-6xl text-black'>🌩️</span> */}
-        </button>
+      <img
+        src={`/src/assets/img/gga-logo-svg(1).svg`}
+        alt={`gga-logo`}
+        className='h-full'
+      />
+      <Link
+        className='flex items-center px-12 py-5 mx-auto -mt-20 font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg text-7xl hover:bg-yellow-500 hover:translate-y-1'
+        to='/lobby'
+      >
+        Play
       </Link>
     </article>
   );

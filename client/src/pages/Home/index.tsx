@@ -5,8 +5,6 @@ import { Menu } from './elements';
 const Home: React.FC = () => {
   return (
     <ContainerRow>
-      {/* <HowToPlay /> */}
-      {/* <Separator /> */}
       <Menu />
     </ContainerRow>
   );
