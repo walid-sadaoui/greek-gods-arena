@@ -34,7 +34,7 @@ export const Menu: React.FC = () => {
         className='h-full'
       />
       <Link
-        className='flex items-center px-12 py-5 mx-auto -mt-20 font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg text-7xl hover:bg-yellow-500 hover:translate-y-1'
+        className='flex items-center px-12 py-5 mx-auto font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg text-7xl hover:bg-yellow-500 hover:translate-y-1'
         to='/lobby'
       >
         Play
