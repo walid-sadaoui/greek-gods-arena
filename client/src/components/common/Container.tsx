@@ -8,7 +8,7 @@ interface ContainerProps {
 const Container: React.FC<ContainerProps> = ({ children, title, subtitle }) => {
   return (
     <main
-      className={`flex flex-col items-center justify-center bg-white bg-opacity-80 h-full w-full p-4`}
+      className={`flex flex-col items-center justify-center backdrop-blur-md backdrop-brightness-150 mx-auto my-auto rounded-3xl w-auto h-auto p-12`}
     >
       {title && (
         <h2 className='px-4 py-2 text-2xl text-center font-greek'>{title}</h2>

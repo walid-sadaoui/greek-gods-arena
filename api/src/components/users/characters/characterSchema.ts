@@ -11,8 +11,8 @@ export const characterSchema = new Schema<ICharacter>({
   },
   skillPoints: { type: Number, required: true, default: 12 },
   health: { type: Number, required: true, default: 10 },
-  attack: { type: Number, required: true, default: 0 },
-  defense: { type: Number, required: true, default: 0 },
+  attack: { type: Number, required: true, default: 8 },
+  defense: { type: Number, required: true, default: 5 },
   magik: { type: Number, required: true, default: 0 },
   level: { type: Number, required: true, default: 1 },
 });

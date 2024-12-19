@@ -5,27 +5,20 @@ import Icon from './Icon';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   icon?: string;
-  size?: ButtonSize;
   value?: string;
   variant?: Variants;
-}
-
-export enum ButtonSize {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
 }
 
 export enum Variants {
   BASE = 'base',
   NEUTRAL = 'neutral',
+  DEFAULT = 'default',
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
   children,
   className = '',
   icon,
-  size = ButtonSize.MEDIUM,
   value,
   variant = Variants.NEUTRAL,
   ...otherProps
@@ -42,11 +35,15 @@ const Button: FunctionComponent<ButtonProps> = ({
           'hover:rounded-container hover:bg-yellow-100 hover:border-black disabled:bg-gray-100':
             variant === Variants.BASE,
         },
+        {
+          'text-white hover:rounded-container hover:bg-white hover:text-black disabled:bg-gray-100':
+            variant === Variants.DEFAULT,
+        },
         className
       )}
       {...otherProps}
     >
-      {icon && <Icon icon={icon} size={size} aria-hidden='true' />}
+      {icon && <Icon icon={icon} aria-hidden='true' />}
       {value ? <span className={icon && 'ml-2'}>{value}</span> : children}
     </button>
   );

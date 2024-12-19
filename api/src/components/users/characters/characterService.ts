@@ -1,7 +1,7 @@
 import HttpError from '../../../common/error/httpError';
 import { CharacterProperties, ICharacter } from './characterModel';
 import * as CharacterDM from './characterDataManager';
-import * as UserDM from '../userDataManager';
+import * as UniverseDM from '../../universes/universesDataManager';
 import {
   validateCharacterName,
   validateCharacterUpdate,
@@ -9,14 +9,14 @@ import {
 
 export const createCharacter = async (
   characterName: string,
-  userId: string
+  universeId: string
 ): Promise<ICharacter> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
 
-    if (currentUser.characters.length >= 10)
+    if (currentUniverse.characters.length >= 10)
       throw new HttpError(
         400,
         'Create Character Error',
@@ -25,7 +25,7 @@ export const createCharacter = async (
       );
 
     const characterExists = await CharacterDM.getCharacterByName(
-      currentUser,
+      currentUniverse,
       characterName
     );
     if (characterExists)
@@ -36,12 +36,12 @@ export const createCharacter = async (
         true
       );
 
-    const updatedUser = await CharacterDM.createCharacter(
-      currentUser,
+    const updatedUniverse = await CharacterDM.createCharacter(
+      currentUniverse,
       characterName
     );
     const createdCharacter = await CharacterDM.getCharacterByName(
-      updatedUser,
+      updatedUniverse,
       characterName
     );
     if (!createdCharacter)
@@ -63,11 +63,13 @@ export const createCharacter = async (
   }
 };
 
-export const getCharacters = async (userId: string): Promise<ICharacter[]> => {
+export const getCharacters = async (
+  universeId: string
+): Promise<ICharacter[]> => {
   try {
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
     const characters: ICharacter[] = await CharacterDM.getCharacters(
-      currentUser
+      currentUniverse
     );
     return characters;
   } catch (error) {
@@ -81,15 +83,15 @@ export const getCharacters = async (userId: string): Promise<ICharacter[]> => {
 };
 
 export const getCharacter = async (
-  userId: string,
+  universeId: string,
   characterName: string
 ): Promise<ICharacter> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
     const character = await CharacterDM.getCharacterByName(
-      currentUser,
+      currentUniverse,
       characterName
     );
 
@@ -113,15 +115,15 @@ export const getCharacter = async (
 };
 
 export const deleteCharacter = async (
-  userId: string,
+  universeId: string,
   characterName: string
 ): Promise<void> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
     const characterToDelete: ICharacter | undefined =
-      await CharacterDM.getCharacterByName(currentUser, characterName);
+      await CharacterDM.getCharacterByName(currentUniverse, characterName);
 
     if (!characterToDelete)
       throw new HttpError(
@@ -131,7 +133,7 @@ export const deleteCharacter = async (
         true
       );
 
-    await CharacterDM.deleteCharacter(currentUser, characterName);
+    await CharacterDM.deleteCharacter(currentUniverse, characterName);
   } catch (error) {
     throw new HttpError(
       error.statusCode || 500,
@@ -143,16 +145,16 @@ export const deleteCharacter = async (
 };
 
 export const updateCharacter = async (
-  userId: string,
+  universeId: string,
   characterName: string,
   newCharacterProperties: CharacterProperties
 ): Promise<ICharacter> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUser = await UserDM.getUser(userId);
+    const currentUniverse = await UniverseDM.getUniverse(universeId);
     const characterToUpdate: ICharacter | undefined =
-      await CharacterDM.getCharacterByName(currentUser, characterName);
+      await CharacterDM.getCharacterByName(currentUniverse, characterName);
     if (!characterToUpdate)
       throw new HttpError(
         404,
@@ -166,7 +168,7 @@ export const updateCharacter = async (
       '_id' | 'name' | 'level'
     > = validateCharacterUpdate(characterToUpdate, newCharacterProperties);
     const updatedCharacter: ICharacter = await CharacterDM.updateCharacter(
-      currentUser,
+      currentUniverse,
       characterName,
       updatedCharacterProperties
     );

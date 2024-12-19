@@ -25,10 +25,8 @@ const Arena: React.FC = () => {
     <main className='flex flex-col w-full h-full'>
       {fight && (
         <>
-          {/* <StatusBar fight={fight} turnCount={turnCount} /> */}
-          <div className='flex flex-col justify-between flex-1'>
+          <div className='flex flex-col justify-end flex-1'>
             <FightRing fight={fight} turnCount={turnCount} />
-            <FightTurn fight={fight} turnCount={turnCount} />
             <ArenaFooter
               fight={fight}
               turnCount={turnCount}

@@ -2,18 +2,18 @@ import { createCharacter } from 'api/users';
 import Button from 'components/common/Button';
 import { Character, GreekGods } from 'models/Character';
 import React from 'react';
-import { useAuth } from 'shared/context/AuthContext';
+import { useUniverse } from 'shared/context/UniverseContext';
 
 export const CharacterToHire: React.FC<{
   greekGodName: GreekGods;
   onHire: (character: Character) => void;
 }> = ({ greekGodName, onHire }) => {
-  const { getUser, updateUserState } = useAuth();
+  const { universeSelected } = useUniverse();
 
   const hireGod = async (): Promise<void> => {
-    const { data } = await createCharacter(getUser()._id, greekGodName);
+    const { data } = await createCharacter(universeSelected!._id, greekGodName);
     if (data) {
-      await updateUserState();
+      // await updateUserState();
       onHire(data.character);
     }
   };
