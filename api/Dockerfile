@@ -1,4 +1,4 @@
-FROM node:16.18.0 as build
+FROM node:22.11.0 as build
 
 LABEL version="0.0.1"
 LABEL description="Greek Gods Arena API"
@@ -11,7 +11,7 @@ RUN ls -l
 RUN npm ci
 RUN npm run build
 
-FROM node:16.18.0
+FROM node:22.11.0
 
 LABEL version="0.0.1"
 LABEL description="Greek Gods Arena API"

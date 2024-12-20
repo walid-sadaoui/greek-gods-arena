@@ -1,4 +1,4 @@
-FROM node:16.18.0 as build
+FROM node:22.11.0 as build
 
 ARG VITE_API_URL
 
