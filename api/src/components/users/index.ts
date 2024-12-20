@@ -1,5 +1,5 @@
 import {
-  decodeHeader,
+  // decodeHeader,
   validateUserIdRequestParam,
 } from '../auth/authMiddlewares';
 import express from 'express';
@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.get(
   '/:id/characters',
-  decodeHeader,
+  // decodeHeader,
   validateUserIdRequestParam,
   async (req, res, next) => {
     try {
@@ -38,7 +38,7 @@ router.get(
 
 router.get(
   '/:id/characters/:characterName',
-  decodeHeader,
+  // decodeHeader,
   validateUserIdRequestParam,
   async (req, res, next) => {
     try {
@@ -61,7 +61,7 @@ router.get(
 
 router.post(
   '/:id/characters',
-  decodeHeader,
+  // decodeHeader,
   validateUserIdRequestParam,
   async (req, res, next) => {
     try {
@@ -85,7 +85,7 @@ router.post(
 
 router.delete(
   '/:id/characters/:characterName',
-  decodeHeader,
+  // decodeHeader,
   validateUserIdRequestParam,
   async (req, res, next) => {
     try {
@@ -107,7 +107,7 @@ router.delete(
 
 router.post(
   '/:id/characters/:characterName',
-  decodeHeader,
+  // decodeHeader,
   validateUserIdRequestParam,
   async (req, res, next) => {
     try {

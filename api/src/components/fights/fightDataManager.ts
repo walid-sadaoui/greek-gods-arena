@@ -9,7 +9,7 @@ export const createFight = async (
 ): Promise<IFight & mongoose.Document<any, any, IFight>> => {
   let newFight = new Fight({ firstOpponent, secondOpponent });
   newFight = await newFight.save();
-  return newFight;
+  return newFight as IFight & mongoose.Document<any, any, IFight>;
 };
 
 export const getFight = async (fightId: string): Promise<IFight> => {

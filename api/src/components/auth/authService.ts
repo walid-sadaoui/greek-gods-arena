@@ -1,12 +1,12 @@
-import argon2 from 'argon2-ffi';
-import crypto from 'crypto';
-import * as Bluebird from 'bluebird';
-import Debug from 'debug';
+// import argon2 from 'argon2-ffi';
+// import crypto from 'crypto';
+// import * as Bluebird from 'bluebird';
+// import Debug from 'debug';
 import Joi from 'joi';
 import HttpError from '../../common/error/httpError';
 import User from '../users/userSchema';
 import { UserData } from '../users/userModel';
-import { generateJwt } from '../../common/utils/jwt';
+// import { generateJwt } from '../../common/utils/jwt';
 import {
   GreekGods,
   GreekGodsArray,
@@ -14,26 +14,26 @@ import {
 } from '../users/characters/characterModel';
 import Character from '../users/characters/characterSchema';
 
-const debug = Debug('my-memo-api:auth-service');
+// const debug = Debug('my-memo-api:auth-service');
 
-const { argon2i } = argon2;
-const randomBytes = Bluebird.Promise.promisify(crypto.randomBytes);
+// const { argon2i } = argon2;
+// const randomBytes = Bluebird.Promise.promisify(crypto.randomBytes);
 
-const hashPassword = async (password: string): Promise<string> => {
-  try {
-    return randomBytes(32).then((salt) => argon2i.hash(password, salt));
-  } catch (error) {
-    debug(error);
-    throw error;
-  }
-};
+// const hashPassword = async (password: string): Promise<string> => {
+//   try {
+//     return randomBytes(32).then((salt) => argon2i.hash(password, salt));
+//   } catch (error) {
+//     debug(error);
+//     throw error;
+//   }
+// };
 
-const verifyPassword = (
-  encodedHash: string,
-  password: string
-): Promise<boolean> => {
-  return argon2i.verify(encodedHash, password);
-};
+// const verifyPassword = (
+//   encodedHash: string,
+//   password: string
+// ): Promise<boolean> => {
+//   return argon2i.verify(encodedHash, password);
+// };
 
 const validatePassword = (password: string): boolean => {
   const passwordSchema = Joi.string()
@@ -116,7 +116,7 @@ const signUp = async (
       );
     }
 
-    const hashedPassword: string = await hashPassword(password);
+    // const hashedPassword: string = await hashPassword(password);
 
     const characters: ICharacter[] = GreekGodsArray.map(
       (greekGod: GreekGods) => {
@@ -126,7 +126,7 @@ const signUp = async (
     const newUser = new User({
       username,
       email,
-      password: hashedPassword,
+      password,
       characters,
     });
     const userSignedUp = await newUser.save();
@@ -143,58 +143,58 @@ const signUp = async (
   }
 };
 
-const logIn = async (
-  email: string,
-  password: string
-): Promise<{ userInfo: UserData; token: string; refreshToken: string }> => {
-  try {
-    if (!email || !password) {
-      throw new HttpError(
-        400,
-        'Auth error',
-        'Email and Password are required',
-        true
-      );
-    }
+// const logIn = async (
+//   email: string,
+//   password: string
+// ): Promise<{ userInfo: UserData; token: string; refreshToken: string }> => {
+//   try {
+//     if (!email || !password) {
+//       throw new HttpError(
+//         400,
+//         'Auth error',
+//         'Email and Password are required',
+//         true
+//       );
+//     }
 
-    if (!validateEmail(email)) {
-      throw new HttpError(422, 'Auth error', 'Invalid email format', true);
-    }
+//     if (!validateEmail(email)) {
+//       throw new HttpError(422, 'Auth error', 'Invalid email format', true);
+//     }
 
-    if (!validatePassword(password)) {
-      throw new HttpError(
-        422,
-        'Auth error',
-        'Invalid password format : password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character and at most 26 characters',
-        true
-      );
-    }
+//     if (!validatePassword(password)) {
+//       throw new HttpError(
+//         422,
+//         'Auth error',
+//         'Invalid password format : password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character and at most 26 characters',
+//         true
+//       );
+//     }
 
-    const user = await User.findOne({ email }).lean();
-    if (!user) {
-      throw new HttpError(409, 'Auth error', 'Invalid credentials', true);
-    }
+//     const user = await User.findOne({ email }).lean();
+//     if (!user) {
+//       throw new HttpError(409, 'Auth error', 'Invalid credentials', true);
+//     }
 
-    const passwordValid = await verifyPassword(user.password, password);
-    if (!passwordValid) {
-      throw new HttpError(409, 'Auth error', 'Invalid credentials', true);
-    }
+//     // const passwordValid = await verifyPassword(user.password, password);
+//     // if (!passwordValid) {
+//     //   throw new HttpError(409, 'Auth error', 'Invalid credentials', true);
+//     // }
 
-    const { password: userPassword, ...rest } = user;
-    const userInfo: UserData = { ...rest };
+//     const { password: userPassword, ...rest } = user;
+//     const userInfo: UserData = { ...rest };
 
-    const token = generateJwt(userInfo, '1h');
-    const refreshToken = generateJwt({ userId: userInfo._id }, '3d');
+//     // const token = generateJwt(userInfo, '1h');
+//     // const refreshToken = generateJwt({ userId: userInfo._id }, '3d');
 
-    return { userInfo, token, refreshToken };
-  } catch (error) {
-    throw new HttpError(
-      error.statusCode || 500,
-      'Auth error',
-      error.message || 'There was a problem logging into your account',
-      true
-    );
-  }
-};
+//     return { userInfo, token, refreshToken };
+//   } catch (error) {
+//     throw new HttpError(
+//       error.statusCode || 500,
+//       'Auth error',
+//       error.message || 'There was a problem logging into your account',
+//       true
+//     );
+//   }
+// };
 
-export { signUp, logIn, hashPassword, verifyPassword /* validatePassword*/ };
+export { signUp /*logIn, hashPassword, verifyPassword, validatePassword*/ };

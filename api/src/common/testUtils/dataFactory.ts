@@ -1,4 +1,4 @@
-import { hashPassword } from '../../components/auth/authService';
+// import { hashPassword } from '../../components/auth/authService';
 import User from '../../components/users/userSchema';
 import * as faker from 'faker';
 import { IUser } from '../../components/users/userModel';
@@ -31,7 +31,7 @@ export const createUser = async (): Promise<IUser> => {
     const username = faker.internet.userName();
     const email = faker.internet.email();
     const password = FakePassword.GOOD;
-    const hashedPassword: string = await hashPassword(password);
+    // const hashedPassword: string = await hashPassword(password);
     const characters: ICharacter[] = GreekGodsArray.map(
       (greekGod: GreekGods) => {
         return new Character({ name: greekGod });
@@ -40,7 +40,7 @@ export const createUser = async (): Promise<IUser> => {
     const newUser = new User({
       username,
       email,
-      password: hashedPassword,
+      password,
       characters,
     });
     const userSignedUp = await newUser.save();
