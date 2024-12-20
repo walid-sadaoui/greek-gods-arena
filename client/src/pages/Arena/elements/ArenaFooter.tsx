@@ -1,4 +1,4 @@
-import Button, { ButtonSize, Variants } from 'components/common/Button';
+import Button, { Variants } from 'components/common/Button';
 import { IconName } from 'components/common/Icon';
 import { Fight } from 'models/Fight';
 import React from 'react';
