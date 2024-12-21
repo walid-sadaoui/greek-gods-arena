@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export interface ITurn {
   count: number;
   attacker: IAttacker;
@@ -7,13 +9,13 @@ export interface ITurn {
 }
 
 export interface IAttacker {
-  id: string;
+  id: mongoose.Types.ObjectId;
   attackValue: number;
   remainingHealth: number;
 }
 
 export interface IDefender {
-  id: string;
+  id: mongoose.Types.ObjectId;
   defenseSkillPoints: number;
   remainingHealth: number;
 }

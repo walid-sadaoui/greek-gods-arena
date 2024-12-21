@@ -130,7 +130,7 @@ const signUp = async (
       characters,
     });
     const userSignedUp = await newUser.save();
-    const { password: userPassword, __v, ...rest } = userSignedUp.toObject();
+    const { password: userPassword, ...rest } = userSignedUp.toObject();
     const userInfo = { ...rest };
     return userInfo;
   } catch (error) {

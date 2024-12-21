@@ -146,8 +146,7 @@ export const launchFight = async (
   fight.loser = defender._id;
   fight = await fight.save();
   await updateOpponentsProperties(attacker, defender);
-  const { __v, id, ...rest } = fight.toObject();
-  const finishedFight: IFight = rest;
+  const finishedFight: IFight = fight.toObject();
   return finishedFight;
 };
 

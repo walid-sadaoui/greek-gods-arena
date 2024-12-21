@@ -44,7 +44,7 @@ export const createUser = async (): Promise<IUser> => {
       characters,
     });
     const userSignedUp = await newUser.save();
-    const { password: userPassword, __v, ...rest } = userSignedUp.toObject();
+    const { password: userPassword, ...rest } = userSignedUp.toObject();
     const userInfo: IUser = { ...rest, password };
     return userInfo;
   } catch (error) {
