@@ -10,10 +10,10 @@ const PORT: number = parseInt(config.port);
 const connectDatabase = async () => {
   if (config.databaseUrl) {
     await mongoose.connect(config.databaseUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+      // useCreateIndex: true,
+      // useFindAndModify: false,
     });
     const db = mongoose.connection;
     await seedData();

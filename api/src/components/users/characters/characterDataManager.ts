@@ -55,7 +55,7 @@ export const updateCharacter = async (
 };
 
 export const updateCharacterById = async (
-  characterId: string,
+  characterId: mongoose.Types.ObjectId,
   characterName: string,
   newCharacterProperties: Partial<ICharacter>
 ): Promise<ICharacter | void> => {

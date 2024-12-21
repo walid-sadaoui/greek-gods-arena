@@ -8,10 +8,10 @@ const connect = async (): Promise<void> => {
   mongod = await mongoServer.create();
   const uri = await mongod.getUri();
   await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // useCreateIndex: true,
+    // useFindAndModify: false,
   });
 };
 

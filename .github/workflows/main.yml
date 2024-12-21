@@ -15,12 +15,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "22.11.0"
 
-      - name: Install build dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential python3
+      # - name: Install build dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y build-essential python3
       # - name: Login to Docker Hub
       #   uses: docker/login-action@v2
       #   with:
@@ -44,34 +44,50 @@ jobs:
       #     push: true
       #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/greek-gods-arena-client:latest
 
-      # Étape 2 : Build le frontend React
-      - name: Build React app
-        run: |
-          cd client
-          npm install
-          npm run build
-      - name: Install dependencies and build api
-        run: |
-          cd api
-          npm install
-          npm run build
+      # - name: Build React app
+      #   run: |
+      #     cd client
+      #     npm install
+      #     npm run build
+      # - name: Install dependencies and build api
+      #   run: |
+      #     cd api
+      #     npm install
+      #     npm run build
 
-      - name: Deploy to VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_PORT: ${{ secrets.VPS_PORT }}
-        run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
-          chmod 600 private_key
-          scp -i private_key -p $VPS_PORT -r client/dist/* $VPS_USER@$VPS_HOST:/var/www/greek-gods-arena/client/
-          scp -i private_key -p $VPS_PORT -r api/* $VPS_USER@$VPS_HOST:/var/www/greek-gods-arena/api/
-          ssh -i private_key -p $VPS_PORT $VPS_USER@$VPS_HOST << 'EOF'
-            cd /var/www/greek-gods-arena/api
-            npm install --production
-            pm2 restart all || pm2 start dist/server.js --name "api"
-          EOF
+      # - name: Deploy to VPS
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     VPS_USER: ${{ secrets.VPS_USER }}
+      #     VPS_HOST: ${{ secrets.VPS_HOST }}
+      #     VPS_PORT: ${{ secrets.VPS_PORT }}
+      #   run: |
+      #     echo "$SSH_PRIVATE_KEY" > private_key
+      #     chmod 600 private_key
+      #     echo "start scp"
+      #     mkdir -p ~/.ssh
+      #     pwd
+      #     ls -lah client/dist
+      #     ssh-keyscan -p $VPS_PORT $VPS_HOST >> ~/.ssh/known_hosts
+      #     if [ -d "client/dist" ]; then
+      #       scp -i private_key -P $VPS_PORT -r client/dist/* $VPS_USER@$VPS_HOST:/var/www/greek-gods-arena/client/
+      #       echo "scp client OK"
+      #     else
+      #       echo "client/dist directory does not exist"
+      #       exit 1
+      #     fi
+      #     if [ -d "api" ]; then
+      #       scp -i private_key -P $VPS_PORT -r api/* $VPS_USER@$VPS_HOST:/var/www/greek-gods-arena/api/
+      #       echo "scp api OK"
+      #     else
+      #       echo "api directory does not exist"
+      #       exit 1
+      #     fi
+      #     ssh -i private_key -p $VPS_PORT $VPS_USER@$VPS_HOST << 'EOF'
+      #       cd /var/www/greek-gods-arena/api
+      #       npm install --production
+      #       pm2 restart all || pm2 start dist/server.js --name "api"
+      #     EOF
 
       # - name: Install Package for production
       #   run: rm -r node_modules && npm install --omit=dev
@@ -94,3 +110,49 @@ jobs:
 
       # - name: Deploy NodeModule
       #   run: rsync -avz -e "ssh -p ${{ secrets.PORT }}" node_modules/ ${{ secrets.USER }}@${{ secrets.HOST }}:/var/www/greek-gods-arena/node_modules
+
+      # Installation et build du front
+      - name: Build React app
+        working-directory: ./client
+        env:
+          VITE_API_URL: https://greek-gods-arena.walidsadaoui.com/api
+        run: |
+          npm ci
+          npm run build
+
+      # Installation des dépendances du back
+      - name: Install API dependencies
+        working-directory: ./api
+        run: |
+          npm ci
+          npm run build
+
+      # Copie des fichiers vers le VPS
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "client/dist/,api/dist/, api/package.json, api/package-lock.json"
+          target: "/var/www/greek-gods-arena"
+          # strip_components: 1
+      # Redémarrage des services sur le VPS
+      - name: Restart services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Mise à jour des dépendances du back
+            cd /var/www/greek-gods-arena/api
+            npm ci --omit=dev
+
+            # Redémarrage du back avec PM2
+            pm2 restart ecosystem.config.js
+
+            # Redémarrage de Caddy
+            # sudo -S systemctl reload caddy

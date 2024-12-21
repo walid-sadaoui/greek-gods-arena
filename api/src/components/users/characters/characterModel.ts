@@ -1,5 +1,7 @@
+import mongoose from 'mongoose';
+
 export interface ICharacter {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   skillPoints: number;
   health: number;
