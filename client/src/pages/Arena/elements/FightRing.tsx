@@ -1,8 +1,8 @@
-import React from 'react';
-import { Character } from 'models/Character';
-import { Fight } from 'models/Fight';
-import FightTurn from './FightTurn';
-import { FightOpponent } from './FightRing/FightOpponent';
+import React from "react";
+import { Character } from "models/Character";
+import { Fight } from "models/Fight";
+import FightTurn from "./FightTurn";
+import { FightOpponent } from "./FightRing/FightOpponent";
 
 interface FightRingProps {
   fight: Fight;
@@ -22,9 +22,9 @@ const FightRing: React.FC<FightRingProps> = ({ fight, turnCount }) => {
   };
 
   return (
-    <div className='flex flex-col justify-end flex-1 pt-8'>
+    <div className="flex flex-col justify-end flex-1 pt-8">
       <FightTurn fight={fight} turnCount={turnCount} />
-      <div className='flex items-center justify-around pb-8 gap-36'>
+      <div className="flex items-center justify-around pb-8 gap-36">
         <FightOpponent
           opponent={fight.firstOpponent}
           remainingHealth={getRemainingHealth(fight, fight.firstOpponent)}

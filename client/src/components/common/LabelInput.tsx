@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import Input from './Input';
+import React, { forwardRef } from "react";
+import Input from "./Input";
 
 interface LabelInputProps {
   label: string;
@@ -21,7 +21,7 @@ const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
       <React.Fragment>
         <label htmlFor={id} className={className}>
           {label}
-          {required && <span className='text-red-500'>*</span>}
+          {required && <span className="text-red-500">*</span>}
         </label>
         <Input
           id={id}
@@ -30,7 +30,7 @@ const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
           name={name}
           ref={ref}
           maxLength={maxLength}
-          className='w-full p-2 border-2 border-black rounded'
+          className="w-full p-2 border-2 border-black rounded"
           {...otherProps}
         />
       </React.Fragment>

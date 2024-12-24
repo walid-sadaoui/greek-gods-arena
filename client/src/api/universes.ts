@@ -1,5 +1,6 @@
-import { APIResponse, getRequest, ResponseData } from '.';
-import { Universe } from 'models/Universe';
+import { Character, CharacterSkills } from "models/Character";
+import { APIResponse, getRequest, postRequest, ResponseData } from "./utils";
+import { Universe } from "models/Universe";
 
 interface GetUniversesData extends ResponseData {
   universes: Universe[];
@@ -9,37 +10,40 @@ interface GetUniverseData extends ResponseData {
   universe: Universe;
 }
 
-// export const getCurrentUser = async (): Promise<APIResponse<GetUserData>> => {
-//   const getCurrentUserResponse = await getRequest<GetUserData>('/me');
-//   return getCurrentUserResponse;
-// };
+interface GetUniverseData extends ResponseData {
+  universe: Universe;
+}
+
+interface EditCharacterData extends ResponseData {
+  character: Character;
+}
 
 export const getUniverses = async (): Promise<
   APIResponse<GetUniversesData>
 > => {
-  const getCurrentUserResponse = await getRequest<GetUniversesData>(
-    '/universes'
+  const getCurrentUniverseResponse = await getRequest<GetUniversesData>(
+    "/universes"
   );
-  return getCurrentUserResponse;
+  return getCurrentUniverseResponse;
 };
 
 export const getUniverse = async (
   universeId: string
 ): Promise<APIResponse<GetUniverseData>> => {
-  const getCurrentUserResponse = await getRequest<GetUniverseData>(
+  const getCurrentUniverseResponse = await getRequest<GetUniverseData>(
     `/universes/${universeId}`
   );
-  return getCurrentUserResponse;
+  return getCurrentUniverseResponse;
 };
 
-// export const updateCharacter = async (
-//   userId: string,
-//   characterName: string,
-//   characterProperties: CharacterSkills
-// ): Promise<APIResponse<EditCharacterData>> => {
-//   const editCharacterResponse = await postRequest<EditCharacterData>(
-//     `/users/${userId}/characters/${characterName}`,
-//     JSON.stringify(characterProperties)
-//   );
-//   return editCharacterResponse;
-// };
+export const updateCharacter = async (
+  universeId: string,
+  characterName: string,
+  characterProperties: CharacterSkills
+): Promise<APIResponse<EditCharacterData>> => {
+  const editCharacterResponse = await postRequest<EditCharacterData>(
+    `/universes/${universeId}/characters/${characterName}`,
+    JSON.stringify(characterProperties)
+  );
+  return editCharacterResponse;
+};

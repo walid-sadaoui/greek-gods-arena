@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { updateCharacter } from 'api/users';
-import { Character } from 'models/Character';
-import Button, { Variants } from 'components/common/Button';
-import SkillUpdater from './SkillUpdater';
-import { IconName } from 'components/common/Icon';
-import { useUniverse } from 'shared/context/UniverseContext';
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Character } from "models/Character";
+import Button, { Variants } from "components/common/Button";
+import SkillUpdater from "./SkillUpdater";
+import { IconName } from "components/common/Icon";
+import { useUniverse } from "shared/context/UniverseContext";
+import { updateCharacter } from "api/universes";
 
 interface CharacterEditProps {
   character: Character;
@@ -20,17 +20,17 @@ interface EditCharacterInput {
   magik: number;
 }
 
-const SERVER_ERROR = 'Server Error, please try again later';
+const SERVER_ERROR = "Server Error, please try again later";
 
 const CharacterEdit: React.FC<CharacterEditProps> = ({
   character,
   onUpdate,
   onCancel,
 }) => {
-  const [serverErrorMessage, setServerErrorMessage] = useState<string>('');
+  const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
   const [characterToEdit, setCharacterToEdit] = useState<Character>(character);
   const { handleSubmit, register, setValue } = useForm<EditCharacterInput>({
-    mode: 'all',
+    mode: "all",
   });
   const { universeSelected } = useUniverse();
 
@@ -67,7 +67,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
 
   const increaseSkill = (skillName: string): void => {
     switch (skillName) {
-      case 'health':
+      case "health":
         setCharacterToEdit({
           ...characterToEdit,
           ...{
@@ -76,7 +76,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           },
         });
         break;
-      case 'attack':
+      case "attack":
         const remainingAttack =
           characterToEdit.skillPoints -
           Math.ceil((characterToEdit.attack + 1) / 5);
@@ -88,7 +88,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           },
         });
         break;
-      case 'defense':
+      case "defense":
         const remainingDefense =
           characterToEdit.skillPoints -
           Math.ceil((characterToEdit.defense + 1) / 5);
@@ -100,7 +100,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           },
         });
         break;
-      case 'magik':
+      case "magik":
         const remainingMagik =
           characterToEdit.skillPoints -
           Math.ceil((characterToEdit.magik + 1) / 5);
@@ -120,7 +120,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
 
   const decreaseSkill = (skillName: string): void => {
     switch (skillName) {
-      case 'health':
+      case "health":
         setCharacterToEdit({
           ...characterToEdit,
           ...{
@@ -129,7 +129,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           },
         });
         break;
-      case 'attack':
+      case "attack":
         const remainingAttack =
           characterToEdit.skillPoints +
           (characterToEdit.attack === 1
@@ -143,7 +143,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           },
         });
         break;
-      case 'defense':
+      case "defense":
         const remainingDefense =
           characterToEdit.skillPoints +
           (characterToEdit.defense === 1
@@ -157,7 +157,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           },
         });
         break;
-      case 'magik':
+      case "magik":
         const remainingMagik =
           characterToEdit.skillPoints +
           (characterToEdit.magik === 1
@@ -194,7 +194,6 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           }
         );
         universeSelected!.characters[updatedCharacterIndex] = data.character;
-        // setUser(getUser());
         setCharacterToEdit(data.character);
         onUpdate(data.character);
       }
@@ -207,10 +206,10 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   };
 
   React.useEffect(() => {
-    setValue('health', characterToEdit.health);
-    setValue('attack', characterToEdit.attack);
-    setValue('defense', characterToEdit.defense);
-    setValue('magik', characterToEdit.magik);
+    setValue("health", characterToEdit.health);
+    setValue("attack", characterToEdit.attack);
+    setValue("defense", characterToEdit.defense);
+    setValue("magik", characterToEdit.magik);
   }, [characterToEdit]);
 
   React.useEffect(() => {
@@ -218,66 +217,66 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   }, [character]);
 
   React.useEffect(() => {
-    register('health');
-    register('attack');
-    register('defense');
-    register('magik');
+    register("health");
+    register("attack");
+    register("defense");
+    register("magik");
   }, []);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex flex-col items-center p-4'
+      className="flex flex-col items-center p-4"
     >
-      <span className='font-sans uppercase'>
+      <span className="font-sans uppercase">
         SkillPoints : {characterToEdit.skillPoints}
       </span>
       <SkillUpdater
         onChange={(skillValue) =>
-          updateSkill(skillValue, 'health', characterToEdit.health)
+          updateSkill(skillValue, "health", characterToEdit.health)
         }
-        label='Health'
+        label="Health"
         maxPropertyValue={getMaxHealthValue()}
         minPropertyValue={character.health}
         value={characterToEdit.health}
       />
       <SkillUpdater
         onChange={(skillValue) => {
-          updateSkill(skillValue, 'attack', characterToEdit.attack);
+          updateSkill(skillValue, "attack", characterToEdit.attack);
         }}
-        label='Attack'
+        label="Attack"
         maxPropertyValue={getMaxPropertyValue(characterToEdit.attack)}
         minPropertyValue={character.attack}
         value={characterToEdit.attack}
       />
       <SkillUpdater
         onChange={(skillValue) =>
-          updateSkill(skillValue, 'defense', characterToEdit.defense)
+          updateSkill(skillValue, "defense", characterToEdit.defense)
         }
-        label='Defense'
+        label="Defense"
         maxPropertyValue={getMaxPropertyValue(characterToEdit.defense)}
         minPropertyValue={character.defense}
         value={characterToEdit.defense}
       />
       <SkillUpdater
         onChange={(skillValue) =>
-          updateSkill(skillValue, 'magik', characterToEdit.magik)
+          updateSkill(skillValue, "magik", characterToEdit.magik)
         }
-        label='Magik'
+        label="Magik"
         maxPropertyValue={getMaxPropertyValue(characterToEdit.magik)}
         minPropertyValue={character.magik}
         value={characterToEdit.magik}
       />
-      <div className='flex items-center'>
+      <div className="flex items-center">
         <Button
           icon={IconName.CLOSE}
           onClick={onCancel}
-          className='text-red-500'
+          className="text-red-500"
           variant={Variants.BASE}
         />
         <Button
-          type='submit'
-          className='text-green-500'
+          type="submit"
+          className="text-green-500"
           icon={IconName.CHECK}
           disabled={
             character.name !== characterToEdit.name ||
@@ -286,7 +285,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
           }
         />
       </div>
-      <span className='text-red-500'>{serverErrorMessage}</span>
+      <span className="text-red-500">{serverErrorMessage}</span>
     </form>
   );
 };

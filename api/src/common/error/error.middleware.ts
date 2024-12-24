@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import HttpError from './httpError';
+import { Request, Response, NextFunction } from "express";
+import HttpError from "./httpError";
 
 const errorHandler = (
   error: HttpError,
@@ -11,7 +11,7 @@ const errorHandler = (
   const status = error.statusCode || 500;
   const httpError = new HttpError(
     status,
-    error.description || 'Server Error',
+    error.description || "Server Error",
     error.message,
     error.isOperational || false
   );

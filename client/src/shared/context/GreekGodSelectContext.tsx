@@ -1,5 +1,5 @@
-import React from 'react';
-import { Character } from 'models/Character';
+import React from "react";
+import { Character } from "models/Character";
 
 type GreekGodSelectContextProps = {
   greekGodSelected: Character | undefined;
@@ -16,7 +16,7 @@ const useGreekGodSelect = (): GreekGodSelectContextProps => {
   const greekGodSelectContext = React.useContext(GreekGodSelectContext);
   if (greekGodSelectContext === undefined)
     throw new Error(
-      'useGreekGodSelect must be used within an GreekGodSelectProvider'
+      "useGreekGodSelect must be used within an GreekGodSelectProvider"
     );
   return greekGodSelectContext;
 };

@@ -1,56 +1,15 @@
-// import { hashPassword } from '../../components/auth/authService';
-import User from '../../components/users/userSchema';
-import * as faker from 'faker';
-import { IUser } from '../../components/users/userModel';
+import * as UniverseDM from "../../apps/universes/universesDataManager";
+import * as CharacterDM from "../../apps/characters/characterDataManager";
+import * as FightUtils from "../../apps/fights/fightUtils";
+import { IFight } from "../../apps/fights/fightModel";
+import Universe from "../../apps/universes/universesSchema";
+import { IUniverse } from "../../apps/universes/universesModel";
 import {
   GreekGods,
   GreekGodsArray,
   ICharacter,
-} from '../../components/users/characters/characterModel';
-import * as UniverseDM from '../../components/universes/universesDataManager';
-import * as CharacterDM from '../../components/users/characters/characterDataManager';
-import * as FightUtils from '../../components/fights/fightUtils';
-import { IFight } from '../../components/fights/fightModel';
-import Character from '../../components/users/characters/characterSchema';
-import Universe from '../../components/universes/universesSchema';
-import { IUniverse } from '../../components/universes/universesModel';
-
-export enum FakePassword {
-  GOOD = 'abcABC123456!',
-  GOOD_2 = 'defDEF123456!',
-  LESS_THAN_8_CHAR = 'aA123!',
-  // NO_DIGIT = 'abcdefABCDEF!',
-  // No_LOWERCASE = 'ABCDEF123456!',
-  // NO_UPPERCASE = 'abcdef123456!',
-  // MORE_THAN_26_CHAR = 'abcABC123456!abcABC123456!',
-}
-
-// créer un user
-export const createUser = async (): Promise<IUser> => {
-  try {
-    const username = faker.internet.userName();
-    const email = faker.internet.email();
-    const password = FakePassword.GOOD;
-    // const hashedPassword: string = await hashPassword(password);
-    const characters: ICharacter[] = GreekGodsArray.map(
-      (greekGod: GreekGods) => {
-        return new Character({ name: greekGod });
-      }
-    );
-    const newUser = new User({
-      username,
-      email,
-      password,
-      characters,
-    });
-    const userSignedUp = await newUser.save();
-    const { password: userPassword, ...rest } = userSignedUp.toObject();
-    const userInfo: IUser = { ...rest, password };
-    return userInfo;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+} from "../../apps/characters/characterModel";
+import Character from "../../apps/characters/characterSchema";
 
 // create universe
 export const createUniverse = async (

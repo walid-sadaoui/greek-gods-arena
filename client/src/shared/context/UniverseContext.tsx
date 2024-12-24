@@ -1,6 +1,6 @@
-import React, { SetStateAction, useEffect } from 'react';
-import { Universe } from 'models/Universe';
-import { getUniverses } from 'api/universes';
+import React, { SetStateAction, useEffect } from "react";
+import { Universe } from "models/Universe";
+import { getUniverses } from "api/universes";
 
 type UniverseContextProps = {
   universes: Universe[];
@@ -16,7 +16,7 @@ const UniverseContext = React.createContext<UniverseContextProps | undefined>(
 const useUniverse = (): UniverseContextProps => {
   const universeContext = React.useContext(UniverseContext);
   if (universeContext === undefined)
-    throw new Error('useUniverse must be used within an UniverseProvider');
+    throw new Error("useUniverse must be used within an UniverseProvider");
   return universeContext;
 };
 

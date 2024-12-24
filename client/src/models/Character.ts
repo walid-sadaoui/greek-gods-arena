@@ -17,19 +17,19 @@ export interface CharacterSkills {
 }
 
 export enum GreekGods {
-  APHRODITE = 'APHRODITE',
-  APOLLO = 'APOLLO',
-  ARES = 'ARES',
-  ARTEMIS = 'ARTEMIS',
-  ATHENA = 'ATHENA',
-  DEMETER = 'DEMETER',
-  DIONYSUS = 'DIONYSUS',
-  HADES = 'HADES',
-  HEPHAESTUS = 'HEPHAESTUS',
-  HERA = 'HERA',
-  HERMES = 'HERMES',
-  POSEIDON = 'POSEIDON',
-  ZEUS = 'ZEUS',
+  APHRODITE = "APHRODITE",
+  APOLLO = "APOLLO",
+  ARES = "ARES",
+  ARTEMIS = "ARTEMIS",
+  ATHENA = "ATHENA",
+  DEMETER = "DEMETER",
+  DIONYSUS = "DIONYSUS",
+  HADES = "HADES",
+  HEPHAESTUS = "HEPHAESTUS",
+  HERA = "HERA",
+  HERMES = "HERMES",
+  POSEIDON = "POSEIDON",
+  ZEUS = "ZEUS",
 }
 
 export const GreekGodsArray = Object.values(GreekGods);
