@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/img/logo-gga.svg';
 
 export const HowToPlay: React.FC = () => {
   return (
@@ -28,11 +29,7 @@ export const HowToPlay: React.FC = () => {
 export const Menu: React.FC = () => {
   return (
     <article className='flex flex-col items-center justify-center flex-1 w-full h-full gap-10 p-4'>
-      <img
-        src={`/src/assets/img/logo-gga.svg`}
-        alt={`gga-logo`}
-        className='h-1/3'
-      />
+      <img src={logo} alt={`gga-logo`} className='h-1/3' />
       <Link
         className='flex items-center px-12 py-5 mx-auto font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg text-7xl hover:bg-yellow-500 hover:translate-y-1'
         to='/lobby'
