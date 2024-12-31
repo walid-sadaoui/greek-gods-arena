@@ -1,11 +1,11 @@
-import React from 'react';
-import Icon, { IconName } from 'components/common/Icon';
-import useScreenSize from 'shared/hooks/useScreenSize';
+import React from "react";
+import Icon, { IconName } from "components/common/Icon";
+import useScreenSize from "shared/hooks/useScreenSize";
 
 enum HealthStatusColors {
-  GOOD = 'bg-green-700',
-  MEDIUM = 'bg-orange-500',
-  BAD = 'bg-red-700',
+  GOOD = "bg-green-700",
+  MEDIUM = "bg-orange-500",
+  BAD = "bg-red-700",
 }
 
 export const HealthBar: React.FC<{
@@ -36,26 +36,26 @@ export const HealthBar: React.FC<{
   return (
     <div className={`flex flex-col justify-center w-72`}>
       <span
-        className={`${isEnemy ? 'self-end mr-16' : 'self-start ml-16'}
-        ${isLargeScreen ? 'text-4xl' : 'text-3xl'}
+        className={`${isEnemy ? "self-end mr-16" : "self-start ml-16"}
+        ${isLargeScreen ? "text-4xl" : "text-3xl"}
         rounded-container text-white text-outline font-black -mb-6`}
       >
         {name}
       </span>
       <div
         className={`flex w-full items-center ${
-          isEnemy ? 'flex-row-reverse' : ''
+          isEnemy ? "flex-row-reverse" : ""
         }`}
       >
         <Icon
           icon={IconName.HEART}
           className={`z-10 ${
-            isEnemy ? '-ml-8' : '-mr-8'
+            isEnemy ? "-ml-8" : "-mr-8"
           } text-red-500 stroke-1 text-8xl stroke-black`}
         />
         <div
           className={`flex w-full backdrop-blur-md backdrop-brightness-105 border-4 border-black ${
-            isEnemy ? 'justify-end' : ''
+            isEnemy ? "justify-end" : ""
           }`}
         >
           <div

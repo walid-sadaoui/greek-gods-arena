@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { UniverseProvider } from 'shared/context/UniverseContext';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { UniverseProvider } from "shared/context/UniverseContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,5 +10,5 @@ ReactDOM.render(
       <App />
     </UniverseProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

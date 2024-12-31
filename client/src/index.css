@@ -4,30 +4,16 @@
 
 @layer base {
   @font-face {
-    font-family: 'Dalek Pinpoint';
-    src: url('/fonts/DalekPinpointBold.woff2') format('woff2'),
-      url('/fonts/DalekPinpointBold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Caesar Dressing';
-    src: url('/fonts/CaesarDressing.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'Freckle Face';
-    src: url('/fonts/FreckleFace-Regular.ttf') format('truetype');
+    font-family: "Caesar Dressing";
+    src: url("/fonts/CaesarDressing.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }
 }
 
 @layer utilities {
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }

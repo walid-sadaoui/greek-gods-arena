@@ -1,10 +1,9 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { getFight } from 'api/fights';
-import { Fight } from 'models/Fight';
-import FightRing from './elements/FightRing';
-import FightTurn from './elements/FightTurn';
-import ArenaFooter from './elements/ArenaFooter';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { getFight } from "api/fights";
+import { Fight } from "models/Fight";
+import FightRing from "./elements/FightRing";
+import ArenaFooter from "./elements/ArenaFooter";
 
 const Arena: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,10 +21,10 @@ const Arena: React.FC = () => {
   }, []);
 
   return (
-    <main className='flex flex-col w-full h-full'>
+    <main className="flex flex-col w-full h-full">
       {fight && (
         <>
-          <div className='flex flex-col justify-end flex-1'>
+          <div className="flex flex-col justify-end flex-1">
             <FightRing fight={fight} turnCount={turnCount} />
             <ArenaFooter
               fight={fight}

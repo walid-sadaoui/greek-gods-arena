@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
 
 const mongoServer = MongoMemoryServer;
 let mongod: MongoMemoryServer;
@@ -7,12 +7,7 @@ let mongod: MongoMemoryServer;
 const connect = async (): Promise<void> => {
   mongod = await mongoServer.create();
   const uri = await mongod.getUri();
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  });
+  await mongoose.connect(uri);
 };
 
 const closeDatabase = async (): Promise<void> => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Fight } from 'models/Fight';
+import React from "react";
+import { Fight } from "models/Fight";
 
 interface FightTurnProps {
   fight: Fight;
@@ -13,14 +13,6 @@ const FightTurn: React.FC<FightTurnProps> = ({ fight, turnCount }) => {
       return fight.secondOpponent.name;
     }
   };
-
-  // const getDefender = (): string => {
-  //   if (fight.turns[turnCount].defender.id === fight.firstOpponent._id) {
-  //     return `${fight.firstOpponent.name} (You)`;
-  //   } else {
-  //     return fight.secondOpponent.name;
-  //   }
-  // };
 
   const getWinner = (): string => {
     if (fight.winner === fight.firstOpponent._id) {
@@ -54,13 +46,13 @@ const FightTurn: React.FC<FightTurnProps> = ({ fight, turnCount }) => {
     return `${ATTACKER} ${ATTACK_RESULT} ${
       fight.turns[turnCount].defender.remainingHealth === 0
         ? `${FIGHT_END} ${FIGHT_RESULT}`
-        : ''
+        : ""
     }`;
   };
 
   return (
-    <div className='relative flex flex-col self-center justify-center px-4 pt-12 pb-4 mx-auto mb-4 text-xl border-4 border-black bg-amber-200 w-120'>
-      <div className='absolute top-0 w-32 p-4 text-xl text-center transform -translate-x-1/2 -translate-y-1/2 border-4 border-black rounded-container font-greek bg-amber-200 left-1/2'>
+    <div className="relative flex flex-col self-center justify-center px-4 pt-12 pb-4 mx-auto mb-4 text-xl border-4 border-black bg-amber-200 w-120">
+      <div className="absolute top-0 w-32 p-4 text-xl text-center transform -translate-x-1/2 -translate-y-1/2 border-4 border-black rounded-container font-greek bg-amber-200 left-1/2">
         {`${turnCount + 1} / ${fight.turns.length}`}
       </div>
       <p>{getTurnDescription()}</p>

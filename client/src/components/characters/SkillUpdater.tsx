@@ -1,6 +1,6 @@
-import React from 'react';
-import Button from 'components/common/Button';
-import Input from 'components/common/Input';
+import React from "react";
+import Button from "components/common/Button";
+import Input from "components/common/Input";
 
 interface SkillUpdatrProps {
   label: string;
@@ -29,7 +29,7 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
     skillLabel: string
   ): number => {
     const skillPointsNeeded =
-      updatedSkillValue === 0 || skillLabel === 'Health'
+      updatedSkillValue === 0 || skillLabel === "Health"
         ? 1
         : Math.ceil(updatedSkillValue / 5);
     return skillPointsNeeded;
@@ -40,27 +40,27 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
   }, [value]);
 
   return (
-    <div className='flex flex-col justify-center pb-2'>
-      <label htmlFor={label.toLowerCase()} className='mr-2 font-sans'>
-        <span className='uppercase text-sm'>{label}</span> (cost :{' '}
+    <div className="flex flex-col justify-center pb-2">
+      <label htmlFor={label.toLowerCase()} className="mr-2 font-sans">
+        <span className="text-sm uppercase">{label}</span> (cost :{" "}
         {getSkillPointsNeeded(skillValue, label)} SP
-        {getSkillPointsNeeded(skillValue, label) > 1 && 's'})
+        {getSkillPointsNeeded(skillValue, label) > 1 && "s"})
       </label>
-      <div className='flex items-center'>
+      <div className="flex items-center">
         <Button
-          className='font-sans'
+          className="font-sans"
           disabled={skillValue <= minPropertyValue}
           onClick={() => handleChange(skillValue - 1)}
-          type='button'
+          type="button"
         >
-          {'<'}
+          {"<"}
         </Button>
         <Input
-          type='number'
+          type="number"
           min={minPropertyValue}
           max={maxPropertyValue}
           value={skillValue}
-          className='w-12 px-2 font-mono text-xl text-center'
+          className="w-12 px-2 font-mono text-xl text-center"
           onChange={(event) => {
             let newValue = parseInt(event.target.value);
             if (newValue < minPropertyValue) {
@@ -73,12 +73,12 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
           }}
         />
         <Button
-          className='mr-2 font-sans'
+          className="mr-2 font-sans"
           disabled={skillValue >= maxPropertyValue}
           onClick={() => handleChange(skillValue + 1)}
-          type='button'
+          type="button"
         >
-          {'>'}
+          {">"}
         </Button>
       </div>
     </div>

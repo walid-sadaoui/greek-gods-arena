@@ -1,9 +1,9 @@
-import Button from 'components/common/Button';
-import { Character } from 'models/Character';
-import React from 'react';
-import { GreekGodDetail } from './GreekGodDetail';
-import { useUniverse } from 'shared/context/UniverseContext';
-import { Universe } from 'models/Universe';
+import Button from "components/common/Button";
+import { Character } from "models/Character";
+import React from "react";
+import { GreekGodDetail } from "./GreekGodDetail";
+import { useUniverse } from "shared/context/UniverseContext";
+import { Universe } from "models/Universe";
 
 interface CharactersListProps {
   onSelectGod: (universe: Universe, index: number) => void;
@@ -49,14 +49,14 @@ export const GreekGodSelectList: React.FC<CharactersListProps> = ({
   };
 
   return (
-    <div className='flex items-center'>
-      <Button onClick={() => selectPreviousGod()}>{'<'}</Button>
-      <ul className='flex justify-center m-4'>
+    <div className="flex items-center">
+      <Button onClick={() => selectPreviousGod()}>{"<"}</Button>
+      <ul className="flex justify-center m-4">
         {universeSelected!.characters.map((greekGod, index) => {
           return renderGreekGodSelect(greekGod, index);
         })}
       </ul>
-      <Button onClick={() => selectNextGod()}>{'>'}</Button>
+      <Button onClick={() => selectNextGod()}>{">"}</Button>
     </div>
   );
 };

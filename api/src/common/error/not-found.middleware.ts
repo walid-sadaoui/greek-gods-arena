@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 
 const notFoundHandler = (
   _request: Request,
@@ -6,7 +6,7 @@ const notFoundHandler = (
   // eslint-disable-next-line
   _next: NextFunction
 ): void => {
-  const message = 'Resource not found';
+  const message = "Resource not found";
 
   response.status(404).send({ message });
 };

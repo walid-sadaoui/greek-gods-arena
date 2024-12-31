@@ -1,5 +1,5 @@
-import { Character } from './Character';
-import { Turn } from './Turn';
+import { Character } from "./Character";
+import { Turn } from "./Turn";
 
 export interface Fight {
   _id: string;

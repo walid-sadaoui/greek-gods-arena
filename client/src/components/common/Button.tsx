@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import classNames from 'classnames';
-import Icon from './Icon';
+import React, { FunctionComponent } from "react";
+import classNames from "classnames";
+import Icon from "./Icon";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -10,14 +10,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export enum Variants {
-  BASE = 'base',
-  NEUTRAL = 'neutral',
-  DEFAULT = 'default',
+  BASE = "base",
+  NEUTRAL = "neutral",
+  DEFAULT = "default",
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
   children,
-  className = '',
+  className = "",
   icon,
   value,
   variant = Variants.NEUTRAL,
@@ -26,25 +26,25 @@ const Button: FunctionComponent<ButtonProps> = ({
   return (
     <button
       className={classNames(
-        'px-4 py-2 text-base disabled:text-gray-500 disabled:cursor-not-allowed uppercase border-2 border-transparent',
+        "px-4 py-2 text-base disabled:text-gray-500 disabled:cursor-not-allowed uppercase border-2 border-transparent",
         {
-          'rounded-container bg-yellow-100 hover:bg-yellow-200 hover:border-black disabled:bg-gray-100':
+          "rounded-container bg-yellow-100 hover:bg-yellow-200 hover:border-black disabled:bg-gray-100":
             variant === Variants.NEUTRAL,
         },
         {
-          'hover:rounded-container hover:bg-yellow-100 hover:border-black disabled:bg-gray-100':
+          "hover:rounded-container hover:bg-yellow-100 hover:border-black disabled:bg-gray-100":
             variant === Variants.BASE,
         },
         {
-          'text-white hover:rounded-container hover:bg-white hover:text-black disabled:bg-gray-100':
+          "text-white hover:rounded-container hover:bg-white hover:text-black disabled:bg-gray-100":
             variant === Variants.DEFAULT,
         },
         className
       )}
       {...otherProps}
     >
-      {icon && <Icon icon={icon} aria-hidden='true' />}
-      {value ? <span className={icon && 'ml-2'}>{value}</span> : children}
+      {icon && <Icon icon={icon} aria-hidden="true" />}
+      {value ? <span className={icon && "ml-2"}>{value}</span> : children}
     </button>
   );
 };

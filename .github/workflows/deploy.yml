@@ -1,0 +1,75 @@
+name: greek-gods-arena-deploy
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.11.0"
+
+      # Installation et build du front
+      - name: Build React app
+        working-directory: ./client
+        env:
+          VITE_API_URL: https://greek-gods-arena.walidsadaoui.com/api
+        run: |
+          npm ci
+          npm run build
+
+      # Installation des dépendances du back
+      - name: Install API dependencies
+        working-directory: ./api
+        run: |
+          npm ci
+          npm run build
+
+      # Nettoyage et préparation du répertoire de destination
+      - name: Prepare deploy directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            rm -rf /var/www/greek-gods-arena/api/dist
+            rm -rf /var/www/greek-gods-arena/api/package.json
+            rm -rf /var/www/greek-gods-arena/api/package-lock.json
+            rm -rf /var/www/greek-gods-arena/api/ecosystem.config.js
+            rm -rf /var/www/greek-gods-arena/client/dist
+
+      # Copie des fichiers vers le VPS
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "client/dist/,api/dist/, api/package.json, api/package-lock.json, api/ecosystem.config.js"
+          target: "/var/www/greek-gods-arena"
+
+      # Redémarrage des services sur le VPS
+      - name: Restart services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Mise à jour des dépendances du back
+            cd /var/www/greek-gods-arena/api
+            npm ci --omit=dev
+
+            # Redémarrage du back avec PM2
+            pm2 restart ecosystem.config.js
