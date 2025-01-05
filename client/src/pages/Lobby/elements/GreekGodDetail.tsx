@@ -73,5 +73,29 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
         </>
       )}
     </article>
+    //   <div className="max-w-sm p-6 bg-white border-4 border-yellow-300 rounded-lg shadow-lg">
+    //   <div className="flex items-center">
+    //     <img
+    //       src="https://via.placeholder.com/80"
+    //       alt="Zeus"
+    //       className="border-2 border-yellow-400 rounded-full"
+    //     />
+    //     <div className="ml-4">
+    //       <h2 className="text-2xl font-bold text-yellow-700">Zeus</h2>
+    //       <p className="text-gray-600">Roi des dieux</p>
+    //     </div>
+    //   </div>
+    //   <div className="mt-4 space-y-2">
+    //     <div className="flex justify-between text-gray-700">
+    //       <span>Attaque :</span> <span className="font-semibold">95</span>
+    //     </div>
+    //     <div className="flex justify-between text-gray-700">
+    //       <span>Défense :</span> <span className="font-semibold">85</span>
+    //     </div>
+    //     <div className="flex justify-between text-gray-700">
+    //       <span>Santé :</span> <span className="font-semibold">100</span>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };

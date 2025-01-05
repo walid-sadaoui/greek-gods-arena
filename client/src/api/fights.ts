@@ -7,12 +7,12 @@ interface FightData extends ResponseData {
 }
 
 export const newFight = async (
-  universeId: string,
+  teamId: string,
   characterName: GreekGods
 ): Promise<APIResponse<FightData>> => {
   const newFightResponse = await postRequest<FightData>(
     "/fights",
-    JSON.stringify({ universeId, characterName })
+    JSON.stringify({ teamId, characterName })
   );
   return newFightResponse;
 };

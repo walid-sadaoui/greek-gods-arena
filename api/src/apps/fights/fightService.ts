@@ -1,5 +1,5 @@
 import * as FightDM from "./fightDataManager";
-import * as UniverseDM from "../universes/universesDataManager";
+import * as TeamDM from "../teams/teamsDataManager";
 import * as CharacterDM from "../characters/characterDataManager";
 import HttpError from "../../common/error/httpError";
 import { ICharacter } from "../characters/characterModel";
@@ -8,14 +8,14 @@ import * as FightUtils from "./fightUtils";
 import { validateCharacterName } from "../characters/characterUtils";
 
 export const newFight = async (
-  universeId: string,
+  teamId: string,
   characterName: string
 ): Promise<IFight> => {
   try {
     validateCharacterName(characterName);
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
     const firstOpponent = await CharacterDM.getCharacterByName(
-      currentUniverse,
+      currentTeam,
       characterName
     );
     if (!firstOpponent)
@@ -27,7 +27,7 @@ export const newFight = async (
       );
 
     const secondOpponent: ICharacter = await FightUtils.findOpponent(
-      currentUniverse._id,
+      currentTeam._id,
       firstOpponent
     );
     const fight = await FightUtils.launchFight(firstOpponent, secondOpponent);

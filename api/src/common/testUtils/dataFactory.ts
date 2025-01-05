@@ -1,43 +1,40 @@
-import * as UniverseDM from "../../apps/universes/universesDataManager";
+import * as TeamDM from "../../apps/teams/teamsDataManager";
 import * as CharacterDM from "../../apps/characters/characterDataManager";
 import * as FightUtils from "../../apps/fights/fightUtils";
 import { IFight } from "../../apps/fights/fightModel";
-import Universe from "../../apps/universes/universesSchema";
-import { IUniverse } from "../../apps/universes/universesModel";
-import {
-  GreekGods,
-  GreekGodsArray,
-  ICharacter,
-} from "../../apps/characters/characterModel";
+import Team from "../../apps/teams/teamsSchema";
+import { ITeam } from "../../apps/teams/teamsModel";
+import { GreekGods, ICharacter } from "../../apps/characters/characterModel";
 import Character from "../../apps/characters/characterSchema";
 
-// create universe
-export const createUniverse = async (
-  universeName: string
-): Promise<IUniverse> => {
+// create team
+export const createTeam = async (
+  teamName: string,
+  description: string,
+  gods: GreekGods[]
+): Promise<ITeam> => {
   try {
-    const characters: ICharacter[] = GreekGodsArray.map(
-      (greekGod: GreekGods) => {
-        return new Character({ name: greekGod });
-      }
-    );
-    let newUniverse = new Universe({
-      universeName,
+    const characters: ICharacter[] = gods.map((greekGod: GreekGods) => {
+      return new Character({ name: greekGod });
+    });
+    let newTeam = new Team({
+      teamName,
+      description,
       characters,
     });
-    newUniverse = await newUniverse.save();
-    return newUniverse;
+    newTeam = await newTeam.save();
+    return newTeam;
   } catch (error) {
     throw new Error(error);
   }
 };
 
 export const updateCharacter = async (
-  universeId: string,
+  teamId: string,
   characterName: string
 ): Promise<ICharacter> => {
   try {
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
 
     const updatedCharacterProperties = {
       skillPoints: 42,
@@ -48,7 +45,7 @@ export const updateCharacter = async (
       level: 1,
     };
     const updatedCharacter = await CharacterDM.updateCharacter(
-      currentUniverse,
+      currentTeam,
       characterName,
       updatedCharacterProperties
     );
@@ -59,14 +56,14 @@ export const updateCharacter = async (
 };
 
 export const updateCharacterProperties = async (
-  universeId: string,
+  teamId: string,
   characterName: string,
   newCharacterProperties: Partial<ICharacter>
 ): Promise<ICharacter> => {
   try {
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
     const updatedCharacter = await CharacterDM.updateCharacter(
-      currentUniverse,
+      currentTeam,
       characterName,
       newCharacterProperties
     );
@@ -77,16 +74,16 @@ export const updateCharacterProperties = async (
 };
 
 export const newFight = async (
-  firstUniverseId: string,
-  secondUniverseId: string
+  firstTeamId: string,
+  secondTeamId: string
 ): Promise<IFight> => {
   try {
-    const firstUniverse = await UniverseDM.getUniverse(firstUniverseId);
-    const secondUniverse = await UniverseDM.getUniverse(secondUniverseId);
+    const firstTeam = await TeamDM.getTeam(firstTeamId);
+    const secondTeam = await TeamDM.getTeam(secondTeamId);
 
     const fight = await FightUtils.launchFight(
-      firstUniverse.characters[0],
-      secondUniverse.characters[1]
+      firstTeam.characters[0],
+      secondTeam.characters[1]
     );
     return fight;
   } catch (error) {

@@ -6,20 +6,20 @@ import {
   getCharacters,
   updateCharacter,
 } from "../characters/characterService";
-import { getUniverse } from "./universesDataManager";
-import { getUniverses } from "./universesService";
+import { getTeam } from "./teamsDataManager";
+import { getTeams } from "./teamsService";
 
 const router = express.Router();
 
 router.get("/", async (_req, res, next) => {
   try {
-    const universes = await getUniverses();
+    const teams = await getTeams();
 
     return res.status(200).json({
       data: {
         code: 200,
-        message: `${universes.length} universes found !`,
-        universes,
+        message: `${teams.length} teams found !`,
+        teams,
       },
     });
   } catch (error) {
@@ -32,13 +32,13 @@ router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const universe = await getUniverse(id);
+    const team = await getTeam(id);
 
     return res.status(200).json({
       data: {
         code: 200,
-        message: `Universe ${universe.universeName} found !`,
-        universe,
+        message: `Team ${team.teamName} found !`,
+        team,
       },
     });
   } catch (error) {
