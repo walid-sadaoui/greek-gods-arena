@@ -17,7 +17,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
 }) => {
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
 
-  const onUpdateGod = (updatedCharacter: Character) => {
+  const onUpdateGod = (updatedCharacter: Character): void => {
     setIsEditing(false);
     onUpdate(updatedCharacter);
   };
@@ -25,7 +25,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   return (
     <article
       className={classNames(
-        "relative hover:z-20 flex flex-col items-center p-4 bg-white border-2 border-black w-96 rounded-container"
+        "relative hover:z-20 flex flex-col items-center p-4 bg-white border-2 border-black w-80 rounded-container"
       )}
     >
       {isEditing ? (
@@ -44,7 +44,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
           <img
             src={`/greek-gods/${character.name}.svg`}
             alt={`${character.name}`}
-            className="h-56 m-4"
+            className="h-40 m-4"
           />
           <span className="text-xl font-greek">{character.name}</span>
           <span className="pb-4 font-greek">Lvl. {character.level}</span>
@@ -73,29 +73,5 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
         </>
       )}
     </article>
-    //   <div className="max-w-sm p-6 bg-white border-4 border-yellow-300 rounded-lg shadow-lg">
-    //   <div className="flex items-center">
-    //     <img
-    //       src="https://via.placeholder.com/80"
-    //       alt="Zeus"
-    //       className="border-2 border-yellow-400 rounded-full"
-    //     />
-    //     <div className="ml-4">
-    //       <h2 className="text-2xl font-bold text-yellow-700">Zeus</h2>
-    //       <p className="text-gray-600">Roi des dieux</p>
-    //     </div>
-    //   </div>
-    //   <div className="mt-4 space-y-2">
-    //     <div className="flex justify-between text-gray-700">
-    //       <span>Attaque :</span> <span className="font-semibold">95</span>
-    //     </div>
-    //     <div className="flex justify-between text-gray-700">
-    //       <span>Défense :</span> <span className="font-semibold">85</span>
-    //     </div>
-    //     <div className="flex justify-between text-gray-700">
-    //       <span>Santé :</span> <span className="font-semibold">100</span>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };

@@ -10,6 +10,7 @@ import Home from "pages/Home";
 import Lobby from "pages/Lobby";
 import Room from "pages/Room";
 import Header from "components/app/Header";
+import CharacterSelect from "pages/Lobby/CharacterSelect";
 
 const App: FunctionComponent = () => {
   return (
@@ -28,6 +29,10 @@ const AppRoutes: FunctionComponent = () => {
       <Route exact={true} path="/lobby">
         <Header />
         <Lobby />
+      </Route>
+      <Route exact={true} path="/lobby/select-god">
+        <Header />
+        <CharacterSelect />
       </Route>
       <Route exact={true} path="/room">
         <Header />
