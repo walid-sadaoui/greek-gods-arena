@@ -6,7 +6,7 @@ import errorHandler from "./common/error/error.middleware";
 import notFoundHandler from "./common/error/not-found.middleware";
 import config from "./config";
 import fightsRouter from "./apps/fights";
-import universesRouter from "./apps/universes";
+import teamsRouter from "./apps/teams";
 
 const app = express();
 app.use(helmet());
@@ -21,7 +21,7 @@ app.use(
 app.use(express.json());
 
 app.use("/fights", fightsRouter);
-app.use("/universes", universesRouter);
+app.use("/teams", teamsRouter);
 app.use(errorHandler);
 app.use(notFoundHandler);
 

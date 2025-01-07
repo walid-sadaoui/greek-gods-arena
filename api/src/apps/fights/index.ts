@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post("/", async (req, res, next) => {
   try {
-    const { universeId, characterName } = req.body;
+    const { teamId, characterName } = req.body;
 
-    const fight: IFight = await newFight(universeId, characterName);
+    const fight: IFight = await newFight(teamId, characterName);
 
     return res.status(200).json({
       data: {

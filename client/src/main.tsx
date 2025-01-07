@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { UniverseProvider } from "shared/context/UniverseContext";
+import { TeamProvider } from "shared/context/TeamContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <UniverseProvider>
+    <TeamProvider>
       <App />
-    </UniverseProvider>
+    </TeamProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

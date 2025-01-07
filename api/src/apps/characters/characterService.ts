@@ -1,7 +1,7 @@
 import HttpError from "../../common/error/httpError";
 import { CharacterProperties, ICharacter } from "./characterModel";
 import * as CharacterDM from "./characterDataManager";
-import * as UniverseDM from "../universes/universesDataManager";
+import * as TeamDM from "../teams/teamsDataManager";
 import {
   validateCharacterName,
   validateCharacterUpdate,
@@ -9,14 +9,14 @@ import {
 
 export const createCharacter = async (
   characterName: string,
-  universeId: string
+  teamId: string
 ): Promise<ICharacter> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
 
-    if (currentUniverse.characters.length >= 10)
+    if (currentTeam.characters.length >= 10)
       throw new HttpError(
         400,
         "Create Character Error",
@@ -25,7 +25,7 @@ export const createCharacter = async (
       );
 
     const characterExists = await CharacterDM.getCharacterByName(
-      currentUniverse,
+      currentTeam,
       characterName
     );
     if (characterExists)
@@ -36,12 +36,12 @@ export const createCharacter = async (
         true
       );
 
-    const updatedUniverse = await CharacterDM.createCharacter(
-      currentUniverse,
+    const updatedTeam = await CharacterDM.createCharacter(
+      currentTeam,
       characterName
     );
     const createdCharacter = await CharacterDM.getCharacterByName(
-      updatedUniverse,
+      updatedTeam,
       characterName
     );
     if (!createdCharacter)
@@ -63,13 +63,11 @@ export const createCharacter = async (
   }
 };
 
-export const getCharacters = async (
-  universeId: string
-): Promise<ICharacter[]> => {
+export const getCharacters = async (teamId: string): Promise<ICharacter[]> => {
   try {
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
     const characters: ICharacter[] =
-      await CharacterDM.getCharacters(currentUniverse);
+      await CharacterDM.getCharacters(currentTeam);
     return characters;
   } catch (error) {
     throw new HttpError(
@@ -82,15 +80,15 @@ export const getCharacters = async (
 };
 
 export const getCharacter = async (
-  universeId: string,
+  teamId: string,
   characterName: string
 ): Promise<ICharacter> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
     const character = await CharacterDM.getCharacterByName(
-      currentUniverse,
+      currentTeam,
       characterName
     );
 
@@ -114,15 +112,15 @@ export const getCharacter = async (
 };
 
 export const deleteCharacter = async (
-  universeId: string,
+  teamId: string,
   characterName: string
 ): Promise<void> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
     const characterToDelete: ICharacter | undefined =
-      await CharacterDM.getCharacterByName(currentUniverse, characterName);
+      await CharacterDM.getCharacterByName(currentTeam, characterName);
 
     if (!characterToDelete)
       throw new HttpError(
@@ -132,7 +130,7 @@ export const deleteCharacter = async (
         true
       );
 
-    await CharacterDM.deleteCharacter(currentUniverse, characterName);
+    await CharacterDM.deleteCharacter(currentTeam, characterName);
   } catch (error) {
     throw new HttpError(
       error.statusCode || 500,
@@ -144,16 +142,16 @@ export const deleteCharacter = async (
 };
 
 export const updateCharacter = async (
-  universeId: string,
+  teamId: string,
   characterName: string,
   newCharacterProperties: CharacterProperties
 ): Promise<ICharacter> => {
   try {
     validateCharacterName(characterName);
 
-    const currentUniverse = await UniverseDM.getUniverse(universeId);
+    const currentTeam = await TeamDM.getTeam(teamId);
     const characterToUpdate: ICharacter | undefined =
-      await CharacterDM.getCharacterByName(currentUniverse, characterName);
+      await CharacterDM.getCharacterByName(currentTeam, characterName);
     if (!characterToUpdate)
       throw new HttpError(
         404,
@@ -167,7 +165,7 @@ export const updateCharacter = async (
       "_id" | "name" | "level"
     > = validateCharacterUpdate(characterToUpdate, newCharacterProperties);
     const updatedCharacter: ICharacter = await CharacterDM.updateCharacter(
-      currentUniverse,
+      currentTeam,
       characterName,
       updatedCharacterProperties
     );

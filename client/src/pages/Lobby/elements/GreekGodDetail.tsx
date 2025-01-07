@@ -9,15 +9,17 @@ import { SkillIconValue } from "pages/Arena/elements/FightRing/SkillIconValue";
 interface GreekGodDetailProps {
   character: Character;
   onUpdate: (character: Character) => void;
+  isSelected: boolean;
 }
 
 export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   character,
   onUpdate,
+  isSelected,
 }) => {
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
 
-  const onUpdateGod = (updatedCharacter: Character) => {
+  const onUpdateGod = (updatedCharacter: Character): void => {
     setIsEditing(false);
     onUpdate(updatedCharacter);
   };
@@ -25,9 +27,17 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   return (
     <article
       className={classNames(
-        "relative hover:z-20 flex flex-col items-center p-4 bg-white border-2 border-black w-96 rounded-container"
+        "relative hover:z-20 cursor-pointer hover:scale-100 hover:transform hover:border-amber-200 flex flex-col items-center p-4 bg-white border-2 border-black w-48 rounded-container",
+        {
+          "border-green-600 border-4": isSelected,
+        }
       )}
     >
+      {isSelected && (
+        <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">
+          <span className="p-2 text-4xl text-white">✓</span>
+        </div>
+      )}
       {isEditing ? (
         <CharacterEdit
           character={character}
@@ -44,7 +54,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
           <img
             src={`/greek-gods/${character.name}.svg`}
             alt={`${character.name}`}
-            className="h-56 m-4"
+            className="h-40 m-4"
           />
           <span className="text-xl font-greek">{character.name}</span>
           <span className="pb-4 font-greek">Lvl. {character.level}</span>
@@ -58,8 +68,6 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
                 iconName={IconName.SWORD}
                 skillValue={character.attack}
               />
-            </div>
-            <div className="flex flex-col gap-4">
               <SkillIconValue
                 iconName={IconName.SHIELD}
                 skillValue={character.defense}

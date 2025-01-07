@@ -5,19 +5,19 @@ import * as TurnDM from "./turns/turnDataManager";
 import HttpError from "../../common/error/httpError";
 import { ICharacter } from "../characters/characterModel";
 import { IFight } from "./fightModel";
-import Universe from "../universes/universesSchema";
+import Team from "../teams/teamsSchema";
 
 export const findOpponent = async (
-  currentUniverseId: string,
+  currentTeamId: string,
   firstOpponent: ICharacter
 ): Promise<ICharacter> => {
   let secondOpponent;
 
-  let availableCharacters = await Universe.aggregate([
+  let availableCharacters = await Team.aggregate([
     {
       $match: {
         "characters.level": firstOpponent.level,
-        _id: { $ne: currentUniverseId },
+        _id: { $ne: currentTeamId },
       },
     },
     {
@@ -41,11 +41,11 @@ export const findOpponent = async (
     },
   ]);
   if (!availableCharacters || availableCharacters.length === 0) {
-    availableCharacters = await Universe.aggregate([
+    availableCharacters = await Team.aggregate([
       {
         $match: {
           "characters.level": firstOpponent.level,
-          _id: { $ne: currentUniverseId },
+          _id: { $ne: currentTeamId },
         },
       },
       {
@@ -72,10 +72,10 @@ export const findOpponent = async (
       },
     ]);
     if (!availableCharacters || availableCharacters.length === 0) {
-      availableCharacters = await Universe.aggregate([
+      availableCharacters = await Team.aggregate([
         {
           $match: {
-            _id: { $ne: currentUniverseId },
+            _id: { $ne: currentTeamId },
           },
         },
         {

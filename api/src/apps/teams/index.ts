@@ -6,13 +6,8 @@ import {
   getCharacters,
   updateCharacter,
 } from "../characters/characterService";
-<<<<<<<< HEAD:api/src/apps/universes/index.ts
-import { getUniverse } from "./universesDataManager";
-import { getUniverses } from "./universesService";
-========
 import { getTeam } from "./teamsDataManager";
 import { getTeams } from "./teamsService";
->>>>>>>> feat/teams:api/src/apps/teams/index.ts
 
 const router = express.Router();
 

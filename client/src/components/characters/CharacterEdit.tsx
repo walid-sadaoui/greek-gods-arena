@@ -4,8 +4,8 @@ import { Character } from "models/Character";
 import Button, { Variants } from "components/common/Button";
 import SkillUpdater from "./SkillUpdater";
 import { IconName } from "components/common/Icon";
-import { useUniverse } from "shared/context/UniverseContext";
-import { updateCharacter } from "api/universes";
+import { useTeam } from "shared/context/TeamContext";
+import { updateCharacter } from "api/teams";
 
 interface CharacterEditProps {
   character: Character;
@@ -32,7 +32,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   const { handleSubmit, register, setValue } = useForm<EditCharacterInput>({
     mode: "all",
   });
-  const { universeSelected } = useUniverse();
+  const { teamSelected } = useTeam();
 
   const getMaxPropertyValue = (propertyValue: number): number => {
     let remainingSkillPoints = characterToEdit.skillPoints;
@@ -182,18 +182,18 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   ) => {
     try {
       const { data, error } = await updateCharacter(
-        universeSelected!._id,
+        teamSelected!._id,
         character.name,
         characterSkills
       );
 
       if (data) {
-        const updatedCharacterIndex = universeSelected!.characters.findIndex(
+        const updatedCharacterIndex = teamSelected!.characters.findIndex(
           (character: Character) => {
             return character.name === data.character.name;
           }
         );
-        universeSelected!.characters[updatedCharacterIndex] = data.character;
+        teamSelected!.characters[updatedCharacterIndex] = data.character;
         setCharacterToEdit(data.character);
         onUpdate(data.character);
       }

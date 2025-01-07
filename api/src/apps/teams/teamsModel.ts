@@ -1,16 +1,17 @@
 import { ICharacter } from "../characters/characterModel";
 
-export interface IUniverse {
+export interface ITeam {
   _id: string;
-  universeName: string;
+  teamName: string;
+  description: string;
   characters: ICharacter[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface UniverseData {
+export interface TeamData {
   _id: string;
-  universeName: string;
+  teamName: string;
   characters: ICharacter[];
   createdAt: Date;
   updatedAt: Date;

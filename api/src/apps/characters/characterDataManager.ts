@@ -1,31 +1,31 @@
 import mongoose from "mongoose";
 import { ICharacter } from "./characterModel";
 import Character from "./characterSchema";
-import { UniverseData } from "../universes/universesModel";
-import Universe from "../universes/universesSchema";
+import { TeamData } from "../teams/teamsModel";
+import Team from "../teams/teamsSchema";
 
 export const createCharacter = async (
-  universe: UniverseData & mongoose.Document<any, any, UniverseData>,
+  team: TeamData & mongoose.Document<any, any, TeamData>,
   characterName: string
-): Promise<UniverseData & mongoose.Document<any, any, UniverseData>> => {
+): Promise<TeamData & mongoose.Document<any, any, TeamData>> => {
   const newCharacter = new Character({ name: characterName });
-  universe.characters.push(newCharacter);
-  const createdUniverse = await universe.save();
-  return createdUniverse;
+  team.characters.push(newCharacter);
+  const createdTeam = await team.save();
+  return createdTeam;
 };
 
 export const getCharacters = async (
-  universe: UniverseData & mongoose.Document<any, any, UniverseData>
+  team: TeamData & mongoose.Document<any, any, TeamData>
 ): Promise<ICharacter[]> => {
-  const characterList: ICharacter[] = universe.toObject().characters;
+  const characterList: ICharacter[] = team.toObject().characters;
   return characterList;
 };
 
 export const getCharacterByName = async (
-  universe: UniverseData & mongoose.Document<any, any, UniverseData>,
+  team: TeamData & mongoose.Document<any, any, TeamData>,
   characterName: string
 ): Promise<ICharacter | undefined> => {
-  const characterList: ICharacter[] = await getCharacters(universe);
+  const characterList: ICharacter[] = await getCharacters(team);
   const character: ICharacter | undefined = characterList.find(
     (character: ICharacter) => character.name === characterName
   );
@@ -33,11 +33,11 @@ export const getCharacterByName = async (
 };
 
 export const updateCharacter = async (
-  universe: UniverseData & mongoose.Document<any, any, UniverseData>,
+  team: TeamData & mongoose.Document<any, any, TeamData>,
   characterName: string,
   newCharacterProperties: Partial<ICharacter>
 ): Promise<ICharacter> => {
-  const characters: ICharacter[] = universe.toObject().characters;
+  const characters: ICharacter[] = team.toObject().characters;
   const updatedCharacters = characters.map((character: ICharacter) =>
     character.name === characterName
       ? {
@@ -46,12 +46,12 @@ export const updateCharacter = async (
         }
       : character
   );
-  const index: number = universe.characters.findIndex(
+  const index: number = team.characters.findIndex(
     (character: ICharacter) => character.name === characterName
   );
-  universe.characters = updatedCharacters;
-  const updatedUniverse = await universe.save();
-  return updatedUniverse.toObject().characters[index];
+  team.characters = updatedCharacters;
+  const updatedTeam = await team.save();
+  return updatedTeam.toObject().characters[index];
 };
 
 export const updateCharacterById = async (
@@ -59,15 +59,15 @@ export const updateCharacterById = async (
   characterName: string,
   newCharacterProperties: Partial<ICharacter>
 ): Promise<ICharacter | void> => {
-  const universe = await Universe.findOne({ "characters._id": characterId });
-  if (!universe) throw new Error("Character not found");
+  const team = await Team.findOne({ "characters._id": characterId });
+  if (!team) throw new Error("Character not found");
   const characterToUpdate = findCharacterByName(
-    universe.toObject().characters,
+    team.toObject().characters,
     characterName
   );
   if (!characterToUpdate) throw new Error("Character not found !");
   const updatedCharacter = await updateCharacter(
-    universe,
+    team,
     characterToUpdate.name,
     newCharacterProperties
   );
@@ -75,16 +75,16 @@ export const updateCharacterById = async (
 };
 
 export const deleteCharacter = async (
-  universe: UniverseData & mongoose.Document<any, any, UniverseData>,
+  team: TeamData & mongoose.Document<any, any, TeamData>,
   characterName: string
 ): Promise<void> => {
-  const updatedCharactersList = universe
+  const updatedCharactersList = team
     .toObject()
     .characters.filter(
       (character: ICharacter) => character.name !== characterName
     );
-  universe.characters = updatedCharactersList;
-  await universe.save();
+  team.characters = updatedCharactersList;
+  await team.save();
 };
 
 const findCharacterByName = (
