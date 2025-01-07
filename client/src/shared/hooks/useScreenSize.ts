@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 
-const useScreenSize = () => {
+const useScreenSize = (): {
+  screenSize: { width: number; height: number };
+  isLargeScreen: boolean;
+} => {
   const [screenSize, setScreenSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const [isLargeScreen, setIsLargeScreen] = useState<boolean>();
+  const [isLargeScreen, setIsLargeScreen] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = (): void => {
       setScreenSize({
         width: window.innerWidth,
         height: window.innerHeight,

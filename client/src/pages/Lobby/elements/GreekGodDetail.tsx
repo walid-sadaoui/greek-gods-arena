@@ -9,11 +9,13 @@ import { SkillIconValue } from "pages/Arena/elements/FightRing/SkillIconValue";
 interface GreekGodDetailProps {
   character: Character;
   onUpdate: (character: Character) => void;
+  isSelected: boolean;
 }
 
 export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   character,
   onUpdate,
+  isSelected,
 }) => {
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
 
@@ -25,9 +27,17 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   return (
     <article
       className={classNames(
-        "relative hover:z-20 flex flex-col items-center p-4 bg-white border-2 border-black w-80 rounded-container"
+        "relative hover:z-20 cursor-pointer hover:scale-100 hover:transform hover:border-amber-200 flex flex-col items-center p-4 bg-white border-2 border-black w-48 rounded-container",
+        {
+          "border-green-600 border-4": isSelected,
+        }
       )}
     >
+      {isSelected && (
+        <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">
+          <span className="p-2 text-4xl text-white">✓</span>
+        </div>
+      )}
       {isEditing ? (
         <CharacterEdit
           character={character}
@@ -58,8 +68,6 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
                 iconName={IconName.SWORD}
                 skillValue={character.attack}
               />
-            </div>
-            <div className="flex flex-col gap-4">
               <SkillIconValue
                 iconName={IconName.SHIELD}
                 skillValue={character.defense}

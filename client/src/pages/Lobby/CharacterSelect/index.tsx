@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { newFight } from "api/fights";
 import { Fight } from "models/Fight";
 import Button from "components/common/Button";
@@ -7,6 +7,7 @@ import { ContainerRow } from "components/common/Container";
 import { Character, GreekGods } from "models/Character";
 import { useTeam } from "shared/context/TeamContext";
 import { GreekGodDetail } from "../elements/GreekGodDetail";
+import PageTitle from "components/app/PageTitle";
 
 const CharacterSelect: React.FC = () => {
   const { teamSelected } = useTeam();
@@ -39,13 +40,19 @@ const CharacterSelect: React.FC = () => {
     setCharacterSelected(teamSelected.characters[characterIndex]);
   };
 
-  const renderGreekGodSelect = (character: Character, index: number) => {
+  const renderGreekGodSelect = (
+    character: Character,
+    index: number
+  ): JSX.Element => {
     return (
       <li key={character.name}>
-        <GreekGodDetail
-          onUpdate={() => selectGod(index)}
-          character={character}
-        />
+        <button onClick={() => selectGod(index)} className="list-item-button">
+          <GreekGodDetail
+            onUpdate={() => selectGod(index)}
+            character={character}
+            isSelected={characterSelected?.name === character.name}
+          />
+        </button>
       </li>
     );
   };
@@ -53,32 +60,42 @@ const CharacterSelect: React.FC = () => {
   return (
     <>
       <ContainerRow>
-        <div className="flex flex-col items-center justify-between w-full h-full p-4">
-          <h2 className="mb-4 text-6xl font-black text-outline font-greek">
-            Choose your God
-          </h2>
-          <div className="flex flex-col items-center">
-            {/* <GreekGodSelectList onSelectGod={ () => selectGod} /> */}
-            <ul className="grid grid-cols-4 gap-8">
-              {teamSelected.characters.map((greekGod, index) => {
-                return renderGreekGodSelect(greekGod, index);
-              })}
-            </ul>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <Button
-              onClick={() =>
-                runFight(
-                  teamSelected._id,
-                  characterSelected?.name ?? GreekGods.ZEUS
-                )
-              }
-              disabled={characterSelected?.attack === 0}
+        <div className="flex flex-col items-center w-full h-full p-4 justify">
+          <div className="grid items-center w-full grid-cols-5">
+            <Link
+              to="/lobby"
+              className="col-start-1 text-2xl text-white hover:text-black text-outline font-greek"
             >
-              Start the Fight
-            </Button>
-            <p className="text-red-500">{fightError}</p>
+              Back
+            </Link>
+            <div className="items-center col-span-3 col-start-2">
+              <PageTitle title="Choose your God" />
+            </div>
           </div>
+          <ul className="grid grid-cols-4 gap-8 my-auto">
+            {teamSelected.characters.map((greekGod, index) => {
+              return renderGreekGodSelect(greekGod, index);
+            })}
+          </ul>
+          {characterSelected && (
+            <div className="flex flex-col items-center w-full">
+              <Button
+                onClick={() =>
+                  runFight(
+                    teamSelected._id,
+                    characterSelected?.name ?? GreekGods.ZEUS
+                  )
+                }
+                disabled={characterSelected?.attack === 0}
+              >
+                I Choose{" "}
+                <span className="text-xl font-greek">
+                  {characterSelected.name}
+                </span>
+              </Button>
+              <p className="text-red-500">{fightError}</p>
+            </div>
+          )}
         </div>
       </ContainerRow>
       {fight && (

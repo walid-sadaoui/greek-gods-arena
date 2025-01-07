@@ -36,7 +36,7 @@ export const SkillIconValue: React.FC<{
       <span
         className={`z-0 py-1 ${
           isEnemy ? "-mr-6 pl-8 pr-12" : "-ml-6 pl-12 pr-8"
-        } text-xl border-2 border-black rounded-container font-greek font-bold bg-amber-200 bg-gradient-to-t`}
+        } text-xl border-2 border-black rounded-container font-bold bg-amber-200 bg-gradient-to-t`}
       >
         {skillValue}
       </span>

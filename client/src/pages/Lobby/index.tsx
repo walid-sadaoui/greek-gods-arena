@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { ContainerRow } from "components/common/Container";
 import { useTeam } from "shared/context/TeamContext";
+import AppLink from "components/common/Link";
 
 const Lobby: React.FC = () => {
   const { teams, teamSelected, setTeamSelected } = useTeam();
@@ -22,17 +22,34 @@ const Lobby: React.FC = () => {
                       teamSelected?._id === team._id
                         ? "border-green-600 border-4"
                         : ""
-                    } relative flex flex-col items-center w-48 p-4 bg-white border-2 border-black hover:z-20 hover:scale-100 hover:transform hover:border-amber-200 rounded-container`}
+                    } relative flex flex-col items-center justify-between w-72 h-72 p-4 bg-white border-2 border-black hover:z-20 hover:scale-100 hover:transform hover:border-amber-200 rounded-container`}
                     key={team._id}
                   >
                     <button
                       onClick={() => setTeamSelected(team)}
-                      className="flex flex-col "
+                      className="flex flex-col items-center justify-between h-full p-2"
                     >
-                      <span className="font-mono text-3xl">
+                      <span className="mb-4 text-2xl text-center uppercase font-greek">
                         {team.teamName}
                       </span>
-                      <span>{team.description}</span>
+                      <span className="text-justify">{team.description}</span>
+                      <div className="flex items-center gap-2">
+                        {team.characters.map((character) => (
+                          <div
+                            key={character.name}
+                            className="flex flex-col items-center"
+                          >
+                            <img
+                              src={`/greek-gods/${character.name}.svg`}
+                              alt={character.name}
+                              className="h-16"
+                            />
+                            <span className="text-xs font-greek">
+                              {character.name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </button>
                     {teamSelected?._id === team._id && (
                       <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">
@@ -44,13 +61,12 @@ const Lobby: React.FC = () => {
               })}
             </ul>
             {teamSelected && (
-              <div className="flex flex-col items-center justify-around">
-                <div className="flex flex-col items-center w-full">
-                  <Link to="/lobby/select-god">
-                    I choose {teamSelected?.teamName}
-                  </Link>
-                </div>
-              </div>
+              <AppLink to="/lobby/select-god">
+                I Choose Team{" "}
+                <span className="text-xl font-greek">
+                  {teamSelected.teamName}
+                </span>
+              </AppLink>
             )}
           </div>
         )}
