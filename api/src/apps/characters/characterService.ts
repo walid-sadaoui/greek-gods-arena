@@ -66,8 +66,9 @@ export const createCharacter = async (
 export const getCharacters = async (teamId: string): Promise<ICharacter[]> => {
   try {
     const currentTeam = await TeamDM.getTeam(teamId);
-    const characters: ICharacter[] =
-      await CharacterDM.getCharacters(currentTeam);
+    const characters: ICharacter[] = await CharacterDM.getCharacters(
+      currentTeam
+    );
     return characters;
   } catch (error) {
     throw new HttpError(

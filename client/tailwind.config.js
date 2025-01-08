@@ -1,6 +1,6 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+import defaultTheme from "tailwindcss/defaultTheme";
 
-module.exports = {
+export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -27,17 +27,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities(
-        {
-          ".text-outline": {
-            "-webkit-text-stroke": "1px black", // Black stroke with 1px thickness
-            color: "white", // Text color
-          },
-        },
-        ["responsive", "hover"]
-      );
-    },
-  ],
+  plugins: [],
 };

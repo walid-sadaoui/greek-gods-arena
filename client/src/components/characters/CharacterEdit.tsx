@@ -201,7 +201,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
         setServerErrorMessage(error.message);
       }
     } catch (error) {
-      setServerErrorMessage(SERVER_ERROR);
+      setServerErrorMessage(`${SERVER_ERROR} : ${JSON.stringify(error)}`);
     }
   };
 
