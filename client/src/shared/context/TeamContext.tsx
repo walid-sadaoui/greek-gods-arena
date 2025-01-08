@@ -31,7 +31,6 @@ const TeamProvider: React.FC = ({ children }) => {
       const { data } = await getTeams();
       if (data && data.teams.length > 0) {
         setTeams(data.teams);
-        setTeamSelected(data.teams[0]);
       }
     };
     fetchTeams();

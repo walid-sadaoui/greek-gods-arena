@@ -1,7 +1,8 @@
 import React from "react";
 import { ContainerRow } from "components/common/Container";
 import { useTeam } from "shared/context/TeamContext";
-import AppLink from "components/common/Link";
+import { Redirect } from "react-router-dom";
+import PageTitle from "components/app/PageTitle";
 
 const Lobby: React.FC = () => {
   const { teams, teamSelected, setTeamSelected } = useTeam();
@@ -10,11 +11,9 @@ const Lobby: React.FC = () => {
     <>
       <ContainerRow>
         {teams.length > 0 && (
-          <div className="flex flex-col items-center justify-between w-full h-full p-4">
-            <h2 className="mb-4 text-6xl font-black text-outline font-greek">
-              Choose your Team
-            </h2>
-            <ul className="grid grid-cols-3 gap-8">
+          <div className="flex flex-col items-center w-full h-full p-4">
+            <PageTitle title="Choose your Team" />
+            <ul className="grid content-center flex-1 grid-cols-3 gap-8">
               {teams.map((team) => {
                 return (
                   <section
@@ -51,23 +50,17 @@ const Lobby: React.FC = () => {
                         ))}
                       </div>
                     </button>
-                    {teamSelected?._id === team._id && (
-                      <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">
-                        <span className="p-2 text-4xl text-white">✓</span>
-                      </div>
+                    {teamSelected && (
+                      <Redirect
+                        to={{
+                          pathname: "/lobby/select-god",
+                        }}
+                      />
                     )}
                   </section>
                 );
               })}
             </ul>
-            {teamSelected && (
-              <AppLink to="/lobby/select-god">
-                I Choose Team{" "}
-                <span className="text-xl font-greek">
-                  {teamSelected.teamName}
-                </span>
-              </AppLink>
-            )}
           </div>
         )}
       </ContainerRow>

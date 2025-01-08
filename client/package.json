@@ -10,8 +10,8 @@
     "serve": "vite preview",
     "build:css": "postcss src/assets/styles/index.css -o src/index.css",
     "watch:css": "cross-env TAILWIND_MODE=watch postcss src/assets/styles/index.css -o src/index.css -w",
-    "lint": "eslint . --ignore-pattern 'node_modules/*' --ignore-pattern 'dist/*' --debug",
-    "lint:fix": "eslint . --fix --ignore-pattern 'node_modules/*' --ignore-pattern 'dist/*' --debug",
+    "lint": "eslint . --ignore-pattern 'node_modules/*' --ignore-pattern 'dist/*'",
+    "lint:fix": "eslint . --fix --ignore-pattern 'node_modules/*' --ignore-pattern 'dist/*'",
     "lint:css": "stylelint \"src/assets/styles/*.css\""
   },
   "dependencies": {

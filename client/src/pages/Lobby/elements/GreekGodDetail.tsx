@@ -29,7 +29,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
       className={classNames(
         "relative hover:z-20 cursor-pointer hover:scale-100 hover:transform hover:border-amber-200 flex flex-col items-center p-4 bg-white border-2 border-black w-48 rounded-container",
         {
-          "border-green-600 border-4": isSelected,
+          "border-green-600": isSelected,
         }
       )}
     >
