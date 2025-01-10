@@ -87,7 +87,7 @@ const CharacterSelect: React.FC = () => {
               <PageTitle title="Choose your God" />
             </div>
           </div>
-          <ul className="grid grid-cols-4 gap-8 my-auto">
+          <ul className="grid grid-cols-2 gap-8 my-auto">
             {teamSelected.characters.map((greekGod, index) => {
               return renderGreekGodSelect(greekGod, index);
             })}

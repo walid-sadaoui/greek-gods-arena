@@ -2,9 +2,8 @@ import CharacterEdit from "components/characters/CharacterEdit";
 import Button from "components/common/Button";
 import { Character } from "models/Character";
 import React from "react";
-import { IconName } from "components/common/Icon";
 import classNames from "classnames";
-import { SkillIconValue } from "pages/Arena/elements/FightRing/SkillIconValue";
+import { IconName } from "components/common/Icon";
 
 interface GreekGodDetailProps {
   character: Character;
@@ -27,7 +26,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
   return (
     <article
       className={classNames(
-        "relative hover:z-20 cursor-pointer hover:scale-100 hover:transform hover:border-amber-200 flex flex-col items-center p-4 bg-white border-2 border-black w-48 rounded-container",
+        "relative hover:z-20 cursor-pointer hover:scale-100 hover:transform hover:border-amber-200 flex flex-col items-center p-4 bg-white border-2 border-black w-64 h-64 rounded-container",
         {
           "border-green-600": isSelected,
         }
@@ -46,21 +45,28 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
         />
       ) : (
         <>
-          <Button
-            icon={IconName.PENCIL}
-            className="self-end"
-            onClick={() => setIsEditing(true)}
-          />
-          <img
-            src={`/greek-gods/${character.name}.svg`}
-            alt={`${character.name}`}
-            className="h-40 m-4"
-          />
-          <span className="text-xl font-greek">{character.name}</span>
-          <span className="pb-4 font-greek">Lvl. {character.level}</span>
-          <div className="flex gap-4 p-4">
-            <div className="flex flex-col gap-4">
-              <SkillIconValue
+          <div className="grid grid-cols-3 items-center">
+            <img
+              src={`/greek-gods/profile/${character.name}.svg`}
+              alt={`${character.name}`}
+              className="h-24 col-start-2"
+            />
+            <Button
+              icon={IconName.PENCIL}
+              className="justify-self-end self-start"
+              onClick={() => setIsEditing(true)}
+            />
+          </div>
+          <span className="text-xl font-greek">
+            {character.name} (Lvl. {character.level})
+          </span>
+          {/* <span className="pb-4 font-greek">Lvl. {character.level}</span> */}
+          <div className="grid grid-cols-2 gap-4">
+            <span className="text-xl">Health {character.health}</span>
+            <span className="text-xl">Attack {character.attack}</span>
+            <span className="text-xl">Defense {character.defense}</span>
+            <span className="text-xl">Magik {character.magik}</span>
+            {/* <SkillIconValue
                 iconName={IconName.HEART}
                 skillValue={character.health}
               />
@@ -75,8 +81,7 @@ export const GreekGodDetail: React.FC<GreekGodDetailProps> = ({
               <SkillIconValue
                 iconName={IconName.MAGIC}
                 skillValue={character.magik}
-              />
-            </div>
+              /> */}
           </div>
         </>
       )}

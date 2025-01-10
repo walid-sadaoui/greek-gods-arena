@@ -6,7 +6,7 @@ interface PageTitleProps {
 
 const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
   return (
-    <h2 className="text-6xl font-black text-center text-outline font-greek">
+    <h2 className="flex items-center justify-center text-6xl bg-[url('/Banner.svg')] w-full h-48 bg-no-repeat bg-auto bg-center font-black text-center text-black font-greek">
       {title}
     </h2>
   );
