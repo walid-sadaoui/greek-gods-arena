@@ -13,7 +13,8 @@ export const HealthBar: React.FC<{
   skillValue: number;
   isEnemy: boolean;
   name: string;
-}> = ({ max, skillValue, isEnemy, name }) => {
+  teamName: string;
+}> = ({ max, skillValue, isEnemy, name, teamName }) => {
   const [progressColor, setProgressColor] = React.useState(
     HealthStatusColors.GOOD
   );
@@ -34,14 +35,17 @@ export const HealthBar: React.FC<{
   }, [skillValue]);
 
   return (
-    <div className={`flex flex-col justify-center w-72`}>
-      <span
-        className={`${isEnemy ? "self-end mr-16" : "self-start ml-16"}
+    <div className={`flex flex-col justify-center w-96`}>
+      <div
+        className={`${isEnemy ? "self-end text-right mr-16" : "self-start ml-16"}
         ${isLargeScreen ? "text-4xl" : "text-3xl"}
-        rounded-container text-white text-outline font-black -mb-6`}
+        rounded-container flex flex-col text-white font-black -mb-6`}
       >
-        {name}
-      </span>
+        <span className="text-outline">{name}</span>
+        <span className={`font-greek font-black text-gray-800`}>
+          {teamName}
+        </span>
+      </div>
       <div
         className={`flex w-full items-center ${
           isEnemy ? "flex-row-reverse" : ""

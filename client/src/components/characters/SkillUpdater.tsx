@@ -41,14 +41,13 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
 
   return (
     <div className="flex flex-col justify-center pb-2">
-      <label htmlFor={label.toLowerCase()} className="mr-2 font-sans">
+      <label htmlFor={label.toLowerCase()} className="font-sans">
         <span className="text-sm uppercase">{label}</span> (cost :{" "}
         {getSkillPointsNeeded(skillValue, label)} SP
         {getSkillPointsNeeded(skillValue, label) > 1 && "s"})
       </label>
-      <div className="flex items-center">
+      <div className="flex items-center justify-between w-40 font-mono">
         <Button
-          className="font-sans"
           disabled={skillValue <= minPropertyValue}
           onClick={() => handleChange(skillValue - 1)}
           type="button"
@@ -60,7 +59,7 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
           min={minPropertyValue}
           max={maxPropertyValue}
           value={skillValue}
-          className="w-12 px-2 font-mono text-xl text-center"
+          className="absolute w-0 h-0 opacity-0"
           onChange={(event) => {
             let newValue = parseInt(event.target.value);
             if (newValue < minPropertyValue) {
@@ -71,9 +70,9 @@ const SkillUpdater: React.FC<SkillUpdatrProps> = ({
             }
             handleChange(newValue);
           }}
-        />
+        ></Input>
+        <span className="w-12 text-center">{skillValue}</span>
         <Button
-          className="mr-2 font-sans"
           disabled={skillValue >= maxPropertyValue}
           onClick={() => handleChange(skillValue + 1)}
           type="button"

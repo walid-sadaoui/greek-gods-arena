@@ -31,10 +31,26 @@ export const Menu: React.FC = () => {
     <article className="flex flex-col items-center justify-center flex-1 w-full h-full gap-10 p-4">
       <img src={logo} alt={`gga-logo`} className="h-1/4" />
       <Link
-        className="flex items-center px-12 py-5 mx-auto text-6xl font-extrabold tracking-wide text-white uppercase transition-all duration-300 transform bg-yellow-400 border-4 border-black rounded-full shadow-lg hover:bg-yellow-500 hover:translate-y-1"
+        className="relative group w-64 h-28 text-white font-bold text-lg transition-transform duration-300 hover:scale-105"
         to="/lobby"
       >
-        Play
+        {/* Bordure sombre */}
+        <div
+          className="absolute inset-0 bg-yellow-800"
+          style={{
+            clipPath: "polygon(0 11%, 100% 0, 96% 93%, 10% 99%)",
+          }}
+        ></div>
+        {/* Bouton principal */}
+        <div
+          className="absolute flex items-center justify-center inset-1 bg-gradient-to-b from-yellow-500 to-yellow-700"
+          style={{
+            clipPath: "polygon(0 11%, 100% 0, 96% 93%, 10% 99%)",
+          }}
+        >
+          {/* Contenu du bouton */}
+          <span className="z-10 font-greek text-6xl text-outline">Play</span>
+        </div>
       </Link>
     </article>
   );

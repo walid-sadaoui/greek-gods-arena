@@ -36,6 +36,8 @@ const TeamProvider: React.FC = ({ children }) => {
     fetchTeams();
   }, []);
 
+  if (!teams || teams.length === 0) return <div>Loading...</div>;
+
   return (
     <TeamContext.Provider
       value={{ teams, setTeams, teamSelected, setTeamSelected }}

@@ -6,6 +6,7 @@ import { HealthBar } from "./HealthBar";
 import { SkillIconValue } from "./SkillIconValue";
 import { IconName } from "components/common/Icon";
 import useScreenSize from "shared/hooks/useScreenSize";
+import { useTeam } from "shared/context/TeamContext";
 
 interface FightOpponentProps {
   opponent: Character;
@@ -22,6 +23,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
   isEnemy,
   turn,
 }) => {
+  const { teams } = useTeam();
   const { isLargeScreen } = useScreenSize();
   const opponentVariants: Variants = {
     initial: {
@@ -77,6 +79,16 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
     },
   };
 
+  const getTeamName = (opponent: Character): string => {
+    console.error({ teams });
+    for (const team of teams) {
+      if (team.characters.some((character) => character._id === opponent._id)) {
+        return team.teamName;
+      }
+    }
+    throw new Error("Team not found for the given character");
+  };
+
   return (
     <div className={`flex flex-col p-4 ${isEnemy ? "items-end" : ""}`}>
       <HealthBar
@@ -84,6 +96,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
         skillValue={remainingHealth}
         isEnemy={isEnemy}
         name={opponent.name}
+        teamName={getTeamName(opponent)}
       />
       <div className={`flex gap-4 ${isEnemy ? "flex-row-reverse" : ""}`}>
         <div className="flex flex-col gap-2">

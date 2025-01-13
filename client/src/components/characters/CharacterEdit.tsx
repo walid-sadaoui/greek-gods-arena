@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Character } from "models/Character";
-import Button, { Variants } from "components/common/Button";
+import Button from "components/common/Button";
 import SkillUpdater from "./SkillUpdater";
 import { IconName } from "components/common/Icon";
 import { useTeam } from "shared/context/TeamContext";
@@ -10,7 +10,6 @@ import { updateCharacter } from "api/teams";
 interface CharacterEditProps {
   character: Character;
   onUpdate: (character: Character) => void;
-  onCancel: () => void;
 }
 
 interface EditCharacterInput {
@@ -25,7 +24,6 @@ const SERVER_ERROR = "Server Error, please try again later";
 const CharacterEdit: React.FC<CharacterEditProps> = ({
   character,
   onUpdate,
-  onCancel,
 }) => {
   const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
   const [characterToEdit, setCharacterToEdit] = useState<Character>(character);
@@ -226,7 +224,7 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center p-4"
+      className="flex flex-col font-black items-center gap-1 p-4"
     >
       <span className="font-sans uppercase">
         SkillPoints : {characterToEdit.skillPoints}
@@ -269,14 +267,8 @@ const CharacterEdit: React.FC<CharacterEditProps> = ({
       />
       <div className="flex items-center">
         <Button
-          icon={IconName.CLOSE}
-          onClick={onCancel}
-          className="text-red-500"
-          variant={Variants.BASE}
-        />
-        <Button
           type="submit"
-          className="text-green-500"
+          className="text-green-700 font-black"
           icon={IconName.CHECK}
           disabled={
             character.name !== characterToEdit.name ||

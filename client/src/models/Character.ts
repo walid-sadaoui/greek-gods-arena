@@ -9,6 +9,10 @@ export interface Character {
   level: number;
 }
 
+export interface CharacterWithTeamName extends Character {
+  teamName: string;
+}
+
 export interface CharacterSkills {
   health: number;
   attack: number;

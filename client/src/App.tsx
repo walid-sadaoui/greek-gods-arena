@@ -8,9 +8,9 @@ import {
 import Arena from "pages/Arena";
 import Home from "pages/Home";
 import Lobby from "pages/Lobby";
-import Room from "pages/Room";
 import Header from "components/app/Header";
 import CharacterSelect from "pages/Lobby/CharacterSelect";
+import ArenaFight from "pages/Arena/[id]";
 
 const App: FunctionComponent = () => {
   return (
@@ -34,12 +34,12 @@ const AppRoutes: FunctionComponent = () => {
         <Header />
         <CharacterSelect />
       </Route>
-      <Route exact={true} path="/room">
+      <Route exact={true} path="/arena">
         <Header />
-        <Room />
+        <Arena />
       </Route>
       <Route path="/arena/:id">
-        <Arena />
+        <ArenaFight />
       </Route>
       <Route path="*">
         <Redirect to="/" />

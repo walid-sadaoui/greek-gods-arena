@@ -11,6 +11,10 @@ export interface ICharacter {
   level: number;
 }
 
+export interface ICharacterWithTeamName {
+  teamName: string;
+}
+
 export interface CharacterData {
   name: string;
   skillPoints: number;

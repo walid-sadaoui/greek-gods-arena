@@ -11,7 +11,7 @@ const Lobby: React.FC = () => {
     <>
       <ContainerRow>
         {teams.length > 0 && (
-          <div className="flex flex-col items-center w-full h-full p-4">
+          <div className="flex flex-col items-center w-full h-full">
             <PageTitle title="Choose your Team" />
             <ul className="grid content-center flex-1 grid-cols-3 gap-8">
               {teams.map((team) => {
@@ -21,7 +21,7 @@ const Lobby: React.FC = () => {
                       teamSelected?._id === team._id
                         ? "border-green-600 border-4"
                         : ""
-                    } relative flex flex-col items-center justify-between w-72 h-72 p-4 bg-white border-2 border-black hover:z-20 hover:scale-100 hover:transform hover:border-amber-200 rounded-container`}
+                    } relative flex flex-col items-center justify-between w-72 h-72 p-4 bg-white border-2 border-black hover:z-20 hover:rotate-3 hover:shadow-lg hover:border-amber-200 rounded-container`}
                     key={team._id}
                   >
                     <button

@@ -14,7 +14,7 @@ export const SkillIconValue: React.FC<{
       case IconName.MAGIC:
         return "bg-gradient-to-br from-purple-300 to-purple-500";
       case IconName.SHIELD:
-        return "bg-gradient-to-br from-cyan-500 to-blue-500";
+        return "bg-gradient-to-br from-cyan-300 to-blue-300";
       case IconName.SWORD:
       case IconName.HEART:
         return "bg-gradient-to-br from-red-300 to-red-500";
