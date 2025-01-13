@@ -11,7 +11,7 @@ const Lobby: React.FC = () => {
     <>
       <ContainerRow>
         {teams.length > 0 && (
-          <div className="flex flex-col items-center w-full h-full p-4">
+          <div className="flex flex-col items-center w-full h-full">
             <PageTitle title="Choose your Team" />
             <ul className="grid content-center flex-1 grid-cols-3 gap-8">
               {teams.map((team) => {

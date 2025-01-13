@@ -8,6 +8,7 @@ import { ReactComponent as Pencil } from "assets/images/icons/pen-f.svg";
 import { ReactComponent as Check } from "assets/images/icons/check.svg";
 import { ReactComponent as Close } from "assets/images/icons/close.svg";
 import { ReactComponent as VolumeMute } from "assets/images/icons/volume-mute.svg";
+import { ReactComponent as Back } from "assets/images/icons/back.svg";
 
 export enum IconName {
   HEART = "heart",
@@ -19,6 +20,7 @@ export enum IconName {
   CHECK = "check",
   CLOSE = "close",
   VOLUME_MUTE = "volume-mute",
+  BACK = "back",
 }
 
 export enum IconSize {
@@ -41,6 +43,7 @@ const IconComponent: Record<
   [IconName.CHECK]: Check,
   [IconName.CLOSE]: Close,
   [IconName.VOLUME_MUTE]: VolumeMute,
+  [IconName.BACK]: Back,
 };
 
 interface IconProps {

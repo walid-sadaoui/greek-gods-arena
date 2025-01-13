@@ -13,6 +13,8 @@ module.exports = {
       },
       backgroundImage: {
         wall: "url(/src/assets/img/wall.jpg)",
+        stripes:
+          "linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent)",
       },
       borderRadius: {
         container: "95% 4% 92% 5% / 4% 95% 6%",
@@ -34,6 +36,14 @@ module.exports = {
           ".text-outline": {
             "-webkit-text-stroke": "1px black", // Black stroke with 1px thickness
             color: "white", // Text color
+          },
+          ".bg-stripes": {
+            backgroundImage:
+              "repeating-linear-gradient(45deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 10px, transparent 10px, transparent 20px)",
+          },
+          ".text-shadow": {
+            textShadow:
+              "0 2px 0 rgb(255 255 255 / 50%), 0 -2px 0 rgb(0 0 0 / 35%)",
           },
         },
         ["responsive", "hover"]

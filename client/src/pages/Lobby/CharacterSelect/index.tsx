@@ -6,8 +6,9 @@ import Button, { Variants } from "components/common/Button";
 import { ContainerRow } from "components/common/Container";
 import { Character, GreekGods } from "models/Character";
 import { useTeam } from "shared/context/TeamContext";
-import { GreekGodDetail } from "../elements/GreekGodDetail";
 import PageTitle from "components/app/PageTitle";
+import Icon, { IconName } from "components/common/Icon";
+import { GreekGodDetail } from "../elements/GreekGodDetail";
 
 const CharacterSelect: React.FC = () => {
   const { teamSelected, setTeamSelected } = useTeam();
@@ -74,14 +75,14 @@ const CharacterSelect: React.FC = () => {
   return (
     <>
       <ContainerRow>
-        <div className="flex flex-col items-center w-full h-full p-4 justify">
+        <div className="flex flex-col items-center w-full h-full">
           <div className="grid items-center w-full grid-cols-5">
             <Button
               onClick={() => setTeamSelected(undefined)}
-              variant={Variants.DEFAULT}
-              className="col-start-1 text-2xl text-white hover:text-black text-outline font-greek"
+              variant={Variants.NEUTRAL}
+              className="col-start-1 justify-self-center w-auto inline-flex text-6xl font-greek"
             >
-              Back
+              <Icon icon={IconName.BACK} className="text-4xl text-gray-800 " />
             </Button>
             <div className="items-center col-span-3 col-start-2">
               <PageTitle title="Choose your God" />

@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <header className="flex items-center w-full p-2 text-white bg-gray-900 bg-opacity-50 sm:p-2">
       <Link
         to="/"
-        className="px-4 py-2 rounded font-greek hover:bg-white hover:text-black"
+        className="px-4 py-2 rounded-container font-greek hover:bg-white hover:text-black"
       >
         Home
       </Link>

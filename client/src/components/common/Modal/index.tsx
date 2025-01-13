@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import FocusLock from "react-focus-lock";
 import Button from "../Button";
 
-export const ModalHeader: React.FC<{ onClose: () => void; title: string }> = ({
+export const ModalHeader: React.FC<{ onClose: () => void; title?: string }> = ({
   onClose,
   title,
 }) => {
   return (
     <div className="flex items-center w-full px-8 text-3xl">
       <div className="flex-1"></div>
-      <div>{title}</div>
-      <div className="absolute top-0 transform -translate-x-1/2 -translate-y-1/2 left-full outline outline-2 outline-black">
+      {title && <div>{title}</div>}
+      <div className="absolute top-0 font-black transform -translate-x-1/2 -translate-y-1/2 left-full">
         <Button data-dismiss="modal" aria-label="Close" onClick={onClose}>
           <span aria-hidden="true">X</span>
         </Button>
@@ -23,7 +23,7 @@ export const ModalHeader: React.FC<{ onClose: () => void; title: string }> = ({
 interface ModalProps {
   isShowing: boolean;
   hide: () => void;
-  title: string;
+  title?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({ isShowing, hide, children, title }) => {

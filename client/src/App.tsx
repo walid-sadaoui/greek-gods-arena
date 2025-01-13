@@ -34,7 +34,7 @@ const AppRoutes: FunctionComponent = () => {
         <Header />
         <CharacterSelect />
       </Route>
-      <Route exact={true} path="/room">
+      <Route exact={true} path="/arena">
         <Header />
         <Room />
       </Route>
