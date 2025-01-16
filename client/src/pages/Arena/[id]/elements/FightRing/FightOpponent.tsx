@@ -7,6 +7,7 @@ import { SkillIconValue } from "./SkillIconValue";
 import { IconName } from "components/common/Icon";
 import useScreenSize from "shared/hooks/useScreenSize";
 import { useTeam } from "shared/context/TeamContext";
+import { useTextDisplay } from "shared/context/TextDisplay";
 
 interface FightOpponentProps {
   opponent: Character;
@@ -25,6 +26,8 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
 }) => {
   const { teams } = useTeam();
   const { isLargeScreen } = useScreenSize();
+  const { showNextText } = useTextDisplay();
+
   const opponentVariants: Variants = {
     initial: {
       scale: 1,
@@ -80,7 +83,6 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
   };
 
   const getTeamName = (opponent: Character): string => {
-    console.error({ teams });
     for (const team of teams) {
       if (team.characters.some((character) => character._id === opponent._id)) {
         return team.teamName;
@@ -120,6 +122,19 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
           variants={opponentVariants}
           initial={"initial"}
           animate={["start", "attack", "death", "damage"]}
+          onAnimationComplete={(definition) => {
+            if (!isEnemy) return;
+            console.error({ definition });
+            console.error({ remainingHealth });
+            if (definition === "attack" && opponentTurn === true) {
+              console.error({ definition });
+              showNextText();
+            }
+            if (definition === "death" && remainingHealth === 0) {
+              console.error({ definition });
+              showNextText();
+            }
+          }}
           src={`/greek-gods/${opponent.name}.svg`}
           className={isLargeScreen ? "h-[30rem]" : "h-[20rem]"}
           alt={opponent.name}

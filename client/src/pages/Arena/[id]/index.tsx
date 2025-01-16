@@ -4,6 +4,7 @@ import { getFight } from "api/fights";
 import { Fight } from "models/Fight";
 import FightRing from "./elements/FightRing";
 import ArenaFooter from "./elements/ArenaFooter";
+import { TextDisplayProvider } from "shared/context/TextDisplay";
 
 const ArenaFight: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,20 +22,22 @@ const ArenaFight: React.FC = () => {
   }, []);
 
   return (
-    <main className="flex flex-col w-full h-full">
-      {fight && (
-        <>
-          <div className="flex flex-col justify-end flex-1">
-            <FightRing fight={fight} turnCount={turnCount} />
-            <ArenaFooter
-              fight={fight}
-              turnCount={turnCount}
-              onNextTurn={() => setTurnCount(turnCount + 1)}
-            />
-          </div>
-        </>
-      )}
-    </main>
+    <TextDisplayProvider>
+      <main className="flex flex-col w-full h-full">
+        {fight && (
+          <>
+            <div className="flex flex-col justify-end flex-1">
+              <FightRing fight={fight} turnCount={turnCount} />
+              <ArenaFooter
+                fight={fight}
+                turnCount={turnCount}
+                onNextTurn={() => setTurnCount(turnCount + 1)}
+              />
+            </div>
+          </>
+        )}
+      </main>
+    </TextDisplayProvider>
   );
 };
 
