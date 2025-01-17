@@ -7,12 +7,12 @@ interface FightTurnProps {
   turnCount: number;
 }
 const FightTurn: React.FC<FightTurnProps> = ({ fight, turnCount }) => {
-  const { displayedText, setTurnDescription, showNextText } = useTextDisplay();
+  const { turnStatus, setTurnStatus } = useTextDisplay();
 
   useEffect(() => {
-    const descriptions = getTurnDescription();
-    setTurnDescription(descriptions);
-    showNextText();
+    const description = getTurnDescription();
+    setTurnStatus({ description, currentIndex: 0, displayedText: "" });
+    // showNextText();
   }, [turnCount]);
 
   // useEffect(() => {
@@ -87,7 +87,7 @@ const FightTurn: React.FC<FightTurnProps> = ({ fight, turnCount }) => {
       <div className="absolute top-0 w-32 p-4 text-xl text-center transform -translate-x-1/2 -translate-y-1/2 border-4 border-black rounded-container font-greek bg-amber-200 left-1/2">
         {`${turnCount + 1} / ${fight.turns.length}`}
       </div>
-      <p>{displayedText}</p>
+      <p>{turnStatus.displayedText}</p>
     </div>
   );
 };

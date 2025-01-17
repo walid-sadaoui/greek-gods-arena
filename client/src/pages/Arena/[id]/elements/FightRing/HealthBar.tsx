@@ -38,12 +38,15 @@ export const HealthBar: React.FC<{
     <div className={`flex flex-col justify-center w-96`}>
       <div
         className={`${isEnemy ? "self-end text-right mr-16" : "self-start ml-16"}
-        ${isLargeScreen ? "text-4xl" : "text-3xl"}
         rounded-container flex flex-col text-white font-black -mb-6`}
       >
-        <span className="text-outline">{name}</span>
-        <span className={`font-greek font-black text-gray-800`}>
+        <span className={`font-black font-sans text-2xl text-outline`}>
           {teamName}
+        </span>
+        <span
+          className={`text-outline font-black font-greek ${isLargeScreen ? "text-5xl" : "text-4xl"}`}
+        >
+          {name}
         </span>
       </div>
       <div

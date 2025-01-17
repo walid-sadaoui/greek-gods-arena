@@ -50,6 +50,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
           : 0,
       transition: {
         duration: 1,
+        delay: 0.5,
         times: [0, 0.6, 0.75, 1],
       },
     },
@@ -63,7 +64,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
       fill: "#FF0000",
       transition: {
         duration: 0.25,
-        delay: 1,
+        delay: 1.5,
         repeat: 3,
         repeatType: "loop",
       },
@@ -76,7 +77,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
         remainingHealth === 0 ? "inset(0% 0% 100% 0%)" : "inset(0% 0% 0% 0%)",
       transition: {
         duration: 3,
-        delay: 2,
+        delay: 2.5,
         ease: "easeIn",
       },
     },
@@ -93,6 +94,7 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
 
   return (
     <div className={`flex flex-col p-4 ${isEnemy ? "items-end" : ""}`}>
+      {/* <div className="fixed inset-0 opacity-0 z-50 bg-black"></div>{" "} */}
       <HealthBar
         max={opponent.health}
         skillValue={remainingHealth}
@@ -123,20 +125,22 @@ export const FightOpponent: React.FC<FightOpponentProps> = ({
           initial={"initial"}
           animate={["start", "attack", "death", "damage"]}
           onAnimationComplete={(definition) => {
-            if (!isEnemy) return;
-            console.error({ definition });
-            console.error({ remainingHealth });
-            if (definition === "attack" && opponentTurn === true) {
-              console.error({ definition });
+            // console.error({ definition });
+            // console.error({ remainingHealth });
+            if (definition === "attack" && turn && opponentTurn === true) {
+              // console.error({ definition });
+              console.error("Attack");
               showNextText();
             }
+            console.error({ remainingHealth });
             if (definition === "death" && remainingHealth === 0) {
-              console.error({ definition });
+              // console.error({ definition });
+              console.error("Death");
               showNextText();
             }
           }}
           src={`/greek-gods/${opponent.name}.svg`}
-          className={isLargeScreen ? "h-[30rem]" : "h-[20rem]"}
+          className={`${isLargeScreen ? "h-[30rem]" : "h-[20rem]"}`}
           alt={opponent.name}
         ></motion.img>
       </div>
