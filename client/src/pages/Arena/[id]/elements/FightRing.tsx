@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Character } from "models/Character";
 import { Fight } from "models/Fight";
-import FightTurn from "./FightTurn";
 import { FightOpponent } from "./FightRing/FightOpponent";
+import { useAudio } from "shared/context/audioContext";
 
 interface FightRingProps {
   fight: Fight;
@@ -10,6 +10,7 @@ interface FightRingProps {
 }
 
 const FightRing: React.FC<FightRingProps> = ({ fight, turnCount }) => {
+  const { isMuted, toggleMute } = useAudio();
   const getRemainingHealth = (
     currentFight: Fight,
     opponent: Character
@@ -21,10 +22,13 @@ const FightRing: React.FC<FightRingProps> = ({ fight, turnCount }) => {
     return currentFight.turns[turnCount].attacker.remainingHealth;
   };
 
+  useEffect(() => {
+    if (!isMuted) toggleMute();
+  }, []);
+
   return (
     <div className="flex flex-col justify-end flex-1 pt-8">
-      <FightTurn fight={fight} turnCount={turnCount} />
-      <div className="flex items-center justify-around pb-8 gap-36">
+      <div className="flex items-center justify-around gap-36">
         <FightOpponent
           opponent={fight.firstOpponent}
           remainingHealth={getRemainingHealth(fight, fight.firstOpponent)}

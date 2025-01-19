@@ -8,9 +8,11 @@ import { ReactComponent as Pencil } from "assets/images/icons/pen-f.svg";
 import { ReactComponent as Check } from "assets/images/icons/check.svg";
 import { ReactComponent as Close } from "assets/images/icons/close.svg";
 import { ReactComponent as VolumeMute } from "assets/images/icons/volume-mute.svg";
+import { ReactComponent as VolumeUp } from "assets/images/icons/volume-up.svg";
 import { ReactComponent as Back } from "assets/images/icons/back.svg";
 import { ReactComponent as Github } from "assets/images/icons/github.svg";
 import { ReactComponent as LaurelCrown } from "assets/images/icons/laurel-crown.svg";
+import { ReactComponent as Acropolis } from "assets/images/icons/acropolis.svg";
 
 export enum IconName {
   HEART = "heart",
@@ -22,9 +24,11 @@ export enum IconName {
   CHECK = "check",
   CLOSE = "close",
   VOLUME_MUTE = "volume-mute",
+  VOLUME_UP = "volume-up",
   BACK = "back",
   GITHUB = "github",
   LAUREL_CROWN = "laurel-crown",
+  ACROPOLIS = "acropolis",
 }
 
 export enum IconSize {
@@ -47,9 +51,11 @@ const IconComponent: Record<
   [IconName.CHECK]: Check,
   [IconName.CLOSE]: Close,
   [IconName.VOLUME_MUTE]: VolumeMute,
+  [IconName.VOLUME_UP]: VolumeUp,
   [IconName.BACK]: Back,
   [IconName.GITHUB]: Github,
   [IconName.LAUREL_CROWN]: LaurelCrown,
+  [IconName.ACROPOLIS]: Acropolis,
 };
 
 interface IconProps {

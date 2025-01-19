@@ -36,7 +36,7 @@ const Button: FunctionComponent<ButtonProps> = ({
             variant === Variants.BASE,
         },
         {
-          "text-white hover:rounded-container hover:bg-white hover:text-black disabled:bg-gray-100":
+          "hover:bg-gradient-to-t hover:border-black hover:from-blue-300 hover:to-blue-100 bg-gradient-to-t from-blue-300 to-blue-500 rounded-container hover:bg-white hover:text-black disabled:bg-gray-100":
             variant === Variants.DEFAULT,
         },
         className

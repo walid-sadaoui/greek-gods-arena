@@ -79,10 +79,13 @@ const CharacterSelect: React.FC = () => {
           <div className="grid items-center w-full grid-cols-5">
             <Button
               onClick={() => setTeamSelected(undefined)}
-              variant={Variants.NEUTRAL}
+              variant={Variants.BASE}
               className="col-start-1 justify-self-center w-auto inline-flex text-6xl font-greek"
             >
-              <Icon icon={IconName.BACK} className="text-4xl text-gray-800 " />
+              <Icon
+                icon={IconName.BACK}
+                className="text-4xl text-outline font-black "
+              />
             </Button>
             <div className="items-center col-span-3 col-start-2">
               <PageTitle title="Choose your God" />

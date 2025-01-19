@@ -8,7 +8,9 @@ const useScreenSize = (): {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const [isLargeScreen, setIsLargeScreen] = useState<boolean>(false);
+  const [isLargeScreen, setIsLargeScreen] = useState<boolean>(
+    window.innerWidth > 1024 && window.innerHeight > 968
+  );
 
   useEffect(() => {
     const handleResize = (): void => {
@@ -18,6 +20,7 @@ const useScreenSize = (): {
       });
       setIsLargeScreen(window.innerWidth > 1024 && window.innerHeight > 968);
     };
+    handleResize();
 
     // Add event listener for window resize
     window.addEventListener("resize", handleResize);
